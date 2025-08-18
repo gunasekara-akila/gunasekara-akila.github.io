@@ -53,8 +53,15 @@
     background:#fff; color: var(--brand); padding:10px 18px;
     text-decoration:none; border-radius:6px; font-weight:bold; display:inline-block; margin-top:1rem;
   }
+  .btn{
+    display:inline-block; padding:.55rem .9rem; border-radius:8px; border:1px solid #cfd7e3;
+    text-decoration:none; color:var(--brand-dark); background:#fff;
+  }
+  .btn:hover{ background:#f1f5fb }
   .tag{display:inline-block; font-size:.85rem; padding:.25rem .5rem; border-radius:999px; background:#e7eef7; color:#133b72; margin:.2rem .25rem 0 0}
   .list-tight{margin:.25rem 0 .5rem 1rem}
+  .tools{ margin:.5rem 0 0 0 }
+  .tools strong{ font-size:.9rem }
 </style>
 </head>
 <body>
@@ -64,16 +71,17 @@
   <img src="profile.jpg" alt="Akila Gunasekara photo" />
   <p>Civil & Structural Design Engineer • BSc Eng (Hons) • AMIE(SL)</p>
   <p>
-    <a href="Akila Gunasekara_CV.pdf" class="cv-button" target="_blank">📄 View / Download CV</a>
+    <a href="Akila-Gunasekara-CV.pdf" class="cv-button" target="_blank">📄 View / Download CV</a>
   </p>
 </header>
 
 <nav>
   <a href="#about">About</a>
+  <a href="#projects">Projects</a>
   <a href="#experience">Experience</a>
   <a href="#education">Education</a>
   <a href="#skills">Skills</a>
-  <a href="#research">Research & Projects</a>
+  <a href="#research">Research</a>
   <a href="#certifications">Certifications</a>
   <a href="#contact">Contact</a>
 </nav>
@@ -89,6 +97,54 @@
   </p>
 </section>
 
+<!-- NEW: Projects section with short blurbs and Read More links -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>Rajshahi WASA Water Supply Project (Bangladesh)</h3>
+      <p class="muted">
+        Participated in structural design and coordination for major water-supply infrastructure.
+        Prepared models, drawings, and technical inputs for client reviews.
+      </p>
+      <p class="tools"><strong>Tools:</strong> SAP2000, AutoCAD, Revit, Prokon</p>
+      <p><a class="btn" href="rajshahi.html">Read More →</a></p>
+    </div>
+
+    <div class="card">
+      <h3>Green Concrete Research</h3>
+      <p class="muted">
+        Final-year research exploring partial replacement with recycled glass waste to enhance
+        sustainability while meeting structural performance targets.
+      </p>
+      <p class="tools"><strong>Focus:</strong> Materials, Mix Design, Sustainable Engineering</p>
+      <p><a class="btn" href="green-concrete.html">Read More →</a></p>
+    </div>
+
+    <div class="card">
+      <h3>Mixed Development Project — Kurunegala</h3>
+      <p class="muted">
+        Led structural design for a shopping mall and public parking facility, coordinating
+        modeling, analysis, and detailing with modern workflows.
+      </p>
+      <p class="tools"><strong>Tools:</strong> AutoCAD, Revit (BIM), SAP2000, ETABS, SAFE</p>
+      <p><a class="btn" href="kurunegala.html">Read More →</a></p>
+    </div>
+
+    <div class="card">
+      <h3>Survey Camp — Hydrological Planning</h3>
+      <p class="muted">
+        Field survey and hydrological planning in Galgamuwa; developed solutions to improve
+        water distribution in the Palukadawala right-bank canal.
+      </p>
+      <p class="tools"><strong>Focus:</strong> Surveying, Hydrology, Infrastructure Planning</p>
+      <p><a class="btn" href="survey-camp.html">Read More →</a></p>
+    </div>
+
+  </div>
+</section>
+
 <section id="experience">
   <h2>Experience</h2>
   <div class="grid">
@@ -96,18 +152,18 @@
       <h3>Junior Civil Engineer — Ceywater Consultants (Dehiwala, Sri Lanka)</h3>
       <p class="muted"><em>Oct 2024 – Present (Ongoing)</em></p>
       <ul class="list-tight">
-        <li>Structural modeling & analysis ensuring compliance with local/international standards.</li>
-        <li>Worked on Rajshahi WASA Water Supply Project (Bangladesh); joined client meetings with Hunan Construction Engineering Group.</li>
-        <li>Collaborated with architects & multidisciplinary consultants; used SAP2000, ETABS, Prokon.</li>
+        <li>Structural modeling & analysis per local/international standards.</li>
+        <li>Client interactions for Rajshahi WASA with Hunan Construction Engineering Group.</li>
+        <li>Multidisciplinary coordination; SAP2000, ETABS, Prokon in daily workflow.</li>
       </ul>
     </div>
     <div class="card">
-      <h3>Civil Engineer (Trainee) — STHRDP, Ministry of Education (Colombo, Sri Lanka)</h3>
+      <h3>Civil Engineer (Trainee) — STHRDP, Ministry of Education (Colombo)</h3>
       <p class="muted"><em>Feb 2023 – Aug 2023</em></p>
       <ul class="list-tight">
-        <li>Monitored construction work & site visits for spec and safety compliance.</li>
-        <li>Prepared/reviewed documentation, reports, plans, and schedules.</li>
-        <li>Represented engineering team in meetings with clients & contractors; ensured code compliance and daily quality.</li>
+        <li>Monitored construction and site compliance with safety and specs.</li>
+        <li>Prepared/reviewed documentation, reports, and schedules.</li>
+        <li>Supported meetings with clients/contractors; ensured code compliance and quality.</li>
       </ul>
     </div>
   </div>
@@ -176,23 +232,11 @@
 </section>
 
 <section id="research">
-  <h2>Research & Projects</h2>
+  <h2>Research</h2>
   <div class="grid">
     <div class="card">
-      <h3>Final Year Research Project</h3>
-      <p class="muted">Development of Green Concrete partially containing locally available recycled glass wastes — promoting eco-friendly construction practices.</p>
-    </div>
-    <div class="card">
-      <h3>Comprehensive Design Project</h3>
-      <p class="muted">Mixed Development Project for Municipal Council, Kurunegala (2023–2024) — led structural design using AutoCAD, Revit, SAP2000, ETABS, SAFE.</p>
-    </div>
-    <div class="card">
-      <h3>Survey Camp 2023</h3>
-      <p class="muted">Galgamuwa, Sri Lanka — hydrological infrastructure; team solutions to optimize water distribution (right bank canal, Palukadawala).</p>
-    </div>
-    <div class="card">
-      <h3>Preliminary Plan Development (2023)</h3>
-      <p class="muted">Mahindodaya Primary School, Dambadeniya — planning contribution and coordination.</p>
+      <h3>Green Concrete with Recycled Glass</h3>
+      <p class="muted">Investigated performance of mixes partially containing locally available recycled glass waste to promote eco-friendly construction.</p>
     </div>
   </div>
 </section>
@@ -201,8 +245,8 @@
   <h2>Certifications & Affiliations</h2>
   <div class="grid">
     <div class="card">
-      <h3>Construction Management — Columbia University</h3>
-      <p class="muted">5-course specialization: Project Management, Scheduling, Cost Estimation, Cost Control, Finance, and Industry Outlook (2024–Present)</p>
+      <h3>Construction Management Specialization</h3>
+      <p class="muted">Columbia University (2024–Present) — PM, Scheduling, Estimation, Cost Control, Finance</p>
     </div>
     <div class="card">
       <h3>Concrete Multi-Storey Building — System Design</h3>
@@ -240,5 +284,6 @@
 
 </body>
 </html>
+
 
 
