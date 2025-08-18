@@ -1,295 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Akila Gunasekara | Civil & Structural Design Engineer</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Certificates & Achievements — Akila Gunasekara</title>
 <style>
-  :root{
-    --brand:#003366;
-    --brand-dark:#002244;
-    --bg:#f5f5f5;
-    --text:#222;
-    --card:#ffffff;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family: Arial, sans-serif;
-    margin:0; padding:0;
-    background: var(--bg); color: var(--text);
-  }
-  header{
-    background: var(--brand);
-    color:#fff; padding:2rem 1rem; text-align:center;
-  }
-  header img{
-    width:150px; height:150px; border-radius:50%; margin-top:1rem; object-fit:cover;
-    box-shadow:0 4px 12px rgba(0,0,0,.2);
-  }
-  nav{
-    background: var(--brand-dark);
-    display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; padding:1rem;
-  }
-  nav a{color:#fff; text-decoration:none; font-weight:bold}
-  nav a:hover{ text-decoration:underline }
-  section{
-    max-width: 980px; margin: 2rem auto; padding: 0 1rem;
-  }
-  h2{ color: var(--brand); margin-bottom:.75rem }
-  .grid{
-    display:grid; gap:1rem;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-  .card{
-    background: var(--card); border-radius:10px; padding:1rem;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-  }
-  .muted{ color:#555 }
-  footer{
-    text-align:center; padding:2rem; background: var(--brand); color:#fff;
-  }
-  .cv-button{
-    background:#fff; color: var(--brand); padding:10px 18px;
-    text-decoration:none; border-radius:6px; font-weight:bold; display:inline-block; margin-top:1rem;
-  }
-  .btn{
-    display:inline-block; padding:.55rem .9rem; border-radius:8px; border:1px solid #cfd7e3;
-    text-decoration:none; color:var(--brand-dark); background:#fff;
-  }
-  .btn:hover{ background:#f1f5fb }
-  .tag{display:inline-block; font-size:.85rem; padding:.25rem .5rem; border-radius:999px; background:#e7eef7; color:#133b72; margin:.2rem .25rem 0 0}
-  .list-tight{margin:.25rem 0 .5rem 1rem}
-  .tools{ margin:.5rem 0 0 0 }
-  .tools strong{ font-size:.9rem }
+  :root{--brand:#003366;--bg:#f5f5f5;--card:#fff;--text:#222}
+  *{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+  header, footer{background:var(--brand);color:#fff;padding:1rem}
+  .container{max-width:980px;margin:0 auto;padding:0 1rem}
+  a.back{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.6);padding:.4rem .6rem;border-radius:6px}
+  h1{margin:.5rem 0}
+  .note{background:#e9f1ff;border-left:4px solid #7aa7ff;padding:.75rem;border-radius:8px;color:#0f2b57}
+  .grid{display:grid;gap:1rem;margin:1.25rem 0;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .card{background:var(--card);border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.08);padding:1rem}
+  .card h3{margin:.25rem 0}
+  .meta{color:#555;font-size:.9rem}
+  .thumb{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;border:1px solid #e2e8f0}
+  .btn{display:inline-block;margin-top:.6rem;padding:.5rem .8rem;border-radius:8px;border:1px solid #cfd7e3;text-decoration:none;background:#fff;color:#002244}
+  .btn:hover{background:#f1f5fb}
+  .pdf-embed{width:100%;height:420px;border:1px solid #cfd7e3;border-radius:8px}
 </style>
 </head>
 <body>
-
 <header>
-  <h1>Akila Gunasekara</h1>
-  <img src="profile.jpg" alt="Akila Gunasekara photo" />
-  <p>Civil & Structural Design Engineer • BSc Eng (Hons) • AMIE(SL)</p>
-  <p>
-    <!-- FIXED: CV link matches your file name with space encoded -->
-    <a href="Akila%20Gunasekara_CV.pdf" class="cv-button" target="_blank">📄 View / Download CV</a>
-  </p>
+  <div class="container">
+    <a class="back" href="index.html">← Back to Profile</a>
+    <h1>Certificates & Achievements</h1>
+  </div>
 </header>
 
-<nav>
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#experience">Experience</a>
-  <a href="#education">Education</a>
-  <a href="#skills">Skills</a>
-  <a href="#research">Research</a>
-  <a href="#certifications">Certifications</a>
-  <a href="#contact">Contact</a>
-</nav>
+<main class="container">
+  <p class="note"><strong>Tip:</strong> Sensitive IDs and personal numbers are intentionally hidden in public previews. Full originals are available upon request.</p>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p class="muted">
-    Aspiring Structural Design Engineer with a BSc. (Hons) in Civil Engineering and Associate Membership of IESL.
-    Proficient in structural analysis, design, and modeling of building structures and water-retaining structures using
-    ETABS, SAP2000, Prokon, AutoCAD, and Revit (BIM). Experience spans local and international projects, including
-    the Rajshahi WASA Water Supply Project in Bangladesh. Strong in detailing, interdisciplinary coordination, and
-    site supervision. Focused on sustainable, compliant, and efficient engineering solutions.
-  </p>
-</section>
-
-<!-- Projects Section -->
-<section id="projects">
-  <h2>Projects</h2>
+  <h2>Professional Memberships</h2>
   <div class="grid">
+    <article class="card">
+      <img class="thumb" src="certificates/cert-iesl.jpg" alt="IESL Associate Membership certificate" />
+      <h3>Associate Member — IESL</h3>
+      <p class="meta">Institute of Engineers, Sri Lanka</p>
+      <a class="btn" href="certificates/cert-iesl.jpg" target="_blank" rel="noopener">View Full</a>
+    </article>
 
-    <div class="card">
-      <h3>Rajshahi WASA Water Supply Project (Bangladesh)</h3>
-      <p class="muted">
-        Participated in structural design and coordination for major water-supply infrastructure.
-        Prepared models, drawings, and technical inputs for client reviews.
-      </p>
-      <p class="tools"><strong>Tools:</strong> SAP2000, AutoCAD, Revit, Prokon</p>
-      <p><a class="btn" href="rajshahi.html">Read More →</a></p>
-    </div>
-
-    <div class="card">
-      <h3>Green Concrete Research</h3>
-      <p class="muted">
-        Final-year research exploring partial replacement with recycled glass waste to enhance
-        sustainability while meeting structural performance targets.
-      </p>
-      <p class="tools"><strong>Focus:</strong> Materials, Mix Design, Sustainable Engineering</p>
-      <p><a class="btn" href="green-concrete.html">Read More →</a></p>
-    </div>
-
-    <div class="card">
-      <h3>Mixed Development Project — Kurunegala</h3>
-      <p class="muted">
-        Led structural design for a shopping mall and public parking facility, coordinating
-        modeling, analysis, and detailing with modern workflows.
-      </p>
-      <p class="tools"><strong>Tools:</strong> AutoCAD, Revit (BIM), SAP2000, ETABS, SAFE</p>
-      <p><a class="btn" href="kurunegala.html">Read More →</a></p>
-    </div>
-
-    <div class="card">
-      <h3>Survey Camp — Hydrological Planning</h3>
-      <p class="muted">
-        Field survey and hydrological planning in Galgamuwa; developed solutions to improve
-        water distribution in the Palukadawala right-bank canal.
-      </p>
-      <p class="tools"><strong>Focus:</strong> Surveying, Hydrology, Infrastructure Planning</p>
-      <p><a class="btn" href="survey-camp.html">Read More →</a></p>
-    </div>
-
+    <article class="card">
+      <img class="thumb" src="certificates/cert-ecsl.jpg" alt="ECSL Associate Membership certificate" />
+      <h3>Associate Member — ECSL</h3>
+      <p class="meta">Engineering Council, Sri Lanka</p>
+      <a class="btn" href="certificates/cert-ecsl.jpg" target="_blank" rel="noopener">View Full</a>
+    </article>
   </div>
-</section>
 
-<section id="experience">
-  <h2>Experience</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Junior Civil Engineer — Ceywater Consultants (Dehiwala, Sri Lanka)</h3>
-      <p class="muted"><em>Oct 2024 – Present (Ongoing)</em></p>
-      <ul class="list-tight">
-        <li>Structural modeling & analysis per local/international standards.</li>
-        <li>Client interactions for Rajshahi WASA with Hunan Construction Engineering Group.</li>
-        <li>Multidisciplinary coordination; SAP2000, ETABS, Prokon in daily workflow.</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Civil Engineer (Trainee) — STHRDP, Ministry of Education (Colombo)</h3>
-      <p class="muted"><em>Feb 2023 – Aug 2023</em></p>
-      <ul class="list-tight">
-        <li>Monitored construction and site compliance with safety and specs.</li>
-        <li>Prepared/reviewed documentation, reports, and schedules.</li>
-        <li>Supported meetings with clients/contractors; ensured code compliance and quality.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="education">
   <h2>Education</h2>
   <div class="grid">
-    <div class="card">
+    <article class="card">
+      <!-- If you have a JPG/PNG of your degree, use <img> like above. For PDFs, embed: -->
       <h3>BSc Eng (Hons) — Civil Engineering</h3>
-      <p class="muted">University of Sri Jayewardenepura (2019–2024) • GPA 3.61/4.0 • Second Class Honours (Upper Division)</p>
-    </div>
-    <div class="card">
-      <h3>Diploma in Revit Architecture</h3>
-      <p class="muted">ArchiTech CAD Academy — 2024–Present</p>
-    </div>
-    <div class="card">
-      <h3>G.C.E. Advanced Level</h3>
-      <p class="muted">Poramadulla Central College (2018) — Chemistry A, Physics B, Combined Mathematics B</p>
-    </div>
-    <div class="card">
-      <h3>G.C.E. Ordinary Level</h3>
-      <p class="muted">Poramadulla Central College (2013) — Overall: 6A, 3B</p>
-    </div>
+      <p class="meta">University of Sri Jayewardenepura</p>
+      <iframe class="pdf-embed" src="certificates/degree-bsc.pdf"></iframe>
+      <a class="btn" href="certificates/degree-bsc.pdf" target="_blank" rel="noopener">Open PDF</a>
+    </article>
   </div>
-</section>
 
-<section id="skills">
-  <h2>Skills</h2>
-  <div class="card">
-    <h3>Areas of Expertise</h3>
-    <p>
-      <span class="tag">Structural Analysis & Design</span>
-      <span class="tag">Geotechnical Engineering</span>
-      <span class="tag">Construction Management</span>
-      <span class="tag">Surveying & Hydrology</span>
-      <span class="tag">Sustainable Engineering</span>
-      <span class="tag">Material Science</span>
-      <span class="tag">Safety Compliance</span>
-    </p>
-  </div>
-  <div class="card" style="margin-top:1rem">
-    <h3>Technical</h3>
-    <p>
-      <span class="tag">SAP2000</span>
-      <span class="tag">ETABS</span>
-      <span class="tag">Prokon</span>
-      <span class="tag">AutoCAD</span>
-      <span class="tag">Revit (BIM)</span>
-      <span class="tag">ArcGIS</span>
-      <span class="tag">MS Project</span>
-      <span class="tag">Microsoft Office</span>
-    </p>
-  </div>
-  <div class="card" style="margin-top:1rem">
-    <h3>Soft Skills</h3>
-    <p>
-      <span class="tag">Team Collaboration</span>
-      <span class="tag">Leadership</span>
-      <span class="tag">Problem-Solving</span>
-      <span class="tag">Analytical Thinking</span>
-      <span class="tag">Time Management</span>
-      <span class="tag">Communication</span>
-    </p>
-  </div>
-</section>
-
-<section id="research">
-  <h2>Research</h2>
+  <h2>Training & Courses</h2>
   <div class="grid">
-    <div class="card">
-      <h3>Green Concrete with Recycled Glass</h3>
-      <p class="muted">Investigated performance of mixes partially containing locally available recycled glass waste to promote eco-friendly construction.</p>
-    </div>
-  </div>
-</section>
-
-<section id="certifications">
-  <h2>Certifications & Affiliations</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Construction Management Specialization</h3>
-      <p class="muted">Columbia University (2024–Present) — PM, Scheduling, Estimation, Cost Control, Finance</p>
-    </div>
-    <div class="card">
-      <h3>Concrete Multi-Storey Building — System Design</h3>
-      <p class="muted">L&T Edu Tech (2024–Present)</p>
-    </div>
-    <div class="card">
-      <h3>Awareness on Construction Equipment Operation</h3>
-      <p class="muted">Construction Machines Operator Training College, Galkulama (Aug 2024)</p>
-    </div>
-    <div class="card">
+    <article class="card">
+      <img class="thumb" src="certificates/autocad-occs.jpg" alt="Advanced AutoCAD certificate" />
       <h3>Advanced AutoCAD</h3>
-      <p class="muted">OCCS Academy, Sri Lanka (2023)</p>
-    </div>
-    <div class="card">
-      <h3>Professional Memberships</h3>
-      <p class="muted">Associate Member of IESL — AM32875 • Associate Member of ECSL — 219274</p>
-    </div>
-  </div>
-</section>
+      <p class="meta">OCCS Academy, 2023</p>
+      <a class="btn" href="certificates/autocad-occs.jpg" target="_blank" rel="noopener">View Full</a>
+    </article>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="card">
-    <p><strong>Phone/WhatsApp:</strong> (+94)754970044</p>
-    <p><strong>Email:</strong> <a href="mailto:gunasekaraakila790@gmail.com">gunasekaraakila790@gmail.com</a></p>
-    <p><strong>LinkedIn:</strong> 
-      <a href="https://www.linkedin.com/in/gunasekaraakila/" target="_blank" rel="noopener">
-        linkedin.com/in/gunasekaraakila
-      </a>
-    </p>
-    <p><strong>Current Address:</strong> Maharagama, Colombo 10280, Sri Lanka</p>
+    <article class="card">
+      <h3>Construction Management Specialization</h3>
+      <p class="meta">Columbia University (online), 2024–Present</p>
+      <iframe class="pdf-embed" src="certificates/columbia-construction-mgmt.pdf"></iframe>
+      <a class="btn" href="certificates/columbia-construction-mgmt.pdf" target="_blank" rel="noopener">Open PDF</a>
+    </article>
   </div>
-</section>
+</main>
 
 <footer>
-  © <span id="y"></span> Akila Gunasekara.     All rights reserved. .
+  <div class="container">© <span id="y"></span> Akila Gunasekara</div>
 </footer>
 <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
-
 </body>
 </html>
-
-
-
-
