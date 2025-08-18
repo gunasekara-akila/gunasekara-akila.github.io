@@ -71,7 +71,8 @@
   <img src="profile.jpg" alt="Akila Gunasekara photo" />
   <p>Civil & Structural Design Engineer • BSc Eng (Hons) • AMIE(SL)</p>
   <p>
-    <a href="Akila-Gunasekara-CV.pdf" class="cv-button" target="_blank">📄 View / Download CV</a>
+    <!-- FIXED: CV link matches your file name with space encoded -->
+    <a href="Akila%20Gunasekara_CV.pdf" class="cv-button" target="_blank">📄 View / Download CV</a>
   </p>
 </header>
 
@@ -97,6 +98,7 @@
   </p>
 </section>
 
+<!-- Projects Section -->
 <section id="projects">
   <h2>Projects</h2>
   <div class="grid">
@@ -281,12 +283,14 @@
 </section>
 
 <footer>
-  © <span id="y"></span> Akila Gunasekara •
+  © <span id="y"></span> Akila Gunasekara
 </footer>
 <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
 
 </body>
 </html>
+
+
 
 
 
