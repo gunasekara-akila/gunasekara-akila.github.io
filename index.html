@@ -196,7 +196,7 @@
   .beam-animation-wrapper h3{color:var(--white); font-size:16px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase;}
   
   .beam-canvas-container{
-    background:var(--white); border-radius:2px; padding:20px; margin:0 0 20px 0;
+    background:#F5F7FA; border-radius:2px; padding:20px; margin:0 0 20px 0;
     overflow-x:auto;
   }
   
@@ -660,6 +660,7 @@ const EDUCATION = [
 
 // ---- 7. REVISION LOG ----
 const REVISIONS = [
+  { rev:"H", date:"Jul 2026", note:"Enhanced beam diagram styling: light background, improved BM display, removed controls during interaction." },
   { rev:"G", date:"Jul 2026", note:"Fixed CV download links across all buttons." },
   { rev:"F", date:"Jul 2026", note:"Fixed LinkedIn contact links." },
   { rev:"E", date:"Jul 2026", note:"Unified SFD & BMD on single beam diagram canvas." },
@@ -850,7 +851,7 @@ function drawBeamDiagram(){
   ctx.lineTo(beamStartX, bmdY);
   ctx.fill();
   
-  // ===== 5. ADD LABELS =====
+  // ===== 5. ADD LABELS & VALUES ON DIAGRAM =====
   ctx.fillStyle = '#333';
   ctx.font = '12px Arial';
   ctx.textAlign = 'center';
@@ -872,6 +873,37 @@ function drawBeamDiagram(){
   ctx.font = '11px Arial';
   ctx.fillText(`RA=${RA.toFixed(1)}kN`, beamStartX - 15, beamY + 35);
   ctx.fillText(`RB=${RB.toFixed(1)}kN`, beamEndX + 15, beamY + 35);
+  
+  // ===== 6. DISPLAY VALUES ON BENDING MOMENT DIAGRAM =====
+  // Find max BM for display
+  let maxBM = 0;
+  let maxBMPos = 0;
+  for(let i = 0; i <= 100; i++){
+    const z = BEAM_L * i / 100;
+    let M;
+    if(z <= beamX)
+      M = RA * z;
+    else
+      M = RA * z - BEAM_P * (z - beamX);
+    if(M > maxBM) {
+      maxBM = M;
+      maxBMPos = z;
+    }
+  }
+  
+  // Display Max BM value on the diagram
+  const maxBMX = beamStartX + (beamEndX - beamStartX) * (maxBMPos / BEAM_L);
+  const maxBMY = bmdY - maxBM * bmdScale;
+  
+  ctx.fillStyle = '#DC2626';
+  ctx.font = 'bold 13px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText(`Max BM = ${maxBM.toFixed(2)} kNm`, maxBMX, maxBMY - 20);
+  
+  // Display current position value on BMD
+  ctx.fillStyle = '#FF4444';
+  ctx.font = 'bold 11px Arial';
+  ctx.fillText(`Load @ ${beamX.toFixed(2)}m`, loadX, bmdY + 30);
 }
 
 function updateBeamValues(){
@@ -901,9 +933,16 @@ function updateBeamValues(){
 function playBeam(){
   if(animating) return;
   animating = true;
+  document.querySelector('.beam-controls').style.opacity = '0.5';
+  document.querySelector('.beam-controls').style.pointerEvents = 'none';
+  document.querySelector('.legend-box').style.opacity = '0.5';
+  
   beamTimer = setInterval(function(){
     beamX += 0.05;
-    if(beamX > BEAM_L) beamX = 0;
+    if(beamX > BEAM_L) {
+      beamX = 0;
+      pauseBeam();
+    }
     updateBeamValues();
   }, 40);
 }
@@ -911,12 +950,18 @@ function playBeam(){
 function pauseBeam(){
   clearInterval(beamTimer);
   animating = false;
+  document.querySelector('.beam-controls').style.opacity = '1';
+  document.querySelector('.beam-controls').style.pointerEvents = 'auto';
+  document.querySelector('.legend-box').style.opacity = '1';
 }
 
 function resetBeam(){
   clearInterval(beamTimer);
   animating = false;
   beamX = 0;
+  document.querySelector('.beam-controls').style.opacity = '1';
+  document.querySelector('.beam-controls').style.pointerEvents = 'auto';
+  document.querySelector('.legend-box').style.opacity = '1';
   updateBeamValues();
 }
 
@@ -1001,6 +1046,9 @@ renderSiteExperience();
 renderExperience();
 renderEducation();
 renderRevisions();
+
+// Initial beam diagram draw
+updateBeamValues();
 
 // Reveal on scroll
 const observer = new IntersectionObserver((entries) => {
