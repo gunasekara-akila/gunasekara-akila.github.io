@@ -1,306 +1,630 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Akila Gunasekara | Civil & Structural Design Engineer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Your Name] — Structural & Civil Design Engineer</title>
+<meta name="description" content="Portfolio of [Your Name], Structural & Civil Design Engineer specialising in RCC buildings, water retaining structures, culverts, retaining walls and water/wastewater network modelling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --brand:#003366;
-    --brand-dark:#002244;
-    --bg:#f5f5f5;
-    --text:#222;
-    --card:#ffffff;
+    --paper:#EEF1EF;
+    --paper-deep:#E4E8E5;
+    --ink:#101820;
+    --blueprint:#123C5C;
+    --blueprint-deep:#0B283F;
+    --blueprint-light:#2E6E96;
+    --redline:#B5432A;
+    --steel:#647178;
+    --line:rgba(16,24,32,0.14);
+    --line-soft:rgba(16,24,32,0.08);
+    --white:#FBFCFB;
+    --radius:2px;
+    --maxw:1120px;
   }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
-    font-family: Arial, sans-serif;
-    margin:0; padding:0;
-    background: var(--bg); color: var(--text);
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
   }
-  header{
-    background: var(--brand);
-    color:#fff; padding:2rem 1rem; text-align:center;
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk', sans-serif;
+    margin:0;
+    letter-spacing:-0.01em;
+    color:var(--blueprint-deep);
   }
-  header img{
-    width:150px; height:150px; border-radius:50%; margin-top:1rem; object-fit:cover;
-    box-shadow:0 4px 12px rgba(0,0,0,.2);
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  img{max-width:100%; display:block;}
+  :focus-visible{outline:2px solid var(--redline); outline-offset:3px;}
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:var(--blueprint-deep);
+    border-bottom:1px solid rgba(255,255,255,0.12);
   }
-  nav{
-    background: var(--brand-dark);
-    display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; padding:1rem;
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:14px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
   }
-  nav a{color:#fff; text-decoration:none; font-weight:bold}
-  nav a:hover{ text-decoration:underline }
-  section{
-    max-width: 980px; margin: 2rem auto; padding: 0 1rem;
+  .brand{
+    color:var(--white); font-family:'Space Grotesk',sans-serif; font-weight:600;
+    font-size:16px; text-decoration:none; letter-spacing:0.01em;
+    display:flex; align-items:center; gap:8px;
   }
-  h2{ color: var(--brand); margin-bottom:.75rem }
-  .grid{
-    display:grid; gap:1rem;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  .brand .dot{width:8px;height:8px;background:var(--redline); border-radius:50%; display:inline-block;}
+  .nav-links{display:flex; align-items:center; gap:22px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    color:rgba(255,255,255,0.72); text-decoration:none; font-size:13px;
+    font-family:'IBM Plex Mono',monospace; letter-spacing:0.03em; text-transform:uppercase;
+    transition:color .15s ease;
   }
-  .card{
-    background: var(--card); border-radius:10px; padding:1rem;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
+  .nav-links a:hover{color:var(--white);}
+  .btn-cv{
+    background:var(--redline); color:var(--white); border:none;
+    padding:9px 16px; font-family:'IBM Plex Mono',monospace; font-size:12.5px;
+    letter-spacing:0.04em; text-transform:uppercase; text-decoration:none;
+    border-radius:var(--radius); white-space:nowrap;
+    transition:background .15s ease, transform .15s ease;
   }
-  .muted{ color:#555 }
-  footer{
-    text-align:center; padding:2rem; background: var(--brand); color:#fff;
+  .btn-cv:hover{background:#8f3521; transform:translateY(-1px);}
+  .nav-toggle{display:none; background:none; border:1px solid rgba(255,255,255,0.3); color:var(--white); padding:6px 10px; border-radius:var(--radius);}
+
+  /* ---------- Sheet header (signature device) ---------- */
+  .sheet-header{
+    display:flex; align-items:center; gap:18px;
+    padding:14px 0; margin-bottom:46px;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
   }
-  .cv-button{
-    background:#fff; color: var(--brand); padding:10px 18px;
-    text-decoration:none; border-radius:6px; font-weight:bold; display:inline-block; margin-top:1rem;
+  .sheet-header .tag{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.06em;
+    color:var(--steel); text-transform:uppercase; white-space:nowrap;
   }
+  .sheet-header .tag strong{color:var(--blueprint);}
+  .sheet-header .rule{flex:1; height:1px; background:var(--line);}
+  .sheet-header .title{
+    font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-weight:500;
+  }
+
+  section{padding:96px 0 20px; position:relative;}
+  section:first-of-type{padding-top:0;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:
+      linear-gradient(180deg, var(--blueprint-deep) 0%, var(--blueprint) 100%);
+    padding:150px 0 0;
+    position:relative;
+    overflow:hidden;
+    color:var(--white);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+    background-size:38px 38px;
+    pointer-events:none;
+  }
+  .hero-inner{position:relative; z-index:2; padding-bottom:60px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.16em;
+    text-transform:uppercase; color:#8FB6CF; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:#8FB6CF; display:inline-block;}
+  .hero h1{
+    font-size:clamp(38px, 6vw, 64px); color:var(--white); line-height:1.05; font-weight:600;
+    max-width:820px;
+  }
+  .hero h1 em{font-style:normal; color:#7FB8D6;}
+  .hero p.lead{
+    max-width:560px; color:rgba(255,255,255,0.78); font-size:17px; margin-top:22px;
+  }
+  .hero-ctas{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
   .btn{
-    display:inline-block; padding:.55rem .9rem; border-radius:8px; border:1px solid #cfd7e3;
-    text-decoration:none; color:var(--brand-dark); background:#fff; cursor:pointer;
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 22px; border-radius:var(--radius); text-decoration:none;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.04em; text-transform:uppercase;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    border:1px solid transparent;
   }
-  .btn:hover{ background:#f1f5fb }
-  .tag{display:inline-block; font-size:.85rem; padding:.25rem .5rem; border-radius:999px; background:#e7eef7; color:#133b72; margin:.2rem .25rem 0 0}
-  .list-tight{margin:.25rem 0 .5rem 1rem}
-  .tools{ margin:.5rem 0 0 0 }
-  .tools strong{ font-size:.9rem }
-  .btn-row{display:flex; gap:.5rem; flex-wrap:wrap}
+  .btn-primary{background:var(--redline); color:var(--white);}
+  .btn-primary:hover{background:#8f3521; transform:translateY(-1px);}
+  .btn-outline{border-color:rgba(255,255,255,0.4); color:var(--white);}
+  .btn-outline:hover{border-color:var(--white); transform:translateY(-1px);}
+
+  .beam-wrap{position:relative; z-index:2; border-top:1px solid rgba(255,255,255,0.14);}
+  .beam-svg{width:100%; height:auto; display:block;}
+  .beam-line{stroke-dasharray:1400; stroke-dashoffset:1400; animation:draw 2.6s ease forwards;}
+  .beam-line.delay1{animation-delay:.3s;}
+  .beam-line.delay2{animation-delay:.7s;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @media (prefers-reduced-motion: reduce){
+    .beam-line{animation:none; stroke-dashoffset:0;}
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start;}
+  .about-grid p{color:#2b3540; max-width:60ch;}
+  .stat-block{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px 24px;
+  }
+  .stat-row{display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--line-soft); font-size:14.5px;}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row .k{color:var(--steel); font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.03em; text-transform:uppercase;}
+  .stat-row .v{font-weight:600; color:var(--blueprint-deep); text-align:right;}
+
+  /* ---------- Expertise ---------- */
+  .expertise-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .exp-card{background:var(--paper); padding:26px 24px; min-height:190px;}
+  .exp-card .num{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--redline); letter-spacing:0.05em;}
+  .exp-card h4{font-size:17px; margin:10px 0 8px; color:var(--blueprint-deep);}
+  .exp-card p{font-size:14px; color:var(--steel); margin:0;}
+
+  /* ---------- Tools legend ---------- */
+  .tools-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;}
+  .tool-chip{
+    border:1px solid var(--line); background:var(--white); border-radius:var(--radius);
+    padding:16px 14px; text-align:center;
+  }
+  .tool-chip .name{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:14px; color:var(--blueprint-deep);}
+  .tool-chip .use{font-size:11.5px; color:var(--steel); margin-top:5px; letter-spacing:0.02em;}
+
+  /* ---------- Projects ---------- */
+  .project-card{
+    display:grid; grid-template-columns:220px 1fr; gap:0;
+    border:1px solid var(--line); background:var(--white); margin-bottom:24px; border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .project-visual{
+    background:var(--blueprint-deep); display:flex; align-items:center; justify-content:center; padding:20px;
+    border-right:1px solid var(--line);
+  }
+  .project-visual svg{width:100%; height:auto;}
+  .project-body{padding:24px 26px;}
+  .project-tophead{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:10px;}
+  .project-tophead .sheetno{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--steel); letter-spacing:0.05em;}
+  .project-body h4{font-size:19px; margin-bottom:6px;}
+  .project-body .role{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--redline); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:10px;}
+  .project-body p.desc{font-size:14.5px; color:#2b3540; margin:0 0 12px;}
+  .tag-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blueprint);
+    border:1px solid var(--line); padding:3px 9px; border-radius:20px; background:var(--paper-deep);
+  }
+  @media (max-width:720px){
+    .project-card{grid-template-columns:1fr;}
+    .project-visual{border-right:none; border-bottom:1px solid var(--line); padding:26px;}
+  }
+
+  /* ---------- Timeline (experience) ---------- */
+  .timeline{border-left:2px solid var(--line); padding-left:28px; position:relative;}
+  .tl-item{margin-bottom:34px; position:relative;}
+  .tl-item::before{
+    content:""; position:absolute; left:-33.5px; top:4px; width:9px; height:9px;
+    background:var(--redline); border-radius:50%; border:2px solid var(--paper);
+  }
+  .tl-item .period{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--steel); letter-spacing:0.03em;}
+  .tl-item h4{font-size:17px; margin:6px 0 4px;}
+  .tl-item .org{font-size:13.5px; color:var(--blueprint); margin-bottom:8px;}
+  .tl-item ul{margin:0; padding-left:18px; color:#2b3540; font-size:14px;}
+  .tl-item li{margin-bottom:5px;}
+
+  /* ---------- Site experience ---------- */
+  .site-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .site-card{border:1px solid var(--line); background:var(--white); padding:22px; border-radius:var(--radius);}
+  .site-card .icn{color:var(--redline); margin-bottom:12px;}
+  .site-card h4{font-size:15.5px; margin-bottom:6px;}
+  .site-card p{font-size:13.5px; color:var(--steel); margin:0;}
+
+  /* ---------- Education ---------- */
+  .edu-item{display:flex; justify-content:space-between; gap:20px; padding:18px 0; border-bottom:1px solid var(--line-soft); flex-wrap:wrap;}
+  .edu-item:last-child{border-bottom:none;}
+  .edu-item h4{font-size:16px;}
+  .edu-item .org{font-size:13.5px; color:var(--blueprint); margin-top:3px;}
+  .edu-item .yr{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--steel); white-space:nowrap;}
+
+  /* ---------- Contact / footer ---------- */
+  .contact-band{
+    background:var(--blueprint-deep); color:var(--white); padding:80px 0 40px; margin-top:110px;
+  }
+  .contact-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:50px;}
+  .contact-grid h2{color:var(--white);}
+  .contact-grid p{color:rgba(255,255,255,0.72); max-width:52ch;}
+  .contact-list{list-style:none; padding:0; margin:22px 0 0;}
+  .contact-list li{padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.12); font-size:14.5px; display:flex; gap:12px;}
+  .contact-list .k{font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; color:#8FB6CF; width:90px; flex-shrink:0; letter-spacing:0.05em;}
+  .revlog{border:1px solid rgba(255,255,255,0.16); border-radius:var(--radius);}
+  .revlog table{width:100%; border-collapse:collapse; font-size:13px;}
+  .revlog th,.revlog td{padding:9px 12px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.1);}
+  .revlog th{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:#8FB6CF;}
+  .revlog tr:last-child td{border-bottom:none;}
+  .footer-base{
+    max-width:var(--maxw); margin:40px auto 0; padding:22px 28px 0; border-top:1px solid rgba(255,255,255,0.12);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.5);
+  }
+
+  /* reveal on scroll */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  @media (max-width:860px){
+    .about-grid, .contact-grid{grid-template-columns:1fr;}
+    .expertise-grid{grid-template-columns:repeat(2,1fr);}
+    .tools-grid{grid-template-columns:repeat(2,1fr);}
+    .site-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
+    .nav-links{display:none;}
+    .expertise-grid{grid-template-columns:1fr;}
+    .tools-grid{grid-template-columns:1fr 1fr;}
+    .project-card{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Akila Gunasekara</h1>
-  <img src="profile.jpg" alt="Akila Gunasekara photo" />
-  <p>Civil & Structural Design Engineer • BSc Eng (Hons) • AMIE(SL)</p>
-  <p>
-    <a href="Akila-Gunasekara-CV.pdf" class="cv-button" target="_blank">📄 View / Download CV</a>
-  </p>
-</header>
-
-<nav>
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#experience">Experience</a>
-  <a href="#education">Education</a>
-  <a href="#skills">Skills</a>
-  <a href="#research">Research</a>
-  <a href="#certifications">Certifications</a>
-  <a href="certificates.html">Certificates</a>
-  <a href="#contact">Contact</a>
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="dot"></span>[Your Name]</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn-cv" href="CV.pdf" download>Download CV</a>
+  </div>
 </nav>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p class="muted">
-    Aspiring Structural Design Engineer with a BSc. (Hons) in Civil Engineering and Associate Membership of IESL.
-    Proficient in structural analysis, design, and modeling of building structures and water-retaining structures using
-    ETABS, SAP2000, Prokon, AutoCAD, and Revit (BIM). Experience spans local and international projects, including
-    the Rajshahi WASA Water Supply Project in Bangladesh. Strong in detailing, interdisciplinary coordination, and
-    site supervision. Focused on sustainable, compliant, and efficient engineering solutions.
-  </p>
-</section>
-
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="grid">
-
-    <div class="card">
-      <h3>Rajshahi WASA Water Supply Project (Bangladesh)</h3>
-      <p class="muted">
-        Participated in structural design and coordination for major water-supply infrastructure.
-        Prepared models, drawings, and technical inputs for client reviews.
-      </p>
-      <p class="tools"><strong>Tools:</strong> SAP2000, AutoCAD, Revit, Prokon</p>
-      <p><a class="btn" href="rajshahi.html">Read More →</a></p>
-    </div>
-
-    <div class="card">
-      <h3>Green Concrete Research</h3>
-      <p class="muted">
-        Final-year research exploring partial replacement with recycled glass waste to enhance
-        sustainability while meeting structural performance targets.
-      </p>
-      <p class="tools"><strong>Focus:</strong> Materials, Mix Design, Sustainable Engineering</p>
-      <p><a class="btn" href="green-concrete.html">Read More →</a></p>
-    </div>
-
-    <div class="card">
-      <h3>Mixed Development Project — Kurunegala</h3>
-      <p class="muted">
-        Led structural design for a shopping mall and public parking facility, coordinating
-        modeling, analysis, and detailing with modern workflows.
-      </p>
-      <p class="tools"><strong>Tools:</strong> AutoCAD, Revit (BIM), SAP2000, ETABS, SAFE</p>
-      <p><a class="btn" href="kurunegala.html">Read More →</a></p>
-    </div>
-
-    <div class="card">
-      <h3>Survey Camp — Hydrological Planning</h3>
-      <p class="muted">
-        Field survey and hydrological planning in Galgamuwa; developed solutions to improve
-        water distribution in the Palukadawala right-bank canal.
-      </p>
-      <p class="tools"><strong>Focus:</strong> Surveying, Hydrology, Infrastructure Planning</p>
-      <p><a class="btn" href="survey-camp.html">Read More →</a></p>
-    </div>
-
-  </div>
-</section>
-
-<section id="experience">
-  <h2>Experience</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Junior Civil Engineer — Ceywater Consultants (Dehiwala, Sri Lanka)</h3>
-      <p class="muted"><em>Oct 2024 – Present (Ongoing)</em></p>
-      <ul class="list-tight">
-        <li>Structural modeling & analysis per local/international standards.</li>
-        <li>Client interactions for Rajshahi WASA with Hunan Construction Engineering Group.</li>
-        <li>Multidisciplinary coordination; SAP2000, ETABS, Prokon in daily workflow.</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Civil Engineer (Trainee) — STHRDP, Ministry of Education (Colombo)</h3>
-      <p class="muted"><em>Feb 2023 – Aug 2023</em></p>
-      <ul class="list-tight">
-        <li>Monitored construction and site compliance with safety and specs.</li>
-        <li>Prepared/reviewed documentation, reports, and schedules.</li>
-        <li>Supported meetings with clients/contractors; ensured code compliance and quality.</li>
-      </ul>
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Structural &amp; Civil Design Engineer — Sri Lanka, open to relocation</div>
+    <h1>Turning load paths into <em>buildings, tanks and networks</em> that hold.</h1>
+    <p class="lead">Two years of structural and civil design experience spanning RCC buildings, water retaining structures, culverts and retaining walls, plus water &amp; wastewater network modelling and freelance residential design.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="CV.pdf" download>Download CV</a>
+      <a class="btn btn-outline" href="#projects">View Projects</a>
+      <a class="btn btn-outline" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn Profile</a>
     </div>
   </div>
-</section>
+  <div class="beam-wrap">
+    <svg class="beam-svg" viewBox="0 0 1120 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Simply supported beam diagram with distributed load">
+      <line class="beam-line" x1="120" y1="90" x2="1000" y2="90" stroke="#7FB8D6" stroke-width="3"/>
+      <polygon class="beam-line delay1" points="120,90 100,125 140,125" fill="none" stroke="#7FB8D6" stroke-width="2"/>
+      <polygon class="beam-line delay1" points="1000,90 980,125 1020,125" fill="none" stroke="#7FB8D6" stroke-width="2"/>
+      <g class="beam-line delay2" stroke="#4E86A6" stroke-width="1.5">
+        <line x1="160" y1="55" x2="160" y2="88"/><line x1="220" y1="50" x2="220" y2="88"/><line x1="280" y1="47" x2="280" y2="88"/>
+        <line x1="340" y1="45" x2="340" y2="88"/><line x1="400" y1="44" x2="400" y2="88"/><line x1="460" y1="44" x2="460" y2="88"/>
+        <line x1="520" y1="45" x2="520" y2="88"/><line x1="580" y1="47" x2="580" y2="88"/><line x1="640" y1="50" x2="640" y2="88"/>
+        <line x1="700" y1="55" x2="700" y2="88"/><line x1="760" y1="47" x2="760" y2="88"/><line x1="820" y1="50" x2="820" y2="88"/>
+        <line x1="880" y1="55" x2="880" y2="88"/><line x1="940" y1="60" x2="940" y2="88"/>
+      </g>
+      <line class="beam-line delay2" x1="150" y1="42" x2="950" y2="42" stroke="#4E86A6" stroke-width="1.5"/>
+      <text x="560" y="160" text-anchor="middle" fill="#5C86A0" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="1">SPAN — L = 6.00 m · UDL · SIMPLY SUPPORTED</text>
+    </svg>
+  </div>
+</header>
 
-<section id="education">
-  <h2>Education</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>BSc Eng (Hons) — Civil Engineering</h3>
-      <p class="muted">University of Sri Jayewardenepura (2019–2024) • GPA 3.61/4.0 • Second Class Honours (Upper Division)</p>
-    </div>
-    <div class="card">
-      <h3>Diploma in Revit Architecture</h3>
-      <p class="muted">ArchiTech CAD Academy — 2024–Present</p>
-    </div>
-    <div class="card">
-      <h3>G.C.E. Advanced Level</h3>
-      <p class="muted">Poramadulla Central College (2018) — Chemistry A, Physics B, Combined Mathematics B</p>
-    </div>
-    <div class="card">
-      <h3>G.C.E. Ordinary Level</h3>
-      <p class="muted">Poramadulla Central College (2013) — Overall: 6A, 3B</p>
-    </div>
-  </div>
-</section>
+<main class="wrap">
 
-<section id="skills">
-  <h2>Skills</h2>
-  <div class="card">
-    <h3>Areas of Expertise</h3>
-    <p>
-      <span class="tag">Structural Analysis & Design</span>
-      <span class="tag">Geotechnical Engineering</span>
-      <span class="tag">Construction Management</span>
-      <span class="tag">Surveying & Hydrology</span>
-      <span class="tag">Sustainable Engineering</span>
-      <span class="tag">Material Science</span>
-      <span class="tag">Safety Compliance</span>
-    </p>
-  </div>
-  <div class="card" style="margin-top:1rem">
-    <h3>Technical</h3>
-    <p>
-      <span class="tag">SAP2000</span>
-      <span class="tag">ETABS</span>
-      <span class="tag">Prokon</span>
-      <span class="tag">AutoCAD</span>
-      <span class="tag">Revit (BIM)</span>
-      <span class="tag">ArcGIS</span>
-      <span class="tag">MS Project</span>
-      <span class="tag">Microsoft Office</span>
-    </p>
-  </div>
-  <div class="card" style="margin-top:1rem">
-    <h3>Soft Skills</h3>
-    <p>
-      <span class="tag">Team Collaboration</span>
-      <span class="tag">Leadership</span>
-      <span class="tag">Problem-Solving</span>
-      <span class="tag">Analytical Thinking</span>
-      <span class="tag">Time Management</span>
-      <span class="tag">Communication</span>
-    </p>
-  </div>
-</section>
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="sheet-header"><span class="tag"><strong>SHEET 01</strong> / ABOUT</span><span class="rule"></span><span class="title">Profile</span></div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I'm a Civil Engineering graduate with two years of hands-on experience in structural and civil design. My work covers reinforced concrete buildings, water retaining structures, culverts and retaining walls, alongside water and wastewater network modelling using Bentley WaterGEMS and SewerGEMS.</p>
+        <p>Outside the office, I run a small freelance structural design practice, delivering full structural drawing sets for two-storey residential houses — from analysis through to construction-ready documentation. I've also spent time on site: setting out, levelling, quantity checks and construction supervision, which keeps my designs grounded in what's actually buildable.</p>
+        <p>I'm currently looking for structural / design engineering roles with international firms, and open to relocation or remote collaboration.</p>
+      </div>
+      <div class="stat-block reveal">
+        <div class="stat-row"><span class="k">Experience</span><span class="v">2 Years</span></div>
+        <div class="stat-row"><span class="k">Based in</span><span class="v">Sri Lanka</span></div>
+        <div class="stat-row"><span class="k">Core Design</span><span class="v">RCC / Water Retaining</span></div>
+        <div class="stat-row"><span class="k">Modelling</span><span class="v">WaterGEMS / SewerGEMS</span></div>
+        <div class="stat-row"><span class="k">Freelance</span><span class="v">Residential Structures</span></div>
+        <div class="stat-row"><span class="k">Seeking</span><span class="v">International Roles</span></div>
+      </div>
+    </div>
+  </section>
 
-<section id="research">
-  <h2>Research</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Green Concrete with Recycled Glass</h3>
-      <p class="muted">Investigated performance of mixes partially containing locally available recycled glass waste to promote eco-friendly construction.</p>
+  <!-- ============ EXPERTISE ============ -->
+  <section id="expertise">
+    <div class="sheet-header"><span class="tag"><strong>SHEET 02</strong> / CAPABILITIES</span><span class="rule"></span><span class="title">Core Expertise</span></div>
+    <div class="expertise-grid reveal" id="expertiseGrid"></div>
+  </section>
+
+  <!-- ============ TOOLS ============ -->
+  <section id="tools">
+    <div class="sheet-header"><span class="tag"><strong>SHEET 03</strong> / INSTRUMENTS</span><span class="rule"></span><span class="title">Software &amp; Tools</span></div>
+    <div class="tools-grid reveal" id="toolsGrid"></div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects">
+    <div class="sheet-header"><span class="tag"><strong>SHEET 04</strong> / PORTFOLIO</span><span class="rule"></span><span class="title">Featured Projects</span></div>
+    <div id="projectsList"></div>
+  </section>
+
+  <!-- ============ SITE EXPERIENCE ============ -->
+  <section id="site-exp">
+    <div class="sheet-header"><span class="tag"><strong>SHEET 05</strong> / FIELD WORK</span><span class="rule"></span><span class="title">Survey &amp; Site Experience</span></div>
+    <div class="site-grid reveal" id="siteGrid"></div>
+  </section>
+
+  <!-- ============ EXPERIENCE TIMELINE ============ -->
+  <section id="experience">
+    <div class="sheet-header"><span class="tag"><strong>SHEET 06</strong> / TIMELINE</span><span class="rule"></span><span class="title">Professional Experience</span></div>
+    <div class="timeline reveal" id="experienceList"></div>
+  </section>
+
+  <!-- ============ EDUCATION ============ -->
+  <section id="education">
+    <div class="sheet-header"><span class="tag"><strong>SHEET 07</strong> / CREDENTIALS</span><span class="rule"></span><span class="title">Education &amp; Achievements</span></div>
+    <div class="reveal" id="educationList"></div>
+  </section>
+
+</main>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer class="contact-band" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <div class="sheet-header" style="border-color:rgba(255,255,255,0.16);"><span class="tag" style="color:#8FB6CF;"><strong style="color:#fff;">SHEET 08</strong> / CONTACT</span><span class="rule" style="background:rgba(255,255,255,0.16);"></span><span class="title" style="color:#fff;">Get In Touch</span></div>
+        <p>Interested in working together or want the full CV and reference set? Reach out directly, connect on LinkedIn, or download the CV below.</p>
+        <ul class="contact-list">
+          <li><span class="k">Email</span><a href="mailto:your.email@example.com">your.email@example.com</a></li>
+          <li><span class="k">Phone</span><span>+94 7X XXX XXXX</span></li>
+          <li><span class="k">Location</span><span>Sri Lanka (Open to Relocation)</span></li>
+          <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">linkedin.com/in/your-profile</a></li>
+        </ul>
+        <div style="margin-top:26px; display:flex; gap:14px; flex-wrap:wrap;">
+          <a class="btn btn-primary" href="CV.pdf" download>Download CV (PDF)</a>
+          <a class="btn btn-outline" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">Visit LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <div class="sheet-header" style="border-color:rgba(255,255,255,0.16);"><span class="tag" style="color:#8FB6CF;"><strong style="color:#fff;">LOG</strong></span><span class="rule" style="background:rgba(255,255,255,0.16);"></span><span class="title" style="color:#fff;">Revision History</span></div>
+        <div class="revlog">
+          <table id="revTable">
+            <thead><tr><th>Rev</th><th>Date</th><th>Update</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© <span id="year"></span> [Your Name]. All rights reserved.</span>
+      <span>Portfolio last updated — edit REVISIONS array to update this line.</span>
     </div>
   </div>
-</section>
-
-<section id="certifications">
-  <h2>Certifications & Affiliations</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Construction Management Specialization</h3>
-      <p class="muted">Columbia University (2024–Present) — PM, Scheduling, Estimation, Cost Control, Finance</p>
-    </div>
-    <div class="card">
-      <h3>Concrete Multi-Storey Building — System Design</h3>
-      <p class="muted">L&T Edu Tech (2024–Present)</p>
-    </div>
-    <div class="card">
-      <h3>Awareness on Construction Equipment Operation</h3>
-      <p class="muted">Construction Machines Operator Training College, Galkulama (Aug 2024)</p>
-    </div>
-    <div class="card">
-      <h3>Advanced AutoCAD</h3>
-      <p class="muted">OCCS Academy, Sri Lanka (2023)</p>
-    </div>
-    <div class="card">
-      <h3>Professional Memberships</h3>
-      <p class="muted">Associate Member of IESL — AM32875 • Associate Member of ECSL — 219274</p>
-    </div>
-  </div>
-  <p style="margin-top:0.75rem">
-    <a class="btn" href="certificates.html">View All Certificates →</a>
-  </p>
-</section>
-
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="card">
-    <p><strong>Email:</strong> <a id="mailto" href="mailto:gunasekaraakila790@gmail.com">gunasekaraakila790@gmail.com</a></p>
-    <div class="btn-row">
-      <a class="btn" href="https://mail.google.com/mail/?view=cm&fs=1&to=gunasekaraakila790@gmail.com&su=Hello%20Akila&body=Hi%20Akila%2C%20" target="_blank" rel="noopener">Open in Gmail</a>
-      <button class="btn" onclick="copyEmail()">Copy email</button>
-    </div>
-    <p style="margin-top:.75rem"><strong>LinkedIn:</strong> 
-      <a href="https://www.linkedin.com/in/gunasekaraakila/" target="_blank" rel="noopener">
-        linkedin.com/in/gunasekaraakila
-      </a>
-    </p>
-    <p><strong>Phone/WhatsApp:</strong> +94 754970044</p>
-    <p><strong>Current Address:</strong> Maharagama, Colombo 10280, Sri Lanka</p>
-  </div>
-</section>
-
-<footer>
-  © <span id="y"></span> Akila Gunasekara • All Right Recerve.
 </footer>
 
 <script>
-  document.getElementById('y').textContent=new Date().getFullYear();
-  function copyEmail(){
-    const e = 'gunasekaraakila790@gmail.com';
-    navigator.clipboard?.writeText(e).then(()=>alert('Email copied: '+e))
-      .catch(()=>alert('Email: '+e));
-  }
-</script>
+/* =========================================================================
+   EDITABLE CONTENT
+   Everything you'll want to update over time lives in the arrays below.
+   Add a new object to the top of an array to add a new project, job,
+   qualification, or revision log entry — the page re-renders automatically.
+   ========================================================================= */
 
+// ---- 1. CORE EXPERTISE CARDS ----
+const EXPERTISE = [
+  { tag:"01", title:"Water Retaining Structures", text:"Design of reservoirs, tanks and retaining structures to code, covering stability, crack control and durability under sustained hydrostatic load." },
+  { tag:"02", title:"RCC Buildings", text:"Analysis and design of reinforced concrete framed buildings — slabs, beams, columns and foundations — from concept through construction drawings." },
+  { tag:"03", title:"Culverts & Retaining Walls", text:"Design of box/pipe culverts and gravity/cantilever retaining walls for roads and drainage infrastructure." },
+  { tag:"04", title:"Water & Wastewater Modelling", text:"Hydraulic model development for potable water distribution and sewer networks using Bentley WaterGEMS and SewerGEMS." },
+  { tag:"05", title:"Freelance Residential Design", text:"Full structural design and drawing packages for two-storey residential houses delivered directly to private clients." },
+  { tag:"06", title:"Site & Survey Work", text:"Site supervision, setting out, levelling and construction-stage checks that connect design intent to buildable reality." },
+];
+
+// ---- 2. SOFTWARE / TOOLS ----
+const TOOLS = [
+  { name:"SAP2000", use:"Structural analysis" },
+  { name:"ETABS", use:"Building analysis & design" },
+  { name:"Prokon", use:"Element design & checks" },
+  { name:"Tekla Structural Designer", use:"RC/steel design" },
+  { name:"AutoCAD", use:"Drafting & detailing" },
+  { name:"Revit", use:"BIM modelling" },
+  { name:"Bentley WaterGEMS", use:"Water network modelling" },
+  { name:"Bentley SewerGEMS", use:"Sewer network modelling" },
+];
+
+// ---- 3. FEATURED PROJECTS ----
+// icon options provided below: "tank", "building", "culvert", "network", "house"
+const PROJECTS = [
+  {
+    sheet:"PRJ-01", icon:"tank",
+    title:"Elevated Water Tank & Reservoir Design",
+    role:"Structural Design Engineer",
+    desc:"Structural design of a reinforced concrete water retaining structure, including stability checks, hydrostatic load analysis and crack-width control to code.",
+    tags:["RCC Design","SAP2000","AutoCAD","Water Retaining"]
+  },
+  {
+    sheet:"PRJ-02", icon:"building",
+    title:"Multi-Storey RCC Building",
+    role:"Structural Design Engineer",
+    desc:"Full structural analysis and design of a reinforced concrete framed building, including gravity and lateral load design, slab and foundation detailing.",
+    tags:["ETABS","RCC Frame","Foundation Design"]
+  },
+  {
+    sheet:"PRJ-03", icon:"culvert",
+    title:"Box Culvert & Retaining Wall Package",
+    role:"Design Engineer",
+    desc:"Design of box culverts and cantilever retaining walls for a road drainage improvement scheme, with detailed reinforcement drawings for construction.",
+    tags:["Prokon","AutoCAD","Retaining Structures"]
+  },
+  {
+    sheet:"PRJ-04", icon:"network",
+    title:"Water Distribution & Sewer Network Model",
+    role:"Modelling Engineer",
+    desc:"Development of a hydraulic model for a town's water distribution and sewer network, used to assess capacity and plan future upgrades.",
+    tags:["WaterGEMS","SewerGEMS","Network Analysis"]
+  },
+  {
+    sheet:"PRJ-05", icon:"house",
+    title:"Two-Storey Residential House (Freelance)",
+    role:"Freelance Structural Engineer",
+    desc:"End-to-end structural design and full drawing set for a private two-storey residential house, from analysis to issued-for-construction drawings.",
+    tags:["Tekla Structural Designer","Revit","AutoCAD"]
+  },
+];
+
+// ---- 4. SITE / FIELD EXPERIENCE ----
+const SITE_EXPERIENCE = [
+  { title:"Site Supervision", text:"On-site monitoring of construction activities against design drawings and specifications." },
+  { title:"Setting Out & Levelling", text:"Site surveying, setting out of structural elements and levelling for construction works." },
+  { title:"Quantity & Quality Checks", text:"Verification of material quantities and construction quality against approved drawings." },
+];
+
+// ---- 5. PROFESSIONAL EXPERIENCE TIMELINE ----
+const EXPERIENCE = [
+  {
+    period:"20XX — Present",
+    title:"Structural / Civil Design Engineer",
+    org:"[Company Name], [City], Sri Lanka",
+    points:[
+      "Structural design of RCC buildings, water retaining structures, culverts and retaining walls.",
+      "Development of water distribution and sewer network models using WaterGEMS and SewerGEMS.",
+      "Preparation of structural drawings and design calculations for client and authority submission."
+    ]
+  },
+  {
+    period:"20XX — Present",
+    title:"Freelance Structural Engineer",
+    org:"Self-employed",
+    points:[
+      "Structural analysis and design for two-storey residential houses for private clients.",
+      "Preparation of full structural drawing sets using AutoCAD and Revit."
+    ]
+  },
+];
+
+// ---- 6. EDUCATION & ACHIEVEMENTS ----
+const EDUCATION = [
+  { title:"BSc (Hons) in Civil Engineering", org:"[University Name], Sri Lanka", year:"20XX" },
+  { title:"[Add new certification / course here]", org:"[Issuing Body]", year:"20XX" },
+];
+
+// ---- 7. REVISION LOG (shown in footer) ----
+const REVISIONS = [
+  { rev:"A", date:"Jul 2026", note:"Initial portfolio published." },
+];
+
+/* ========================= ICONS ========================= */
+const ICONS = {
+  tank: `<svg viewBox="0 0 120 100" width="90"><rect x="20" y="20" width="80" height="55" rx="2" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><line x1="20" y1="35" x2="100" y2="35" stroke="#7FB8D6" stroke-width="1.5"/><line x1="40" y1="75" x2="40" y2="90" stroke="#7FB8D6" stroke-width="2.5"/><line x1="80" y1="75" x2="80" y2="90" stroke="#7FB8D6" stroke-width="2.5"/></svg>`,
+  building: `<svg viewBox="0 0 120 100" width="90"><rect x="30" y="10" width="60" height="80" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><line x1="30" y1="30" x2="90" y2="30" stroke="#7FB8D6" stroke-width="1.5"/><line x1="30" y1="50" x2="90" y2="50" stroke="#7FB8D6" stroke-width="1.5"/><line x1="30" y1="70" x2="90" y2="70" stroke="#7FB8D6" stroke-width="1.5"/><line x1="50" y1="10" x2="50" y2="90" stroke="#7FB8D6" stroke-width="1"/><line x1="70" y1="10" x2="70" y2="90" stroke="#7FB8D6" stroke-width="1"/></svg>`,
+  culvert: `<svg viewBox="0 0 120 100" width="90"><path d="M20 80 L20 55 A20 20 0 0 1 60 55 A20 20 0 0 1 100 55 L100 80" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><line x1="10" y1="80" x2="110" y2="80" stroke="#7FB8D6" stroke-width="2.5"/></svg>`,
+  network: `<svg viewBox="0 0 120 100" width="90"><circle cx="30" cy="30" r="6" fill="none" stroke="#7FB8D6" stroke-width="2"/><circle cx="90" cy="30" r="6" fill="none" stroke="#7FB8D6" stroke-width="2"/><circle cx="60" cy="70" r="6" fill="none" stroke="#7FB8D6" stroke-width="2"/><circle cx="20" cy="75" r="5" fill="none" stroke="#7FB8D6" stroke-width="2"/><line x1="36" y1="30" x2="84" y2="30" stroke="#7FB8D6" stroke-width="1.5"/><line x1="30" y1="36" x2="58" y2="65" stroke="#7FB8D6" stroke-width="1.5"/><line x1="90" y1="36" x2="63" y2="65" stroke="#7FB8D6" stroke-width="1.5"/><line x1="25" y1="70" x2="55" y2="70" stroke="#7FB8D6" stroke-width="1.5"/></svg>`,
+  house: `<svg viewBox="0 0 120 100" width="90"><path d="M20 50 L60 15 L100 50" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><rect x="30" y="50" width="60" height="35" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><line x1="60" y1="50" x2="60" y2="85" stroke="#7FB8D6" stroke-width="1.5"/></svg>`,
+};
+
+/* ========================= RENDER ========================= */
+function renderExpertise(){
+  document.getElementById('expertiseGrid').innerHTML = EXPERTISE.map(e => `
+    <div class="exp-card">
+      <div class="num">${e.tag}</div>
+      <h4>${e.title}</h4>
+      <p>${e.text}</p>
+    </div>`).join('');
+}
+
+function renderTools(){
+  document.getElementById('toolsGrid').innerHTML = TOOLS.map(t => `
+    <div class="tool-chip">
+      <div class="name">${t.name}</div>
+      <div class="use">${t.use}</div>
+    </div>`).join('');
+}
+
+function renderProjects(){
+  document.getElementById('projectsList').innerHTML = PROJECTS.map(p => `
+    <div class="project-card reveal">
+      <div class="project-visual">${ICONS[p.icon] || ICONS.building}</div>
+      <div class="project-body">
+        <div class="project-tophead">
+          <h4>${p.title}</h4>
+          <span class="sheetno">${p.sheet}</span>
+        </div>
+        <div class="role">${p.role}</div>
+        <p class="desc">${p.desc}</p>
+        <div class="tag-row">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderSiteExperience(){
+  const bolt = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>`;
+  document.getElementById('siteGrid').innerHTML = SITE_EXPERIENCE.map(s => `
+    <div class="site-card">
+      <div class="icn">${bolt}</div>
+      <h4>${s.title}</h4>
+      <p>${s.text}</p>
+    </div>`).join('');
+}
+
+function renderExperience(){
+  document.getElementById('experienceList').innerHTML = EXPERIENCE.map(e => `
+    <div class="tl-item">
+      <div class="period">${e.period}</div>
+      <h4>${e.title}</h4>
+      <div class="org">${e.org}</div>
+      <ul>${e.points.map(pt => `<li>${pt}</li>`).join('')}</ul>
+    </div>`).join('');
+}
+
+function renderEducation(){
+  document.getElementById('educationList').innerHTML = EDUCATION.map(ed => `
+    <div class="edu-item">
+      <div>
+        <h4>${ed.title}</h4>
+        <div class="org">${ed.org}</div>
+      </div>
+      <div class="yr">${ed.year}</div>
+    </div>`).join('');
+}
+
+function renderRevisions(){
+  document.querySelector('#revTable tbody').innerHTML = REVISIONS.map(r => `
+    <tr><td>${r.rev}</td><td>${r.date}</td><td>${r.note}</td></tr>`).join('');
+}
+
+renderExpertise();
+renderTools();
+renderProjects();
+renderSiteExperience();
+renderExperience();
+renderEducation();
+renderRevisions();
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Scroll reveal
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+}, {threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+document.querySelectorAll('.project-card').forEach(el => { el.classList.add('reveal'); io.observe(el); });
+</script>
 </body>
 </html>
