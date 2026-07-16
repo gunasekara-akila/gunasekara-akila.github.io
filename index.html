@@ -196,10 +196,10 @@
     padding:28px; margin-bottom:40px;
   }
   .beam-animation-wrapper h3{color:var(--white); font-size:16px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase;}
-  #beam{background:var(--white); margin:0 0 20px 0; border-radius:2px; display:block; width:100%;}
+  #beam{background:var(--white); margin:0 0 20px 0; border-radius:2px; display:block; width:100%; max-width:100%;}
   .beam-info{color:rgba(255,255,255,0.78); display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:16px 0; font-family:'IBM Plex Mono',monospace; font-size:14px;}
   .beam-info span{font-weight:600; color:#8FB6CF;}
-  .beam-controls{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:20px;}
+  .beam-controls{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:20px 0;}
   .beam-btn{
     background:var(--redline); color:var(--white); border:none;
     padding:10px 18px; font-family:'IBM Plex Mono',monospace; font-size:12px;
@@ -207,6 +207,8 @@
     cursor:pointer; transition:background 0.2s ease;
   }
   .beam-btn:hover{background:#8f3521;}
+  .charts-wrapper{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  #shearChart, #momentChart{background:var(--white); border-radius:2px; max-width:100%;}
 
   .beam-wrap{position:relative; z-index:2; border-top:1px solid rgba(255,255,255,0.14);}
   .beam-svg{width:100%; height:auto; display:block;}
@@ -339,6 +341,7 @@
     .hero-inner{grid-template-columns:1fr;}
     .profile-section{flex-direction:column;}
     .beam-info{gap:20px;}
+    .charts-wrapper{grid-template-columns:1fr;}
   }
   @media (max-width:640px){
     .nav-links{display:none;}
@@ -403,9 +406,9 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
     </div>
   </div>
   
-  <!-- Beam Animation Section -->
+  <!-- Beam Animation Section with Charts -->
   <div class="wrap beam-animation-wrapper reveal">
-    <h3>Interactive: Simply Supported Beam with Moving Load</h3>
+    <h3>Interactive: Simply Supported Beam with Moving Point Load</h3>
     <canvas id="beam" width="900" height="180"></canvas>
     <div class="beam-info">
       <div>Load Position = <span id="pos">0.00</span> m</div>
@@ -416,6 +419,16 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
       <button class="beam-btn" onclick="playBeam()">▶ Play</button>
       <button class="beam-btn" onclick="pauseBeam()">⏸ Pause</button>
       <button class="beam-btn" onclick="resetBeam()">⟲ Reset</button>
+    </div>
+    
+    <!-- Shear Force & Bending Moment Diagrams -->
+    <div class="charts-wrapper">
+      <div>
+        <canvas id="shearChart"></canvas>
+      </div>
+      <div>
+        <canvas id="momentChart"></canvas>
+      </div>
     </div>
   </div>
 </header>
@@ -653,6 +666,7 @@ const EDUCATION = [
 
 // ---- 7. REVISION LOG (shown in footer) ----
 const REVISIONS = [
+  { rev:"D", date:"Jul 2026", note:"Added shear force & bending moment diagrams to beam animation." },
   { rev:"C", date:"Jul 2026", note:"Added interactive simply supported beam animation." },
   { rev:"B", date:"Jul 2026", note:"Added profile photo slideshow." },
   { rev:"A", date:"Jul 2026", note:"Initial portfolio published." },
@@ -666,6 +680,74 @@ const ICONS = {
   network: `<svg viewBox="0 0 120 100" width="90"><circle cx="30" cy="30" r="6" fill="none" stroke="#7FB8D6" stroke-width="2"/><circle cx="90" cy="30" r="6" fill="none" stroke="#7FB8D6" stroke-width="2"/><circle cx="60" cy="70" r="6" fill="none" stroke="#7FB8D6" stroke-width="2"/><line x1="36" y1="30" x2="84" y2="30" stroke="#7FB8D6" stroke-width="1.5"/><line x1="30" y1="36" x2="60" y2="64" stroke="#7FB8D6" stroke-width="1.5"/><line x1="90" y1="36" x2="60" y2="64" stroke="#7FB8D6" stroke-width="1.5"/></svg>`,
   house: `<svg viewBox="0 0 120 100" width="90"><path d="M20 50 L60 15 L100 50" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><rect x="30" y="50" width="60" height="35" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><line x1="60" y1="50" x2="60" y2="85" stroke="#7FB8D6" stroke-width="1.5"/></svg>`,
 };
+
+/* ========================= CHART INITIALIZATION ========================= */
+const shearChart = new Chart(
+  document.getElementById('shearChart'),{
+    type:'line',
+    data:{
+      labels:[],
+      datasets:[{
+        label:"Shear Force (kN)",
+        data:[],
+        borderColor:'#2563EB',
+        backgroundColor:'rgba(37,99,235,0.1)',
+        fill:true,
+        stepped:true,
+        tension:0
+      }]
+    },
+    options:{
+      animation:false,
+      responsive:true,
+      maintainAspectRatio:true,
+      plugins:{
+        legend:{display:true, position:'top'}
+      },
+      scales:{
+        y:{
+          title:{display:true,text:"Shear Force (kN)"},
+          beginAtZero:true
+        },
+        x:{
+          title:{display:true,text:"Position (m)"}
+        }
+      }
+    }
+  });
+
+const momentChart = new Chart(
+  document.getElementById('momentChart'),{
+    type:'line',
+    data:{
+      labels:[],
+      datasets:[{
+        label:"Bending Moment (kNm)",
+        data:[],
+        borderColor:'#DC2626',
+        backgroundColor:'rgba(220,38,38,0.1)',
+        fill:true,
+        tension:0.4
+      }]
+    },
+    options:{
+      animation:false,
+      responsive:true,
+      maintainAspectRatio:true,
+      plugins:{
+        legend:{display:true, position:'top'}
+      },
+      scales:{
+        y:{
+          title:{display:true,text:"Bending Moment (kNm)"},
+          beginAtZero:true
+        },
+        x:{
+          title:{display:true,text:"Position (m)"}
+        }
+      }
+    }
+  });
 
 /* ========================= SLIDESHOW FUNCTIONS ========================= */
 function renderSlideshow(){
@@ -759,6 +841,41 @@ function updateBeamValues(){
   document.getElementById('rb').innerHTML = RB.toFixed(2);
 
   drawBeam();
+  updateCharts();
+}
+
+function updateCharts(){
+  let labels = [];
+  let shearData = [];
+  let momentData = [];
+
+  for(let i = 0; i <= 120; i++){
+    let z = BEAM_L * i / 120;
+    labels.push(z.toFixed(2));
+
+    // Shear Force
+    const RA = BEAM_P * (BEAM_L - beamX) / BEAM_L;
+    if(z < beamX)
+      shearData.push(RA);
+    else
+      shearData.push(RA - BEAM_P);
+
+    // Bending Moment
+    let M;
+    if(z <= beamX)
+      M = RA * z;
+    else
+      M = RA * z - BEAM_P * (z - beamX);
+    momentData.push(M);
+  }
+
+  shearChart.data.labels = labels;
+  shearChart.data.datasets[0].data = shearData;
+  shearChart.update();
+
+  momentChart.data.labels = labels;
+  momentChart.data.datasets[0].data = momentData;
+  momentChart.update();
 }
 
 function playBeam(){
