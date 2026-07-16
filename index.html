@@ -7,7 +7,6 @@
 <meta name="description" content="Portfolio of Akila Gunasekara, Structural & Civil Design Engineer specialising in Buildings, water retaining structures, culverts, retaining walls and water/wastewater networks.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   :root{
     --paper:#EEF1EF;
@@ -79,9 +78,8 @@
     transition:background .15s ease, transform .15s ease;
   }
   .btn-cv:hover{background:#8f3521; transform:translateY(-1px);}
-  .nav-toggle{display:none; background:none; border:1px solid rgba(255,255,255,0.3); color:var(--white); padding:6px 10px; border-radius:var(--radius);}
 
-  /* ---------- Sheet header (signature device) ---------- */
+  /* ---------- Sheet header ---------- */
   .sheet-header{
     display:flex; align-items:center; gap:18px;
     padding:14px 0; margin-bottom:46px;
@@ -196,7 +194,16 @@
     padding:28px; margin-bottom:40px;
   }
   .beam-animation-wrapper h3{color:var(--white); font-size:16px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase;}
-  #beam{background:var(--white); margin:0 0 20px 0; border-radius:2px; display:block; width:100%; max-width:100%;}
+  
+  .beam-canvas-container{
+    background:var(--white); border-radius:2px; padding:20px; margin:0 0 20px 0;
+    overflow-x:auto;
+  }
+  
+  #beamDiagram{
+    display:block; width:100%; max-width:100%;
+  }
+  
   .beam-info{color:rgba(255,255,255,0.78); display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:16px 0; font-family:'IBM Plex Mono',monospace; font-size:14px;}
   .beam-info span{font-weight:600; color:#8FB6CF;}
   .beam-controls{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:20px 0;}
@@ -207,18 +214,14 @@
     cursor:pointer; transition:background 0.2s ease;
   }
   .beam-btn:hover{background:#8f3521;}
-  .charts-wrapper{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-  #shearChart, #momentChart{background:var(--white); border-radius:2px; max-width:100%;}
 
-  .beam-wrap{position:relative; z-index:2; border-top:1px solid rgba(255,255,255,0.14);}
-  .beam-svg{width:100%; height:auto; display:block;}
-  .beam-line{stroke-dasharray:1400; stroke-dashoffset:1400; animation:draw 2.6s ease forwards;}
-  .beam-line.delay1{animation-delay:.3s;}
-  .beam-line.delay2{animation-delay:.7s;}
-  @keyframes draw{to{stroke-dashoffset:0;}}
-  @media (prefers-reduced-motion: reduce){
-    .beam-line{animation:none; stroke-dashoffset:0;}
+  .legend-box{
+    background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:2px;
+    padding:14px; margin-top:20px; font-family:'IBM Plex Mono',monospace; font-size:12px;
+    color:rgba(255,255,255,0.8);
   }
+  .legend-item{display:flex; align-items:center; gap:8px; margin:6px 0;}
+  .legend-line{width:20px; height:2px; display:inline-block;}
 
   /* ---------- About ---------- */
   .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start;}
@@ -269,10 +272,6 @@
   .tag{
     font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blueprint);
     border:1px solid var(--line); padding:3px 9px; border-radius:20px; background:var(--paper-deep);
-  }
-  @media (max-width:720px){
-    .project-card{grid-template-columns:1fr;}
-    .project-visual{border-right:none; border-bottom:1px solid var(--line); padding:26px;}
   }
 
   /* ---------- Timeline (experience) ---------- */
@@ -341,16 +340,14 @@
     .hero-inner{grid-template-columns:1fr;}
     .profile-section{flex-direction:column;}
     .beam-info{gap:20px;}
-    .charts-wrapper{grid-template-columns:1fr;}
   }
   @media (max-width:640px){
-    .nav-links{display:none;}
     .expertise-grid{grid-template-columns:1fr;}
     .tools-grid{grid-template-columns:1fr 1fr;}
     .project-card{grid-template-columns:1fr;}
     .profile-slideshow{max-width:100%; aspect-ratio:auto;}
     .beam-animation-wrapper{padding:16px;}
-    #beam{height:120px;}
+    #beamDiagram{height:auto;}
     .beam-info{font-size:12px;}
     .beam-controls{gap:8px;}
     .beam-btn{padding:8px 14px; font-size:11px;}
@@ -406,29 +403,28 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
     </div>
   </div>
   
-  <!-- Beam Animation Section with Charts -->
+  <!-- Beam Animation Section -->
   <div class="wrap beam-animation-wrapper reveal">
-    <h3>Interactive: Simply Supported Beam with Moving Point Load</h3>
-    <canvas id="beam" width="900" height="180"></canvas>
+    <h3>Interactive: Simply Supported Beam Analysis</h3>
+    <div class="beam-canvas-container">
+      <canvas id="beamDiagram" width="1000" height="500"></canvas>
+    </div>
     <div class="beam-info">
       <div>Load Position = <span id="pos">0.00</span> m</div>
       <div>RA = <span id="ra">0</span> kN</div>
       <div>RB = <span id="rb">0</span> kN</div>
+      <div>Max BM = <span id="maxbm">0</span> kNm</div>
     </div>
     <div class="beam-controls">
       <button class="beam-btn" onclick="playBeam()">▶ Play</button>
       <button class="beam-btn" onclick="pauseBeam()">⏸ Pause</button>
       <button class="beam-btn" onclick="resetBeam()">⟲ Reset</button>
     </div>
-    
-    <!-- Shear Force & Bending Moment Diagrams -->
-    <div class="charts-wrapper">
-      <div>
-        <canvas id="shearChart"></canvas>
-      </div>
-      <div>
-        <canvas id="momentChart"></canvas>
-      </div>
+    <div class="legend-box">
+      <div class="legend-item"><div class="legend-line" style="background:#5DADE2;"></div>Beam & Supports</div>
+      <div class="legend-item"><div class="legend-line" style="background:#FF4444;"></div>Moving Point Load (P = 100 kN)</div>
+      <div class="legend-item"><div class="legend-line" style="background:#2563EB;"></div>Shear Force Diagram (stepped)</div>
+      <div class="legend-item"><div class="legend-line" style="background:#DC2626;"></div>Bending Moment Diagram (curved)</div>
     </div>
   </div>
 </header>
@@ -530,10 +526,7 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
 
 <script>
 /* =========================================================================
-   EDITABLE CONTENT
-   Everything you'll want to update over time lives in the arrays below.
-   Add a new object to the top of an array to add a new project, job,
-   qualification, or revision log entry — the page re-renders automatically.
+   EDITABLE CONTENT - Arrays for dynamic rendering
    ========================================================================= */
 
 // ---- PROFILE PICTURES / SLIDESHOW ----
@@ -546,10 +539,11 @@ const PROFILE_IMAGES = [
 let currentSlide = 0;
 
 // ---- BEAM ANIMATION CONSTANTS ----
-const BEAM_L = 6;
-const BEAM_P = 100;
-let beamX = 0;
+const BEAM_L = 6;    // Length 6m
+const BEAM_P = 100;  // Point load 100 kN
+let beamX = 0;       // Current load position
 let beamTimer;
+let animating = false;
 
 // ---- 1. CORE EXPERTISE CARDS ----
 const EXPERTISE = [
@@ -664,9 +658,10 @@ const EDUCATION = [
   { title:"Diploma in Revit Architecture", org:"ArchiTech CAD Academy, Sri Lanka", year:"Apr 2026" },
 ];
 
-// ---- 7. REVISION LOG (shown in footer) ----
+// ---- 7. REVISION LOG ----
 const REVISIONS = [
-  { rev:"D", date:"Jul 2026", note:"Added shear force & bending moment diagrams to beam animation." },
+  { rev:"E", date:"Jul 2026", note:"Unified SFD & BMD on single beam diagram canvas." },
+  { rev:"D", date:"Jul 2026", note:"Added shear force & bending moment diagrams." },
   { rev:"C", date:"Jul 2026", note:"Added interactive simply supported beam animation." },
   { rev:"B", date:"Jul 2026", note:"Added profile photo slideshow." },
   { rev:"A", date:"Jul 2026", note:"Initial portfolio published." },
@@ -680,74 +675,6 @@ const ICONS = {
   network: `<svg viewBox="0 0 120 100" width="90"><circle cx="30" cy="30" r="6" fill="none" stroke="#7FB8D6" stroke-width="2"/><circle cx="90" cy="30" r="6" fill="none" stroke="#7FB8D6" stroke-width="2"/><circle cx="60" cy="70" r="6" fill="none" stroke="#7FB8D6" stroke-width="2"/><line x1="36" y1="30" x2="84" y2="30" stroke="#7FB8D6" stroke-width="1.5"/><line x1="30" y1="36" x2="60" y2="64" stroke="#7FB8D6" stroke-width="1.5"/><line x1="90" y1="36" x2="60" y2="64" stroke="#7FB8D6" stroke-width="1.5"/></svg>`,
   house: `<svg viewBox="0 0 120 100" width="90"><path d="M20 50 L60 15 L100 50" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><rect x="30" y="50" width="60" height="35" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><line x1="60" y1="50" x2="60" y2="85" stroke="#7FB8D6" stroke-width="1.5"/></svg>`,
 };
-
-/* ========================= CHART INITIALIZATION ========================= */
-const shearChart = new Chart(
-  document.getElementById('shearChart'),{
-    type:'line',
-    data:{
-      labels:[],
-      datasets:[{
-        label:"Shear Force (kN)",
-        data:[],
-        borderColor:'#2563EB',
-        backgroundColor:'rgba(37,99,235,0.1)',
-        fill:true,
-        stepped:true,
-        tension:0
-      }]
-    },
-    options:{
-      animation:false,
-      responsive:true,
-      maintainAspectRatio:true,
-      plugins:{
-        legend:{display:true, position:'top'}
-      },
-      scales:{
-        y:{
-          title:{display:true,text:"Shear Force (kN)"},
-          beginAtZero:true
-        },
-        x:{
-          title:{display:true,text:"Position (m)"}
-        }
-      }
-    }
-  });
-
-const momentChart = new Chart(
-  document.getElementById('momentChart'),{
-    type:'line',
-    data:{
-      labels:[],
-      datasets:[{
-        label:"Bending Moment (kNm)",
-        data:[],
-        borderColor:'#DC2626',
-        backgroundColor:'rgba(220,38,38,0.1)',
-        fill:true,
-        tension:0.4
-      }]
-    },
-    options:{
-      animation:false,
-      responsive:true,
-      maintainAspectRatio:true,
-      plugins:{
-        legend:{display:true, position:'top'}
-      },
-      scales:{
-        y:{
-          title:{display:true,text:"Bending Moment (kNm)"},
-          beginAtZero:true
-        },
-        x:{
-          title:{display:true,text:"Position (m)"}
-        }
-      }
-    }
-  });
 
 /* ========================= SLIDESHOW FUNCTIONS ========================= */
 function renderSlideshow(){
@@ -778,121 +705,215 @@ function showSlide(){
   dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
 }
 
-/* ========================= BEAM ANIMATION FUNCTIONS ========================= */
-function drawBeam(){
-  const beam = document.getElementById('beam');
-  const ctx = beam.getContext('2d');
-  const left = 80;
-  const right = 820;
-  const y = 80;
-
-  ctx.clearRect(0, 0, 900, 180);
-
-  // Draw beam line
-  ctx.lineWidth = 6;
+/* ========================= BEAM DRAWING FUNCTION ========================= */
+function drawBeamDiagram(){
+  const canvas = document.getElementById('beamDiagram');
+  const ctx = canvas.getContext('2d');
+  const padding = 60;
+  const beamStartX = padding;
+  const beamEndX = canvas.width - padding;
+  const beamY = 120;
+  
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // ===== 1. DRAW BEAM =====
   ctx.strokeStyle = '#5DADE2';
+  ctx.lineWidth = 8;
   ctx.beginPath();
-  ctx.moveTo(left, y);
-  ctx.lineTo(right, y);
+  ctx.moveTo(beamStartX, beamY);
+  ctx.lineTo(beamEndX, beamY);
   ctx.stroke();
-
-  // Draw supports
+  
+  // Support triangles
+  ctx.fillStyle = '#5DADE2';
+  const supportSize = 20;
+  
+  // Left support
   ctx.beginPath();
-  ctx.moveTo(left - 15, y + 40);
-  ctx.lineTo(left, y);
-  ctx.lineTo(left + 15, y + 40);
+  ctx.moveTo(beamStartX, beamY);
+  ctx.lineTo(beamStartX - supportSize, beamY + supportSize);
+  ctx.lineTo(beamStartX + supportSize, beamY + supportSize);
   ctx.closePath();
-  ctx.stroke();
-
+  ctx.fill();
+  
+  // Right support
   ctx.beginPath();
-  ctx.moveTo(right - 15, y + 40);
-  ctx.lineTo(right, y);
-  ctx.lineTo(right + 15, y + 40);
+  ctx.moveTo(beamEndX, beamY);
+  ctx.lineTo(beamEndX - supportSize, beamY + supportSize);
+  ctx.lineTo(beamEndX + supportSize, beamY + supportSize);
   ctx.closePath();
-  ctx.stroke();
-
-  // Draw moving load
-  const px = left + (right - left) * (beamX / BEAM_L);
-  ctx.strokeStyle = 'red';
-  ctx.lineWidth = 4;
-
+  ctx.fill();
+  
+  // ===== 2. DRAW MOVING LOAD =====
+  const loadX = beamStartX + (beamEndX - beamStartX) * (beamX / BEAM_L);
+  
+  ctx.strokeStyle = '#FF4444';
+  ctx.lineWidth = 5;
   ctx.beginPath();
-  ctx.moveTo(px, 20);
-  ctx.lineTo(px, 70);
+  ctx.moveTo(loadX, 40);
+  ctx.lineTo(loadX, beamY - 10);
   ctx.stroke();
-
+  
+  // Arrow
   ctx.beginPath();
-  ctx.moveTo(px - 8, 55);
-  ctx.lineTo(px, 70);
-  ctx.lineTo(px + 8, 55);
+  ctx.moveTo(loadX - 8, beamY - 20);
+  ctx.lineTo(loadX, beamY - 10);
+  ctx.lineTo(loadX + 8, beamY - 20);
   ctx.stroke();
-
-  ctx.fillStyle = 'red';
-  ctx.font = '14px Arial';
-  ctx.fillText('P', px - 5, 15);
-}
-
-function updateBeamValues(){
+  
+  ctx.fillStyle = '#FF4444';
+  ctx.font = 'bold 14px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('P = 100 kN', loadX, 25);
+  
+  // ===== 3. DRAW SHEAR FORCE DIAGRAM (Blue, below beam) =====
+  const sfdY = beamY + 100;
+  const sfdScale = 60 / BEAM_P; // Scale for display
+  
+  ctx.strokeStyle = '#2563EB';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([3, 3]);
+  
+  // Baseline for SFD
+  ctx.beginPath();
+  ctx.moveTo(beamStartX, sfdY);
+  ctx.lineTo(beamEndX, sfdY);
+  ctx.stroke();
+  
+  ctx.setLineDash([]);
+  ctx.lineWidth = 3;
+  
+  // Draw SFD
+  ctx.strokeStyle = '#2563EB';
+  
+  // Before load point
   const RA = BEAM_P * (BEAM_L - beamX) / BEAM_L;
+  ctx.beginPath();
+  ctx.moveTo(beamStartX, sfdY - RA * sfdScale);
+  ctx.lineTo(loadX, sfdY - RA * sfdScale);
+  ctx.stroke();
+  
+  // After load point
   const RB = BEAM_P * beamX / BEAM_L;
-
-  document.getElementById('pos').innerHTML = beamX.toFixed(2);
-  document.getElementById('ra').innerHTML = RA.toFixed(2);
-  document.getElementById('rb').innerHTML = RB.toFixed(2);
-
-  drawBeam();
-  updateCharts();
-}
-
-function updateCharts(){
-  let labels = [];
-  let shearData = [];
-  let momentData = [];
-
-  for(let i = 0; i <= 120; i++){
-    let z = BEAM_L * i / 120;
-    labels.push(z.toFixed(2));
-
-    // Shear Force
-    const RA = BEAM_P * (BEAM_L - beamX) / BEAM_L;
-    if(z < beamX)
-      shearData.push(RA);
-    else
-      shearData.push(RA - BEAM_P);
-
-    // Bending Moment
+  const shearAfter = RA - BEAM_P;
+  ctx.beginPath();
+  ctx.moveTo(loadX, sfdY + Math.abs(shearAfter) * sfdScale);
+  ctx.lineTo(beamEndX, sfdY + Math.abs(shearAfter) * sfdScale);
+  ctx.stroke();
+  
+  // Vertical line at load
+  ctx.beginPath();
+  ctx.moveTo(loadX, sfdY - RA * sfdScale);
+  ctx.lineTo(loadX, sfdY + Math.abs(shearAfter) * sfdScale);
+  ctx.stroke();
+  
+  // ===== 4. DRAW BENDING MOMENT DIAGRAM (Red, below SFD) =====
+  const bmdY = sfdY + 100;
+  const bmdScale = 80 / (BEAM_P * BEAM_L / 4); // Scale for display
+  
+  // Baseline for BMD
+  ctx.strokeStyle = '#999';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([3, 3]);
+  ctx.beginPath();
+  ctx.moveTo(beamStartX, bmdY);
+  ctx.lineTo(beamEndX, bmdY);
+  ctx.stroke();
+  
+  ctx.setLineDash([]);
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = '#DC2626';
+  
+  // Draw BMD curve
+  ctx.beginPath();
+  for(let i = 0; i <= 100; i++){
+    const z = BEAM_L * i / 100;
     let M;
     if(z <= beamX)
       M = RA * z;
     else
       M = RA * z - BEAM_P * (z - beamX);
-    momentData.push(M);
+    
+    const x = beamStartX + (beamEndX - beamStartX) * (z / BEAM_L);
+    const y = bmdY - M * bmdScale;
+    
+    if(i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  
+  // Fill under curve
+  ctx.fillStyle = 'rgba(220, 38, 38, 0.1)';
+  ctx.lineTo(beamEndX, bmdY);
+  ctx.lineTo(beamStartX, bmdY);
+  ctx.fill();
+  
+  // ===== 5. ADD LABELS =====
+  ctx.fillStyle = '#333';
+  ctx.font = '12px Arial';
+  ctx.textAlign = 'center';
+  
+  // Beam labels
+  ctx.fillText('0m', beamStartX, beamY + 50);
+  ctx.fillText(`${BEAM_L}m`, beamEndX, beamY + 50);
+  
+  // Section labels
+  ctx.fillStyle = '#2563EB';
+  ctx.font = 'bold 12px Arial';
+  ctx.fillText('Shear Force (kN)', beamStartX - 40, sfdY - 80);
+  
+  ctx.fillStyle = '#DC2626';
+  ctx.fillText('Bending Moment (kNm)', beamStartX - 40, bmdY - 80);
+  
+  // Reaction labels
+  ctx.fillStyle = '#0066CC';
+  ctx.font = '11px Arial';
+  ctx.fillText(`RA=${RA.toFixed(1)}kN`, beamStartX - 15, beamY + 35);
+  ctx.fillText(`RB=${RB.toFixed(1)}kN`, beamEndX + 15, beamY + 35);
+}
+
+function updateBeamValues(){
+  const RA = BEAM_P * (BEAM_L - beamX) / BEAM_L;
+  const RB = BEAM_P * beamX / BEAM_L;
+  
+  // Find max bending moment
+  let maxBM = 0;
+  for(let i = 0; i <= 100; i++){
+    const z = BEAM_L * i / 100;
+    let M;
+    if(z <= beamX)
+      M = RA * z;
+    else
+      M = RA * z - BEAM_P * (z - beamX);
+    maxBM = Math.max(maxBM, M);
   }
 
-  shearChart.data.labels = labels;
-  shearChart.data.datasets[0].data = shearData;
-  shearChart.update();
+  document.getElementById('pos').innerHTML = beamX.toFixed(2);
+  document.getElementById('ra').innerHTML = RA.toFixed(2);
+  document.getElementById('rb').innerHTML = RB.toFixed(2);
+  document.getElementById('maxbm').innerHTML = maxBM.toFixed(2);
 
-  momentChart.data.labels = labels;
-  momentChart.data.datasets[0].data = momentData;
-  momentChart.update();
+  drawBeamDiagram();
 }
 
 function playBeam(){
-  clearInterval(beamTimer);
+  if(animating) return;
+  animating = true;
   beamTimer = setInterval(function(){
-    beamX += 0.03;
+    beamX += 0.05;
     if(beamX > BEAM_L) beamX = 0;
     updateBeamValues();
-  }, 30);
+  }, 40);
 }
 
 function pauseBeam(){
   clearInterval(beamTimer);
+  animating = false;
 }
 
 function resetBeam(){
   clearInterval(beamTimer);
+  animating = false;
   beamX = 0;
   updateBeamValues();
 }
@@ -967,7 +988,7 @@ function renderRevisions(){
     <tr><td>${r.rev}</td><td>${r.date}</td><td>${r.note}</td></tr>`).join('');
 }
 
-// Initialize everything
+// ===== INITIALIZE =====
 renderSlideshow();
 renderExpertise();
 renderTools();
@@ -987,11 +1008,14 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 document.querySelectorAll('.project-card').forEach(el => { el.classList.add('reveal'); io.observe(el); });
 
-// Auto-advance slideshow every 6 seconds
+// Auto-advance slideshow
 setInterval(() => changeSlide(1), 6000);
 
-// Auto-play beam animation on load
-setTimeout(() => playBeam(), 1000);
+// Auto-play beam animation
+setTimeout(() => playBeam(), 1500);
+
+// Redraw on window resize
+window.addEventListener('resize', updateBeamValues);
 </script>
 </body>
 </html>
