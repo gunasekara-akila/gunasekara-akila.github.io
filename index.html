@@ -7,6 +7,7 @@
 <meta name="description" content="Portfolio of Akila Gunasekara, Structural & Civil Design Engineer specialising in Buildings, water retaining structures, culverts, retaining walls and water/wastewater networks.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   :root{
     --paper:#EEF1EF;
@@ -189,6 +190,24 @@
   .btn-outline{border-color:rgba(255,255,255,0.4); color:var(--white);}
   .btn-outline:hover{border-color:var(--white); transform:translateY(-1px);}
 
+  /* Beam Animation Section */
+  .beam-animation-wrapper{
+    background:var(--blueprint-deep); border:1px solid rgba(255,255,255,0.16); border-radius:var(--radius);
+    padding:28px; margin-bottom:40px;
+  }
+  .beam-animation-wrapper h3{color:var(--white); font-size:16px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase;}
+  #beam{background:var(--white); margin:0 0 20px 0; border-radius:2px; display:block; width:100%;}
+  .beam-info{color:rgba(255,255,255,0.78); display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:16px 0; font-family:'IBM Plex Mono',monospace; font-size:14px;}
+  .beam-info span{font-weight:600; color:#8FB6CF;}
+  .beam-controls{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:20px;}
+  .beam-btn{
+    background:var(--redline); color:var(--white); border:none;
+    padding:10px 18px; font-family:'IBM Plex Mono',monospace; font-size:12px;
+    letter-spacing:0.03em; text-transform:uppercase; border-radius:var(--radius);
+    cursor:pointer; transition:background 0.2s ease;
+  }
+  .beam-btn:hover{background:#8f3521;}
+
   .beam-wrap{position:relative; z-index:2; border-top:1px solid rgba(255,255,255,0.14);}
   .beam-svg{width:100%; height:auto; display:block;}
   .beam-line{stroke-dasharray:1400; stroke-dashoffset:1400; animation:draw 2.6s ease forwards;}
@@ -319,6 +338,7 @@
     .site-grid{grid-template-columns:1fr;}
     .hero-inner{grid-template-columns:1fr;}
     .profile-section{flex-direction:column;}
+    .beam-info{gap:20px;}
   }
   @media (max-width:640px){
     .nav-links{display:none;}
@@ -326,6 +346,11 @@
     .tools-grid{grid-template-columns:1fr 1fr;}
     .project-card{grid-template-columns:1fr;}
     .profile-slideshow{max-width:100%; aspect-ratio:auto;}
+    .beam-animation-wrapper{padding:16px;}
+    #beam{height:120px;}
+    .beam-info{font-size:12px;}
+    .beam-controls{gap:8px;}
+    .beam-btn{padding:8px 14px; font-size:11px;}
   }
 </style>
 </head>
@@ -378,21 +403,20 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
     </div>
   </div>
   
-  <div class="beam-wrap">
-    <svg class="beam-svg" viewBox="0 0 1120 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Simply supported beam diagram with distributed load">
-      <line class="beam-line" x1="120" y1="90" x2="1000" y2="90" stroke="#7FB8D6" stroke-width="3"/>
-      <polygon class="beam-line delay1" points="120,90 100,125 140,125" fill="none" stroke="#7FB8D6" stroke-width="2"/>
-      <polygon class="beam-line delay1" points="1000,90 980,125 1020,125" fill="none" stroke="#7FB8D6" stroke-width="2"/>
-      <g class="beam-line delay2" stroke="#4E86A6" stroke-width="1.5">
-        <line x1="160" y1="55" x2="160" y2="88"/><line x1="220" y1="50" x2="220" y2="88"/><line x1="280" y1="47" x2="280" y2="88"/>
-        <line x1="340" y1="45" x2="340" y2="88"/><line x1="400" y1="44" x2="400" y2="88"/><line x1="460" y1="44" x2="460" y2="88"/>
-        <line x1="520" y1="45" x2="520" y2="88"/><line x1="580" y1="47" x2="580" y2="88"/><line x1="640" y1="50" x2="640" y2="88"/>
-        <line x1="700" y1="55" x2="700" y2="88"/><line x1="760" y1="47" x2="760" y2="88"/><line x1="820" y1="50" x2="820" y2="88"/>
-        <line x1="880" y1="55" x2="880" y2="88"/><line x1="940" y1="60" x2="940" y2="88"/>
-      </g>
-      <line class="beam-line delay2" x1="150" y1="42" x2="950" y2="42" stroke="#4E86A6" stroke-width="1.5"/>
-      <text x="560" y="160" text-anchor="middle" fill="#5C86A0" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="1">SPAN — L = 6.00 m · UDL · SIMPLY SUPPORTED</text>
-    </svg>
+  <!-- Beam Animation Section -->
+  <div class="wrap beam-animation-wrapper reveal">
+    <h3>Interactive: Simply Supported Beam with Moving Load</h3>
+    <canvas id="beam" width="900" height="180"></canvas>
+    <div class="beam-info">
+      <div>Load Position = <span id="pos">0.00</span> m</div>
+      <div>RA = <span id="ra">0</span> kN</div>
+      <div>RB = <span id="rb">0</span> kN</div>
+    </div>
+    <div class="beam-controls">
+      <button class="beam-btn" onclick="playBeam()">▶ Play</button>
+      <button class="beam-btn" onclick="pauseBeam()">⏸ Pause</button>
+      <button class="beam-btn" onclick="resetBeam()">⟲ Reset</button>
+    </div>
   </div>
 </header>
 
@@ -500,8 +524,6 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
    ========================================================================= */
 
 // ---- PROFILE PICTURES / SLIDESHOW ----
-// Add your image URLs here. Currently using placeholder URLs.
-// Replace with your actual image paths (e.g., "images/photo1.jpg", "images/photo2.jpg")
 const PROFILE_IMAGES = [
   { url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%230B283F' width='400' height='400'/%3E%3Ccircle cx='200' cy='120' r='60' fill='%237FB8D6'/%3E%3Crect x='120' y='200' width='160' height='180' fill='%237FB8D6'/%3E%3Ctext x='200' y='360' text-anchor='middle' fill='rgba(255,255,255,0.5)' font-size='18' font-family='Arial'%3EYour Photo Here%3C/text%3E%3C/svg%3E", label: "Profile 1" },
   { url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23123C5C' width='400' height='400'/%3E%3Ccircle cx='200' cy='120' r='60' fill='%238FB6CF'/%3E%3Crect x='120' y='200' width='160' height='180' fill='%238FB6CF'/%3E%3Ctext x='200' y='360' text-anchor='middle' fill='rgba(255,255,255,0.5)' font-size='18' font-family='Arial'%3EYour Photo Here%3C/text%3E%3C/svg%3E", label: "Profile 2" },
@@ -509,6 +531,12 @@ const PROFILE_IMAGES = [
 ];
 
 let currentSlide = 0;
+
+// ---- BEAM ANIMATION CONSTANTS ----
+const BEAM_L = 6;
+const BEAM_P = 100;
+let beamX = 0;
+let beamTimer;
 
 // ---- 1. CORE EXPERTISE CARDS ----
 const EXPERTISE = [
@@ -533,7 +561,6 @@ const TOOLS = [
 ];
 
 // ---- 3. FEATURED PROJECTS ----
-// icon options provided below: "tank", "building", "culvert", "network", "house"
 const PROJECTS = [
   {
     sheet:"PRJ-01", icon:"tank",
@@ -626,6 +653,7 @@ const EDUCATION = [
 
 // ---- 7. REVISION LOG (shown in footer) ----
 const REVISIONS = [
+  { rev:"C", date:"Jul 2026", note:"Added interactive simply supported beam animation." },
   { rev:"B", date:"Jul 2026", note:"Added profile photo slideshow." },
   { rev:"A", date:"Jul 2026", note:"Initial portfolio published." },
 ];
@@ -639,7 +667,7 @@ const ICONS = {
   house: `<svg viewBox="0 0 120 100" width="90"><path d="M20 50 L60 15 L100 50" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><rect x="30" y="50" width="60" height="35" fill="none" stroke="#7FB8D6" stroke-width="2.5"/><line x1="60" y1="50" x2="60" y2="85" stroke="#7FB8D6" stroke-width="1.5"/></svg>`,
 };
 
-/* ========================= RENDER ========================= */
+/* ========================= SLIDESHOW FUNCTIONS ========================= */
 function renderSlideshow(){
   const container = document.getElementById('slidesContainer');
   const dotsContainer = document.getElementById('dotsContainer');
@@ -650,18 +678,14 @@ function renderSlideshow(){
     </div>`).join('');
   
   dotsContainer.innerHTML = PROFILE_IMAGES.map((_, idx) => `
-    <div class="dot-indicator ${idx === 0 ? 'active' : ''}" onclick="goToSlide(${idx})"></div>`).join('');
+    <div class="dot-indicator ${idx === 0 ? 'active' : ''}" onclick="changeSlide(${idx})"></div>`).join('');
 }
 
 function changeSlide(n){
-  currentSlide += n;
+  if(typeof n === 'number') currentSlide = n;
+  else currentSlide += n;
   if(currentSlide >= PROFILE_IMAGES.length) currentSlide = 0;
   if(currentSlide < 0) currentSlide = PROFILE_IMAGES.length - 1;
-  showSlide();
-}
-
-function goToSlide(n){
-  currentSlide = n;
   showSlide();
 }
 
@@ -672,6 +696,91 @@ function showSlide(){
   dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
 }
 
+/* ========================= BEAM ANIMATION FUNCTIONS ========================= */
+function drawBeam(){
+  const beam = document.getElementById('beam');
+  const ctx = beam.getContext('2d');
+  const left = 80;
+  const right = 820;
+  const y = 80;
+
+  ctx.clearRect(0, 0, 900, 180);
+
+  // Draw beam line
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = '#5DADE2';
+  ctx.beginPath();
+  ctx.moveTo(left, y);
+  ctx.lineTo(right, y);
+  ctx.stroke();
+
+  // Draw supports
+  ctx.beginPath();
+  ctx.moveTo(left - 15, y + 40);
+  ctx.lineTo(left, y);
+  ctx.lineTo(left + 15, y + 40);
+  ctx.closePath();
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(right - 15, y + 40);
+  ctx.lineTo(right, y);
+  ctx.lineTo(right + 15, y + 40);
+  ctx.closePath();
+  ctx.stroke();
+
+  // Draw moving load
+  const px = left + (right - left) * (beamX / BEAM_L);
+  ctx.strokeStyle = 'red';
+  ctx.lineWidth = 4;
+
+  ctx.beginPath();
+  ctx.moveTo(px, 20);
+  ctx.lineTo(px, 70);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(px - 8, 55);
+  ctx.lineTo(px, 70);
+  ctx.lineTo(px + 8, 55);
+  ctx.stroke();
+
+  ctx.fillStyle = 'red';
+  ctx.font = '14px Arial';
+  ctx.fillText('P', px - 5, 15);
+}
+
+function updateBeamValues(){
+  const RA = BEAM_P * (BEAM_L - beamX) / BEAM_L;
+  const RB = BEAM_P * beamX / BEAM_L;
+
+  document.getElementById('pos').innerHTML = beamX.toFixed(2);
+  document.getElementById('ra').innerHTML = RA.toFixed(2);
+  document.getElementById('rb').innerHTML = RB.toFixed(2);
+
+  drawBeam();
+}
+
+function playBeam(){
+  clearInterval(beamTimer);
+  beamTimer = setInterval(function(){
+    beamX += 0.03;
+    if(beamX > BEAM_L) beamX = 0;
+    updateBeamValues();
+  }, 30);
+}
+
+function pauseBeam(){
+  clearInterval(beamTimer);
+}
+
+function resetBeam(){
+  clearInterval(beamTimer);
+  beamX = 0;
+  updateBeamValues();
+}
+
+/* ========================= RENDER FUNCTIONS ========================= */
 function renderExpertise(){
   document.getElementById('expertiseGrid').innerHTML = EXPERTISE.map(e => `
     <div class="exp-card">
@@ -741,6 +850,7 @@ function renderRevisions(){
     <tr><td>${r.rev}</td><td>${r.date}</td><td>${r.note}</td></tr>`).join('');
 }
 
+// Initialize everything
 renderSlideshow();
 renderExpertise();
 renderTools();
@@ -749,6 +859,7 @@ renderSiteExperience();
 renderExperience();
 renderEducation();
 renderRevisions();
+updateBeamValues();
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -761,6 +872,9 @@ document.querySelectorAll('.project-card').forEach(el => { el.classList.add('rev
 
 // Auto-advance slideshow every 6 seconds
 setInterval(() => changeSlide(1), 6000);
+
+// Auto-play beam animation on load
+setTimeout(() => playBeam(), 1000);
 </script>
 </body>
 </html>
