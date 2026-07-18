@@ -326,6 +326,10 @@
     font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--white); background:var(--blueprint);
     padding:5px 11px; border-radius:20px; text-decoration:none; white-space:nowrap;
   }
+  .spec-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  .spec-item{background:var(--white); padding:12px 16px;}
+  .spec-item .k{display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--steel); margin-bottom:4px;}
+  .spec-item .v{font-size:14px; color:var(--blueprint-deep); font-weight:600;}
   .special-box{
     background:var(--white); border-left:3px solid var(--redline); border-radius:var(--radius);
     padding:14px 18px; font-size:14px; color:#2b3540;
@@ -431,6 +435,7 @@
     .modal-gallery{grid-template-columns:1fr;}
     .modal-body{padding:20px;}
     .modal-head{padding:20px;}
+    .spec-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -584,19 +589,24 @@
     <div class="modal-body">
       <p class="desc" id="modalDesc"></p>
 
+      <div class="modal-section-label">Project Details</div>
+      <div class="spec-grid" id="modalSpecs"></div>
+
       <div class="modal-section-label">Special / Design Notes</div>
       <div class="special-box" id="modalSpecial"></div>
 
-      <div class="modal-section-label">Drawings &amp; Visuals</div>
+      <div class="modal-section-label">Drawings, Models &amp; Site Photos</div>
       <div class="modal-gallery" id="modalGallery"></div>
-
-      <div class="modal-section-label">Model Data &amp; Files</div>
-      <ul class="model-data-list" id="modalModelData"></ul>
 
       <div class="modal-section-label">Software Used</div>
       <div class="tag-row" id="modalTags"></div>
     </div>
   </div>
+</div>
+
+<!-- ============ IMAGE LIGHTBOX (enlarge drawing / photo) ============ -->
+<div class="modal-overlay" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="" style="max-width:92vw; max-height:88vh; object-fit:contain; border-radius:2px; margin:auto;">
 </div>
 
 <!-- ============ CERTIFICATE VIEWER MODAL ============ -->
@@ -709,29 +719,34 @@ const TOOLS = [
 
 // ---- 3. FEATURED PROJECTS ----
 // HOW TO ADD YOUR REAL PROJECT MATERIAL:
-// - gallery: put drawing/render image files in an "images" folder next to this file
-//            (e.g. images/prj01-plan.jpg) and list their paths here. Leave [] if none yet.
+// - gallery: put drawing/render/model-screenshot image files in an "images" folder next to
+//            this file (e.g. images/prj01-plan.jpg) and list their paths here. Include plans,
+//            sections, reinforcement details, 3D renders AND analysis-model screenshots
+//            (SAP2000/ETABS/WaterGEMS screenshots) all in this one list — clicking any image
+//            enlarges it right on the page. Leave [] if you don't have images yet.
+// - specs: short key facts shown as a detail grid (location, scope, code used, span, etc).
+//          Just plain text - edit or add/remove rows freely for each project.
 // - special: one or two sentences on anything noteworthy (unusual load case, code used,
 //            site constraint, a detail you're proud of).
-// - modelData: downloadable files (calc sheets, .edb/.rvt exports as PDF, spreadsheets).
-//              Put the actual files in a "files" folder and link to them, e.g. "files/prj01-calc.pdf".
-//              Leave the array empty [] if you don't want to attach anything.
 const PROJECTS = [
   {
     sheet:"PRJ-01", icon:"tank",
     title:"Elevated Water Tank & Reservoir Design",
     role:"Structural Design Engineer",
     desc:"Structural design of a reinforced concrete water retaining structure, including stability checks, hydrostatic load analysis and crack-width control to code.",
-    special:"Designed for hydrostatic loading with crack-width control to serviceability limits — replace this with the real governing code (e.g. BS 8007 / EN 1992-3) and any unusual site condition on this job.",
+    specs:[
+      { k:"Structure Type", v:"RC Elevated / Ground Reservoir" },
+      { k:"Design Code", v:"BS 8007 / EN 1992-3" },
+      { k:"Analysis Software", v:"SAP2000" },
+      { k:"Key Checks", v:"Stability, crack-width, hydrostatic load" }
+    ],
+    special:"Designed for hydrostatic loading with crack-width control to serviceability limits — replace this with the real governing code and any unusual site condition on this job.",
     gallery:[
       "images/prj01-plan.jpg",
       "images/prj01-section.jpg",
       "images/prj01-reinforcement.jpg",
-      "images/prj01-render.jpg"
-    ],
-    modelData:[
-      { label:"SAP2000 analysis model (PDF export)", href:"files/prj01-sap2000-model.pdf" },
-      { label:"Design calculation sheet", href:"files/prj01-calc-sheet.pdf" }
+      "images/prj01-render.jpg",
+      "images/prj01-sap2000-model.jpg"
     ],
     tags:["RCC Design","SAP2000","AutoCAD","Water Retaining"]
   },
@@ -740,16 +755,18 @@ const PROJECTS = [
     title:"Multi-Storey RCC Building",
     role:"Structural Design Engineer",
     desc:"Full structural analysis and design of a reinforced concrete framed building, including gravity and lateral load design, slab and foundation detailing.",
+    specs:[
+      { k:"Structure Type", v:"RC Framed Building" },
+      { k:"Storeys", v:"Add number of storeys" },
+      { k:"Lateral System", v:"Add shear wall / frame system used" },
+      { k:"Analysis Software", v:"ETABS" }
+    ],
     special:"Replace with the real detail worth highlighting — number of storeys, lateral system used, any transfer beams or irregular grid you solved for.",
     gallery:[
       "images/prj02-plan.jpg",
       "images/prj02-elevation.jpg",
       "images/prj02-etabs-model.jpg",
       "images/prj02-detail.jpg"
-    ],
-    modelData:[
-      { label:"ETABS model screenshots (PDF)", href:"files/prj02-etabs-model.pdf" },
-      { label:"Foundation design summary", href:"files/prj02-foundation-summary.pdf" }
     ],
     tags:["ETABS","RCC Frame","Foundation Design"]
   },
@@ -758,14 +775,18 @@ const PROJECTS = [
     title:"Box Culvert & Retaining Wall Package",
     role:"Design Engineer",
     desc:"Design of box culverts and cantilever retaining walls for a road drainage improvement scheme, with detailed reinforcement drawings for construction.",
+    specs:[
+      { k:"Structure Type", v:"Box Culvert + Cantilever Retaining Wall" },
+      { k:"Span / Height Range", v:"Add typical span & wall height" },
+      { k:"Loading", v:"Traffic surcharge + soil pressure" },
+      { k:"Design Software", v:"Prokon" }
+    ],
     special:"Note the span/height range covered, soil parameters assumed, and surcharge/traffic loading used for the wall design.",
     gallery:[
       "images/prj03-culvert-section.jpg",
       "images/prj03-wall-detail.jpg",
-      "images/prj03-reinforcement.jpg"
-    ],
-    modelData:[
-      { label:"Prokon design output", href:"files/prj03-prokon-output.pdf" }
+      "images/prj03-reinforcement.jpg",
+      "images/prj03-prokon-output.jpg"
     ],
     tags:["Prokon","AutoCAD","Retaining Structures"]
   },
@@ -774,15 +795,17 @@ const PROJECTS = [
     title:"Water Distribution & Sewer Network Model",
     role:"Modelling Engineer",
     desc:"Development of a hydraulic model for a town's water distribution and sewer network, used to assess capacity and plan future upgrades.",
+    specs:[
+      { k:"Network Type", v:"Water Distribution + Sewer" },
+      { k:"Scale", v:"Add population served / pipe length" },
+      { k:"Software", v:"Bentley WaterGEMS & SewerGEMS" },
+      { k:"Purpose", v:"Capacity assessment for future upgrades" }
+    ],
     special:"State the scale of the network modelled (population served, pipe length, number of nodes) and what the model was used to decide.",
     gallery:[
       "images/prj04-network-layout.jpg",
       "images/prj04-watergems-model.jpg",
       "images/prj04-pressure-results.jpg"
-    ],
-    modelData:[
-      { label:"WaterGEMS model export", href:"files/prj04-watergems-model.pdf" },
-      { label:"SewerGEMS results summary", href:"files/prj04-sewergems-results.pdf" }
     ],
     tags:["WaterGEMS","SewerGEMS","Network Analysis"]
   },
@@ -791,15 +814,17 @@ const PROJECTS = [
     title:"Two-Storey Residential House (Freelance)",
     role:"Freelance Structural Engineer",
     desc:"End-to-end structural design and full drawing set for a private two-storey residential house, from analysis to issued-for-construction drawings.",
+    specs:[
+      { k:"Structure Type", v:"Two-Storey Residential RC Frame" },
+      { k:"Client", v:"Private client (freelance)" },
+      { k:"Deliverable", v:"Full structural drawing set" },
+      { k:"Software", v:"Tekla Structural Designer, Revit, AutoCAD" }
+    ],
     special:"A good place to mention client constraints you designed around, e.g. an open-plan ground floor, a cantilevered balcony, or a tight plot.",
     gallery:[
       "images/prj05-floor-plan.jpg",
       "images/prj05-3d-model.jpg",
       "images/prj05-structural-drawing.jpg"
-    ],
-    modelData:[
-      { label:"Tekla Structural Designer model (PDF)", href:"files/prj05-tekla-model.pdf" },
-      { label:"Full structural drawing set", href:"files/prj05-drawing-set.pdf" }
     ],
     tags:["Tekla Structural Designer","Revit","AutoCAD"]
   },
@@ -808,14 +833,17 @@ const PROJECTS = [
     title:"Mixed Development — Shopping Mall & Public Parking, Kurunegala",
     role:"Team Lead — Final Year Comprehensive Design Project",
     desc:"Led a student team in the structural design of a shopping mall and public parking facility for the Municipal Council of Kurunegala, Sri Lanka, covering full gravity and lateral design from concept to detailed drawings.",
+    specs:[
+      { k:"Project Type", v:"University Capstone Design Project" },
+      { k:"Client (Simulated)", v:"Municipal Council of Kurunegala" },
+      { k:"Team Role", v:"Team Lead" },
+      { k:"Software", v:"AutoCAD, Revit, SAP2000, ETABS, SAFE" }
+    ],
     special:"University capstone design project (2023–2024). Modelled and analysed using AutoCAD, Revit, SAP2000, ETABS and SAFE, coordinating a team through concept, analysis and detailed design stages.",
     gallery:[
       "images/prj06-mall-render.jpg",
       "images/prj06-mall-plan.jpg",
       "images/prj06-etabs-model.jpg"
-    ],
-    modelData:[
-      { label:"Comprehensive design project report", href:"files/prj06-design-project-report.pdf" }
     ],
     tags:["AutoCAD","Revit","SAP2000","ETABS","SAFE"]
   },
@@ -824,13 +852,16 @@ const PROJECTS = [
     title:"Green Concrete with Recycled Glass Waste",
     role:"Researcher — Final Year Research Project",
     desc:"Researched sustainable alternatives to conventional concrete by partially replacing constituent materials with locally available recycled waste glass, evaluating fresh and hardened concrete properties.",
+    specs:[
+      { k:"Project Type", v:"University Final Year Research" },
+      { k:"Focus", v:"Recycled glass waste as concrete replacement" },
+      { k:"Method", v:"Lab mix design & fresh/hardened property testing" },
+      { k:"Period", v:"2023 – 2024" }
+    ],
     special:"University final year research project (2023–2024) exploring eco-friendly construction materials as an alternative to traditional concrete mixes.",
     gallery:[
       "images/prj07-lab-testing.jpg",
       "images/prj07-mix-results.jpg"
-    ],
-    modelData:[
-      { label:"Final year research thesis (PDF)", href:"files/prj07-research-thesis.pdf" }
     ],
     tags:["Sustainable Engineering","Material Science","Concrete Testing"]
   },
@@ -952,6 +983,7 @@ const CERTIFICATIONS = [
 
 // ---- 7. REVISION LOG ----
 const REVISIONS = [
+  { rev:"K", date:"Jul 2026", note:"Replaced downloadable model-data links with an inline project details grid and an expanded, click-to-enlarge drawing/model gallery — no downloads required to view project detail." },
   { rev:"J", date:"Jul 2026", note:"Synced content with latest CV: exact role bullets, GCE results, professional memberships (AMIE(SL), ECSL), added academic capstone & research projects, extra certifications, and project management tools." },
   { rev:"I", date:"Jul 2026", note:"Added real-photo support, clickable project detail modal (drawings, notes, model files), and visual certifications gallery." },
   { rev:"H", date:"Jul 2026", note:"Enhanced beam diagram styling: light background, improved BM display, removed controls during interaction." },
@@ -1306,8 +1338,13 @@ function openProjectModal(i){
   document.getElementById('modalDesc').textContent = p.desc;
   document.getElementById('modalSpecial').textContent = p.special || "No special notes added yet.";
 
+  const specsHtml = (p.specs && p.specs.length)
+    ? p.specs.map(s => `<div class="spec-item"><span class="k">${s.k}</span><span class="v">${s.v}</span></div>`).join('')
+    : '';
+  document.getElementById('modalSpecs').innerHTML = specsHtml;
+
   const gallery = (p.gallery && p.gallery.length)
-    ? p.gallery.map(src => `<img src="${src}" alt="${p.title} drawing" onerror="this.parentElement.removeChild(this)">`).join('')
+    ? p.gallery.map(src => `<img src="${src}" alt="${p.title} drawing" onclick="openLightbox('${src}')" onerror="this.parentElement.removeChild(this)">`).join('')
     : '';
   document.getElementById('modalGallery').innerHTML = gallery ||
     `<div class="no-drawing">No drawings uploaded yet — add image files to the "images" folder and list them in this project's gallery array.</div>`;
@@ -1319,11 +1356,6 @@ function openProjectModal(i){
     }
   }, 150);
 
-  const modelList = (p.modelData && p.modelData.length)
-    ? p.modelData.map(m => `<li><span>${m.label}</span><a href="${m.href}" download>Download</a></li>`).join('')
-    : `<li style="justify-content:center; color:var(--steel);">No model files attached yet.</li>`;
-  document.getElementById('modalModelData').innerHTML = modelList;
-
   document.getElementById('modalTags').innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
 
   document.getElementById('projectModal').classList.add('open');
@@ -1333,6 +1365,17 @@ function closeProjectModal(){
   document.getElementById('projectModal').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+/* ---- Lightbox: click any drawing/photo to view it enlarged, no download involved ---- */
+function openLightbox(src){
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightboxImg').src = '';
+}
+
 
 /* ---- Certifications ---- */
 function renderCertifications(){
@@ -1372,7 +1415,7 @@ function closeCertModal(){
 
 // Close modals with Escape key
 document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape'){ closeProjectModal(); closeCertModal(); }
+  if(e.key === 'Escape'){ closeProjectModal(); closeCertModal(); closeLightbox(); }
 });
 
 function renderSiteExperience(){
