@@ -255,13 +255,15 @@
   .project-card{
     display:grid; grid-template-columns:220px 1fr; gap:0;
     border:1px solid var(--line); background:var(--white); margin-bottom:24px; border-radius:var(--radius);
-    overflow:hidden;
+    overflow:hidden; cursor:pointer; transition:box-shadow .2s ease, border-color .2s ease;
   }
+  .project-card:hover{box-shadow:0 6px 24px rgba(11,40,63,0.12); border-color:var(--blueprint-light);}
   .project-visual{
     background:var(--blueprint-deep); display:flex; align-items:center; justify-content:center; padding:20px;
-    border-right:1px solid var(--line);
+    border-right:1px solid var(--line); position:relative; overflow:hidden;
   }
   .project-visual svg{width:100%; height:auto;}
+  .project-visual img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
   .project-body{padding:24px 26px;}
   .project-tophead{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:10px;}
   .project-tophead .sheetno{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--steel); letter-spacing:0.05em;}
@@ -272,6 +274,61 @@
   .tag{
     font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blueprint);
     border:1px solid var(--line); padding:3px 9px; border-radius:20px; background:var(--paper-deep);
+  }
+  .view-detail{
+    margin-top:14px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--blueprint);
+    letter-spacing:0.04em; text-transform:uppercase; display:flex; align-items:center; gap:6px;
+  }
+  .view-detail svg{width:13px; height:13px;}
+
+  /* ---------- Modal (project detail / certificate viewer) ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(11,17,23,0.72); z-index:200;
+    display:none; align-items:flex-start; justify-content:center; padding:40px 20px;
+    overflow-y:auto; backdrop-filter:blur(2px);
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--paper); border-radius:var(--radius); max-width:820px; width:100%;
+    margin:auto; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  }
+  .modal-close{
+    position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%;
+    background:var(--blueprint-deep); color:var(--white); border:none; cursor:pointer;
+    font-size:18px; display:flex; align-items:center; justify-content:center; z-index:5;
+  }
+  .modal-close:hover{background:var(--redline);}
+  .modal-head{
+    background:var(--blueprint-deep); color:var(--white); padding:26px 30px;
+  }
+  .modal-head .sheetno{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#8FB6CF; letter-spacing:0.06em;}
+  .modal-head h3{color:var(--white); font-size:24px; margin:8px 0 6px;}
+  .modal-head .role{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--redline); text-transform:uppercase; letter-spacing:0.04em;}
+  .modal-body{padding:26px 30px 34px;}
+  .modal-body p.desc{font-size:14.5px; color:#2b3540; margin:0 0 20px;}
+  .modal-section-label{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--steel); border-bottom:1px solid var(--line); padding-bottom:8px; margin:22px 0 14px;
+  }
+  .modal-gallery{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+  .modal-gallery img{width:100%; height:170px; object-fit:cover; border-radius:var(--radius); border:1px solid var(--line); cursor:zoom-in;}
+  .modal-gallery .no-drawing{
+    grid-column:1/-1; border:1px dashed var(--line); border-radius:var(--radius); padding:24px;
+    text-align:center; color:var(--steel); font-size:13px;
+  }
+  .model-data-list{list-style:none; margin:0; padding:0;}
+  .model-data-list li{
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding:11px 14px; border:1px solid var(--line); border-radius:var(--radius); background:var(--white);
+    margin-bottom:8px; font-size:13.5px;
+  }
+  .model-data-list a{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--white); background:var(--blueprint);
+    padding:5px 11px; border-radius:20px; text-decoration:none; white-space:nowrap;
+  }
+  .special-box{
+    background:var(--white); border-left:3px solid var(--redline); border-radius:var(--radius);
+    padding:14px 18px; font-size:14px; color:#2b3540;
   }
 
   /* ---------- Timeline (experience) ---------- */
@@ -300,6 +357,24 @@
   .edu-item h4{font-size:16px;}
   .edu-item .org{font-size:13.5px; color:var(--blueprint); margin-top:3px;}
   .edu-item .yr{font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--steel); white-space:nowrap;}
+
+  /* ---------- Certifications (visual, from LinkedIn) ---------- */
+  .cert-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:40px;}
+  .cert-card{
+    background:var(--white); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+    cursor:pointer; transition:box-shadow .2s ease, border-color .2s ease;
+  }
+  .cert-card:hover{box-shadow:0 6px 20px rgba(11,40,63,0.12); border-color:var(--blueprint-light);}
+  .cert-thumb{
+    aspect-ratio:1.4; background:var(--blueprint-deep); display:flex; align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+  }
+  .cert-thumb img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
+  .cert-thumb .cert-placeholder{color:rgba(255,255,255,0.55); font-size:12px; text-align:center; padding:16px; font-family:'IBM Plex Mono',monospace;}
+  .cert-info{padding:14px 16px;}
+  .cert-info h4{font-size:14.5px; margin-bottom:4px; line-height:1.35;}
+  .cert-info .issuer{font-size:12.5px; color:var(--steel);}
+  .cert-info .date{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--redline); margin-top:6px; text-transform:uppercase; letter-spacing:0.03em;}
 
   /* ---------- Contact / footer ---------- */
   .contact-band{
@@ -340,6 +415,7 @@
     .hero-inner{grid-template-columns:1fr;}
     .profile-section{flex-direction:column;}
     .beam-info{gap:20px;}
+    .cert-grid{grid-template-columns:repeat(2,1fr);}
   }
   @media (max-width:640px){
     .expertise-grid{grid-template-columns:1fr;}
@@ -351,6 +427,10 @@
     .beam-info{font-size:12px;}
     .beam-controls{gap:8px;}
     .beam-btn{padding:8px 14px; font-size:11px;}
+    .cert-grid{grid-template-columns:1fr;}
+    .modal-gallery{grid-template-columns:1fr;}
+    .modal-body{padding:20px;}
+    .modal-head{padding:20px;}
   }
 </style>
 </head>
@@ -368,7 +448,7 @@
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="btn-cv" href="Resume-%20Akila%20Gunasekara_%20Design%20Engineer.pdf" download>Download CV</a>
+    <a class="btn-cv" href="Resume-_Akila_Gunasekara__Design_Engineer.pdf" download>Download CV</a>
   </div>
 </nav>
 
@@ -376,13 +456,11 @@
 <header class="hero" id="top">
   <div class="wrap hero-inner">
     <div class="hero-content">
-      <div class="eyebrow">Structural &amp; Civil Design Engineer — Sri Lanka, open to relocation</div>
+      <div class="eyebrow">Civil & Structural Engineer, AMIE(SL) — Sri Lanka, open to relocation</div>
       <h1>Turning load paths into <em>buildings, tanks and networks</em> that hold.</h1>
-      <p class="lead">Currently a Civil Engineer at CeyWater Consultants with 2+ years 
-in structural design of RCC buildings, water systems, and 
-infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
+      <p class="lead">Civil &amp; Structural Engineer with over 2 years of professional experience in structural design, site supervision, quality control and project coordination of RCC and steel structures. Skilled in ETABS, SAP2000, Prokon and Tekla Structural Designer, across both design-office and site-based engineering work.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="Resume-%20Akila%20Gunasekara_%20Design%20Engineer.pdf" download>Download CV</a>
+        <a class="btn btn-primary" href="Resume-_Akila_Gunasekara__Design_Engineer.pdf" download>Download CV</a>
         <a class="btn btn-outline" href="#projects">View Projects</a>
         <a class="btn btn-outline" href="https://www.linkedin.com/in/gunasekara-akila/" target="_blank" rel="noopener">LinkedIn Profile</a>
       </div>
@@ -436,16 +514,17 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
     <div class="sheet-header"><span class="tag"><strong>SHEET 01</strong> / ABOUT</span><span class="rule"></span><span class="title">Profile</span></div>
     <div class="about-grid">
       <div class="reveal">
-        <p>I'm a Civil Engineering graduate with two years of hands-on experience in structural and civil design. My work covers reinforced concrete buildings, water retaining structures, culverts, retaining walls, and hydraulic network modelling.</p>
-        <p>Outside the office, I run a small freelance structural design practice, delivering full structural drawing sets for two-storey residential houses — from analysis through to construction documentation.</p>
-        <p>I'm currently looking for structural / design engineering roles with international firms, and open to relocation or remote collaboration.</p>
+        <p>I'm a Civil &amp; Structural Engineer with over two years of professional experience in structural design, site supervision, quality control and project coordination of RCC and steel structures. I've worked across both design-office and site-based engineering roles, using ETABS, SAP2000, Prokon and Tekla Structural Designer for analysis and design, alongside Bentley WaterGEMS and SewerGEMS for water and wastewater network modelling.</p>
+        <p>My day-to-day work includes reviewing drawings, monitoring construction quality, preparing technical reports and calculations, and coordinating with contractors and consultants to keep projects compliant with specifications and engineering standards. I've also represented my firm on an international project — the Rajshahi WASA Water Supply Project in Bangladesh — attending client meetings and site visits as part of the design review team.</p>
+        <p>Outside the office, I run a small freelance structural design practice for two-storey residential houses, and I hold Associate Membership of both the Institution of Engineers Sri Lanka (IESL) and the Engineering Council Sri Lanka (ECSL). I'm currently open to structural / design engineering roles with international firms, including relocation or remote collaboration.</p>
       </div>
       <div class="stat-block reveal">
-        <div class="stat-row"><span class="k">Experience</span><span class="v">2 Years</span></div>
-        <div class="stat-row"><span class="k">Based in</span><span class="v">Sri Lanka</span></div>
+        <div class="stat-row"><span class="k">Experience</span><span class="v">2+ Years</span></div>
+        <div class="stat-row"><span class="k">Based in</span><span class="v">Walapane, Sri Lanka</span></div>
+        <div class="stat-row"><span class="k">Membership</span><span class="v">AMIE(SL), AM ECSL</span></div>
         <div class="stat-row"><span class="k">Core Design</span><span class="v">RCC / Water Retaining</span></div>
         <div class="stat-row"><span class="k">Modelling</span><span class="v">WaterGEMS / SewerGEMS</span></div>
-        <div class="stat-row"><span class="k">Freelance</span><span class="v">Residential Structures</span></div>
+        <div class="stat-row"><span class="k">International</span><span class="v">Rajshahi WASA, Bangladesh</span></div>
         <div class="stat-row"><span class="k">Seeking</span><span class="v">International Roles</span></div>
       </div>
     </div>
@@ -485,9 +564,55 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
   <section id="education">
     <div class="sheet-header"><span class="tag"><strong>SHEET 07</strong> / CREDENTIALS</span><span class="rule"></span><span class="title">Education &amp; Achievements</span></div>
     <div class="reveal" id="educationList"></div>
+
+    <div class="sheet-header" style="margin-top:56px;"><span class="tag"><strong>SHEET 07B</strong> / CERTIFICATES</span><span class="rule"></span><span class="title">Certifications</span></div>
+    <p style="color:#2b3540; max-width:60ch; margin-bottom:0;">Certificates shared on LinkedIn Learning &amp; Certifications. Click any card to view the full certificate image.</p>
+    <div class="cert-grid reveal" id="certGrid"></div>
   </section>
 
 </main>
+
+<!-- ============ PROJECT DETAIL MODAL ============ -->
+<div class="modal-overlay" id="projectModal" onclick="if(event.target===this) closeProjectModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeProjectModal()" aria-label="Close">✕</button>
+    <div class="modal-head">
+      <div class="sheetno" id="modalSheetNo"></div>
+      <h3 id="modalTitle"></h3>
+      <div class="role" id="modalRole"></div>
+    </div>
+    <div class="modal-body">
+      <p class="desc" id="modalDesc"></p>
+
+      <div class="modal-section-label">Special / Design Notes</div>
+      <div class="special-box" id="modalSpecial"></div>
+
+      <div class="modal-section-label">Drawings &amp; Visuals</div>
+      <div class="modal-gallery" id="modalGallery"></div>
+
+      <div class="modal-section-label">Model Data &amp; Files</div>
+      <ul class="model-data-list" id="modalModelData"></ul>
+
+      <div class="modal-section-label">Software Used</div>
+      <div class="tag-row" id="modalTags"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CERTIFICATE VIEWER MODAL ============ -->
+<div class="modal-overlay" id="certModal" onclick="if(event.target===this) closeCertModal()">
+  <div class="modal-box" style="max-width:640px;">
+    <button class="modal-close" onclick="closeCertModal()" aria-label="Close">✕</button>
+    <div class="modal-head">
+      <h3 id="certModalTitle"></h3>
+      <div class="role" id="certModalIssuer" style="color:#8FB6CF;"></div>
+    </div>
+    <div class="modal-body" style="text-align:center;">
+      <img id="certModalImage" src="" alt="" style="width:100%; border-radius:2px; border:1px solid var(--line);">
+      <a id="certModalLink" href="#" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:20px; background:var(--blueprint); display:none;">View on LinkedIn</a>
+    </div>
+  </div>
+</div>
 
 <!-- ============ CONTACT / FOOTER ============ -->
 <footer class="contact-band" id="contact">
@@ -499,11 +624,14 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
         <ul class="contact-list">
           <li><span class="k">Email</span><a href="mailto:gunasekaraakila790@gmail.com">gunasekaraakila790@gmail.com</a></li>
           <li><span class="k">Phone</span><span>+94 75 4970 044</span></li>
-          <li><span class="k">Location</span><span>Sri Lanka (Open to Relocation)</span></li>
+          <li><span class="k">Location</span><span>Walapane, Sri Lanka (Open to Relocation)</span></li>
           <li><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/gunasekara-akila/" target="_blank" rel="noopener">linkedin.com/in/gunasekara-akila</a></li>
+          <li><span class="k">Member</span><span>AMIE(SL) — AM32875 · AM ECSL — 219274</span></li>
+          <li><span class="k">Languages</span><span>English (Working Proficiency) · Sinhala (Native)</span></li>
         </ul>
+        <p style="font-size:12.5px; color:rgba(255,255,255,0.55); margin-top:14px;">Professional references available on request.</p>
         <div style="margin-top:26px; display:flex; gap:14px; flex-wrap:wrap;">
-          <a class="btn btn-primary" href="Resume-%20Akila%20Gunasekara_%20Design%20Engineer.pdf" download>Resume- Akila Gunasekara_ Design Engineer.pdf</a>
+          <a class="btn btn-primary" href="Resume-_Akila_Gunasekara__Design_Engineer.pdf" download>Resume- Akila Gunasekara_ Design Engineer.pdf</a>
           <a class="btn btn-outline" href="https://www.linkedin.com/in/gunasekara-akila/" target="_blank" rel="noopener">Visit LinkedIn</a>
         </div>
       </div>
@@ -530,11 +658,18 @@ infrastructure projects. Experienced in SAP2000, ETABS, and BIM.</p>
    ========================================================================= */
 
 // ---- PROFILE PICTURES / SLIDESHOW ----
+// TO ADD YOUR REAL PHOTOS:
+// 1. Create a folder named "images" next to this index.html file (in the same GitHub repo).
+// 2. Upload your photos into it, e.g. images/profile-1.jpg, images/profile-2.jpg
+// 3. Replace the url values below with those paths, e.g. "images/profile-1.jpg"
+// You can list 1 to 4 photos - the slideshow will rotate through however many you provide.
 const PROFILE_IMAGES = [
-  { url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%230B283F' width='400' height='400'/%3E%3Ccircle cx='200' cy='120' r='60' fill='%237FB8D6'/%3E%3Crect x='110' y='200' width='180' height='150' rx='8' fill='%237FB8D6'/%3E%3C/svg%3E" },
-  { url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23123C5C' width='400' height='400'/%3E%3Ccircle cx='200' cy='120' r='60' fill='%238FB6CF'/%3E%3Crect x='100' y='200' width='200' height='160' rx='6' fill='%238FB6CF'/%3E%3C/svg%3E" },
-  { url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%232E6E96' width='400' height='400'/%3E%3Ccircle cx='200' cy='120' r='60' fill='%23B5D8E8'/%3E%3Crect x='120' y='200' width='160' height='140' rx='4' fill='%23B5D8E8'/%3E%3C/svg%3E" }
+  { url: "images/profile-1.jpg" },
+  { url: "images/profile-2.jpg" },
+  { url: "images/profile-3.jpg" }
 ];
+// Fallback shown automatically if a listed image file is missing (so the page never breaks)
+const PROFILE_FALLBACK = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%230B283F' width='400' height='400'/%3E%3Ccircle cx='200' cy='120' r='60' fill='%237FB8D6'/%3E%3Crect x='110' y='200' width='180' height='150' rx='8' fill='%237FB8D6'/%3E%3C/svg%3E";
 
 let currentSlide = 0;
 
@@ -553,6 +688,9 @@ const EXPERTISE = [
   { tag:"04", title:"Water & Wastewater Modelling", text:"Hydraulic model development for potable water distribution and sewer networks using Bentley WaterGEMS and SewerGEMS." },
   { tag:"05", title:"Freelance Residential Design", text:"Full structural design and drawing packages for two-storey residential houses delivered directly to private clients." },
   { tag:"06", title:"Site & Survey Work", text:"Site supervision, setting out, levelling and construction-stage checks that connect design intent to buildable reality." },
+  { tag:"07", title:"Geotechnical Engineering", text:"Working knowledge of soil parameters and ground conditions as applied to foundation and retaining structure design." },
+  { tag:"08", title:"Project Management", text:"Project coordination and scheduling exposure through Primavera P6 and MS Project, alongside multidisciplinary team coordination." },
+  { tag:"09", title:"Sustainable Engineering", text:"Research interest in eco-friendly construction materials, including recycled-content concrete alternatives." },
 ];
 
 // ---- 2. SOFTWARE / TOOLS ----
@@ -565,15 +703,36 @@ const TOOLS = [
   { name:"Revit", use:"BIM modelling" },
   { name:"Bentley WaterGEMS", use:"Water network modelling" },
   { name:"Bentley SewerGEMS", use:"Sewer network modelling" },
+  { name:"Primavera P6", use:"Project scheduling" },
+  { name:"MS Project", use:"Project planning" },
 ];
 
 // ---- 3. FEATURED PROJECTS ----
+// HOW TO ADD YOUR REAL PROJECT MATERIAL:
+// - gallery: put drawing/render image files in an "images" folder next to this file
+//            (e.g. images/prj01-plan.jpg) and list their paths here. Leave [] if none yet.
+// - special: one or two sentences on anything noteworthy (unusual load case, code used,
+//            site constraint, a detail you're proud of).
+// - modelData: downloadable files (calc sheets, .edb/.rvt exports as PDF, spreadsheets).
+//              Put the actual files in a "files" folder and link to them, e.g. "files/prj01-calc.pdf".
+//              Leave the array empty [] if you don't want to attach anything.
 const PROJECTS = [
   {
     sheet:"PRJ-01", icon:"tank",
     title:"Elevated Water Tank & Reservoir Design",
     role:"Structural Design Engineer",
     desc:"Structural design of a reinforced concrete water retaining structure, including stability checks, hydrostatic load analysis and crack-width control to code.",
+    special:"Designed for hydrostatic loading with crack-width control to serviceability limits — replace this with the real governing code (e.g. BS 8007 / EN 1992-3) and any unusual site condition on this job.",
+    gallery:[
+      "images/prj01-plan.jpg",
+      "images/prj01-section.jpg",
+      "images/prj01-reinforcement.jpg",
+      "images/prj01-render.jpg"
+    ],
+    modelData:[
+      { label:"SAP2000 analysis model (PDF export)", href:"files/prj01-sap2000-model.pdf" },
+      { label:"Design calculation sheet", href:"files/prj01-calc-sheet.pdf" }
+    ],
     tags:["RCC Design","SAP2000","AutoCAD","Water Retaining"]
   },
   {
@@ -581,6 +740,17 @@ const PROJECTS = [
     title:"Multi-Storey RCC Building",
     role:"Structural Design Engineer",
     desc:"Full structural analysis and design of a reinforced concrete framed building, including gravity and lateral load design, slab and foundation detailing.",
+    special:"Replace with the real detail worth highlighting — number of storeys, lateral system used, any transfer beams or irregular grid you solved for.",
+    gallery:[
+      "images/prj02-plan.jpg",
+      "images/prj02-elevation.jpg",
+      "images/prj02-etabs-model.jpg",
+      "images/prj02-detail.jpg"
+    ],
+    modelData:[
+      { label:"ETABS model screenshots (PDF)", href:"files/prj02-etabs-model.pdf" },
+      { label:"Foundation design summary", href:"files/prj02-foundation-summary.pdf" }
+    ],
     tags:["ETABS","RCC Frame","Foundation Design"]
   },
   {
@@ -588,6 +758,15 @@ const PROJECTS = [
     title:"Box Culvert & Retaining Wall Package",
     role:"Design Engineer",
     desc:"Design of box culverts and cantilever retaining walls for a road drainage improvement scheme, with detailed reinforcement drawings for construction.",
+    special:"Note the span/height range covered, soil parameters assumed, and surcharge/traffic loading used for the wall design.",
+    gallery:[
+      "images/prj03-culvert-section.jpg",
+      "images/prj03-wall-detail.jpg",
+      "images/prj03-reinforcement.jpg"
+    ],
+    modelData:[
+      { label:"Prokon design output", href:"files/prj03-prokon-output.pdf" }
+    ],
     tags:["Prokon","AutoCAD","Retaining Structures"]
   },
   {
@@ -595,6 +774,16 @@ const PROJECTS = [
     title:"Water Distribution & Sewer Network Model",
     role:"Modelling Engineer",
     desc:"Development of a hydraulic model for a town's water distribution and sewer network, used to assess capacity and plan future upgrades.",
+    special:"State the scale of the network modelled (population served, pipe length, number of nodes) and what the model was used to decide.",
+    gallery:[
+      "images/prj04-network-layout.jpg",
+      "images/prj04-watergems-model.jpg",
+      "images/prj04-pressure-results.jpg"
+    ],
+    modelData:[
+      { label:"WaterGEMS model export", href:"files/prj04-watergems-model.pdf" },
+      { label:"SewerGEMS results summary", href:"files/prj04-sewergems-results.pdf" }
+    ],
     tags:["WaterGEMS","SewerGEMS","Network Analysis"]
   },
   {
@@ -602,7 +791,48 @@ const PROJECTS = [
     title:"Two-Storey Residential House (Freelance)",
     role:"Freelance Structural Engineer",
     desc:"End-to-end structural design and full drawing set for a private two-storey residential house, from analysis to issued-for-construction drawings.",
+    special:"A good place to mention client constraints you designed around, e.g. an open-plan ground floor, a cantilevered balcony, or a tight plot.",
+    gallery:[
+      "images/prj05-floor-plan.jpg",
+      "images/prj05-3d-model.jpg",
+      "images/prj05-structural-drawing.jpg"
+    ],
+    modelData:[
+      { label:"Tekla Structural Designer model (PDF)", href:"files/prj05-tekla-model.pdf" },
+      { label:"Full structural drawing set", href:"files/prj05-drawing-set.pdf" }
+    ],
     tags:["Tekla Structural Designer","Revit","AutoCAD"]
+  },
+  {
+    sheet:"PRJ-06", icon:"building",
+    title:"Mixed Development — Shopping Mall & Public Parking, Kurunegala",
+    role:"Team Lead — Final Year Comprehensive Design Project",
+    desc:"Led a student team in the structural design of a shopping mall and public parking facility for the Municipal Council of Kurunegala, Sri Lanka, covering full gravity and lateral design from concept to detailed drawings.",
+    special:"University capstone design project (2023–2024). Modelled and analysed using AutoCAD, Revit, SAP2000, ETABS and SAFE, coordinating a team through concept, analysis and detailed design stages.",
+    gallery:[
+      "images/prj06-mall-render.jpg",
+      "images/prj06-mall-plan.jpg",
+      "images/prj06-etabs-model.jpg"
+    ],
+    modelData:[
+      { label:"Comprehensive design project report", href:"files/prj06-design-project-report.pdf" }
+    ],
+    tags:["AutoCAD","Revit","SAP2000","ETABS","SAFE"]
+  },
+  {
+    sheet:"PRJ-07", icon:"tank",
+    title:"Green Concrete with Recycled Glass Waste",
+    role:"Researcher — Final Year Research Project",
+    desc:"Researched sustainable alternatives to conventional concrete by partially replacing constituent materials with locally available recycled waste glass, evaluating fresh and hardened concrete properties.",
+    special:"University final year research project (2023–2024) exploring eco-friendly construction materials as an alternative to traditional concrete mixes.",
+    gallery:[
+      "images/prj07-lab-testing.jpg",
+      "images/prj07-mix-results.jpg"
+    ],
+    modelData:[
+      { label:"Final year research thesis (PDF)", href:"files/prj07-research-thesis.pdf" }
+    ],
+    tags:["Sustainable Engineering","Material Science","Concrete Testing"]
   },
 ];
 
@@ -611,6 +841,7 @@ const SITE_EXPERIENCE = [
   { title:"Site Supervision", text:"On-site monitoring of construction activities against design drawings and specifications." },
   { title:"Setting Out & Levelling", text:"Site surveying, setting out of structural elements and levelling for construction works." },
   { title:"Quantity & Quality Checks", text:"Verification of material quantities and construction quality against approved drawings." },
+  { title:"Hydrological Survey Camp", text:"Two-week hydrological infrastructure survey camp in Galgamuwa, Sri Lanka, contributing to water distribution solutions for the right bank canal of the Palukadawala area." },
 ];
 
 // ---- 5. PROFESSIONAL EXPERIENCE TIMELINE ----
@@ -620,10 +851,9 @@ const EXPERIENCE = [
     title:"Civil Engineer",
     org:"CeyWater Consultants (Pvt) Ltd, Dehiwala, Sri Lanka",
     points:[
-      "Structural analysis and design of RC structures using SAP2000, ETABS, and Prokon.",
-      "Prepared structural calculations, construction drawings, and technical reports.",
-      "Coordinated with multidisciplinary engineering teams on local and international projects.",
-      "Conducted design reviews and site inspections for compliance with specifications."
+      "Performed structural analysis and design of RC structures using industry-related software in accordance with relevant design standards.",
+      "Prepared structural calculations, construction drawings, and technical reports while coordinating with multidisciplinary engineering teams on local and international projects.",
+      "Conducted design reviews, drawing checks, and site inspection activities to ensure compliance with project specifications, quality requirements, and engineering best practices."
     ]
   },
   {
@@ -631,9 +861,9 @@ const EXPERIENCE = [
     title:"Junior Structural Engineer",
     org:"Hayleys Fentons Limited, Colombo, Sri Lanka",
     points:[
-      "Designed and executed steel and RCC designs for ground-mounted commercial solar structures.",
-      "Performed structural analysis and design verification using ETABS and SAP2000.",
-      "Led site coordination activities for solar PV projects."
+      "Developed and executed steel and RCC designs for ground-mounted and commercial solar supporting structures, managing the process from initial site visit and assessment through to design finalization.",
+      "Executed structural analysis and design verification using industry-standard software, including ETABS, SAP2000, and other structural design programs.",
+      "Led and supported site coordination activities for ground-mounted solar PV projects alongside other engineers."
     ]
   },
   {
@@ -641,25 +871,89 @@ const EXPERIENCE = [
     title:"Junior Civil Engineer",
     org:"CeyWater Consultants (Pvt) Ltd, Dehiwala, Sri Lanka",
     points:[
-      "Structural modeling and analysis of water retaining structures and buildings.",
-      "Prepared design reports supporting major infrastructure projects.",
-      "Reviewed and marked up structural drawings prior to senior engineer approval.",
-      "International project experience: Rajshahi WASA Water Supply Project, Bangladesh."
+      "Performed structural modeling, analysis, and design of water retaining structures and buildings using SAP2000, ETABS, and Prokon, ensuring compliance with local and international standards.",
+      "Prepared detailed design reports and documentation supporting major infrastructure projects.",
+      "Reviewed and marked up structural and civil drawings to ensure accuracy prior to senior engineers' review.",
+      "Represented CeyWater Consultants in the Rajshahi WASA Water Supply Project (Bangladesh) as part of the design review team, attending client meetings and site visits, gaining international project experience."
     ]
   }
 ];
 
 // ---- 6. EDUCATION & ACHIEVEMENTS ----
 const EDUCATION = [
-  { title:"BSc (Hons) in Civil Engineering", org:"University of Sri Jayewardenepura, Sri Lanka", year:"Oct 2024" },
-  { title:"Diploma in Structural Design with Tekla Structural Professional", org:"ArchiTech CAD Academy, Sri Lanka", year:"Jan 2026" },
-  { title:"Certificate in Structural Design of Buildings to Eurocode 2", org:"Matrix Graduate School, Sri Lanka", year:"May 2026" },
-  { title:"Diploma in Engineering Draftsmanship with AutoCAD", org:"ArchiTech CAD Academy, Sri Lanka", year:"Apr 2025" },
-  { title:"Diploma in Revit Architecture", org:"ArchiTech CAD Academy, Sri Lanka", year:"Apr 2026" },
+  { title:"BSc (Hons) in Civil Engineering — GPA 3.61/4.0, Second Class Honours (Upper Division)", org:"University of Sri Jayewardenepura, Sri Lanka", year:"Dec 2019 – Oct 2024" },
+  { title:"Diploma in Structural Design with Tekla Structural Professional", org:"ArchiTech CAD Academy, Sri Lanka", year:"Oct 2025 – Jan 2026" },
+  { title:"Certificate in Structural Design of Buildings to Eurocode 2", org:"Matrix Graduate School, Sri Lanka", year:"Jan 2026 – May 2026" },
+  { title:"Diploma in Engineering Draftsmanship with AutoCAD", org:"ArchiTech CAD Academy, Sri Lanka", year:"Jan 2026 – Apr 2026" },
+  { title:"Diploma in Revit Architecture", org:"ArchiTech CAD Academy, Sri Lanka", year:"Apr 2025 – Dec 2025" },
+  { title:"G.C.E. Advanced Level — Chemistry (A), Physics (B), Combined Maths (B)", org:"Poramadulla Central College, Rikillagaskada", year:"Aug 2018" },
+  { title:"G.C.E. Ordinary Level — 6A, 3B", org:"Poramadulla Central College, Rikillagaskada", year:"Dec 2013" },
+];
+
+// ---- 6B. CERTIFICATIONS (shown visually, e.g. from LinkedIn "Licenses & Certifications") ----
+// HOW TO ADD YOURS:
+// 1. On your LinkedIn profile, open each certificate, right-click its image/preview and save it
+//    (or take a screenshot of the certificate PDF/image).
+// 2. Put those image files in the "images" folder, e.g. images/cert-eurocode2.jpg
+// 3. Set "image" below to that path. If you don't have an image yet, leave it as "" —
+//    a neat placeholder card will show instead so nothing looks broken.
+// 4. Optionally set "link" to the public LinkedIn certificate URL ("Show credential" button on LinkedIn).
+const CERTIFICATIONS = [
+  {
+    title:"Structural Design of Buildings to Eurocode 2",
+    issuer:"Matrix Graduate School",
+    date:"Jan – May 2026",
+    image:"images/cert-eurocode2.jpg",
+    link:""
+  },
+  {
+    title:"Structural Design with Tekla Structural Professional",
+    issuer:"ArchiTech CAD Academy",
+    date:"Oct 2025 – Jan 2026",
+    image:"images/cert-tekla.jpg",
+    link:""
+  },
+  {
+    title:"Revit Architecture",
+    issuer:"ArchiTech CAD Academy",
+    date:"Apr – Dec 2025",
+    image:"images/cert-revit.jpg",
+    link:""
+  },
+  {
+    title:"Engineering Draftsmanship with AutoCAD",
+    issuer:"ArchiTech CAD Academy",
+    date:"Jan – Apr 2026",
+    image:"images/cert-autocad.jpg",
+    link:""
+  },
+  {
+    title:"Construction Project Management",
+    issuer:"Columbia University EduTech (Online)",
+    date:"2025",
+    image:"images/cert-construction-pm.jpg",
+    link:""
+  },
+  {
+    title:"Design Basics of Steel Buildings & Modelling, Analysis and Design of Steel Buildings",
+    issuer:"L&T EduTech (Online)",
+    date:"2025 – Present",
+    image:"images/cert-lt-steel.jpg",
+    link:""
+  },
+  {
+    title:"Awareness on Construction Equipment Operation",
+    issuer:"Construction Machines Operator Training College, Galkulama",
+    date:"2024",
+    image:"images/cert-equipment-operation.jpg",
+    link:""
+  },
 ];
 
 // ---- 7. REVISION LOG ----
 const REVISIONS = [
+  { rev:"J", date:"Jul 2026", note:"Synced content with latest CV: exact role bullets, GCE results, professional memberships (AMIE(SL), ECSL), added academic capstone & research projects, extra certifications, and project management tools." },
+  { rev:"I", date:"Jul 2026", note:"Added real-photo support, clickable project detail modal (drawings, notes, model files), and visual certifications gallery." },
   { rev:"H", date:"Jul 2026", note:"Enhanced beam diagram styling: light background, improved BM display, removed controls during interaction." },
   { rev:"G", date:"Jul 2026", note:"Fixed CV download links across all buttons." },
   { rev:"F", date:"Jul 2026", note:"Fixed LinkedIn contact links." },
@@ -686,7 +980,7 @@ function renderSlideshow(){
   
   container.innerHTML = PROFILE_IMAGES.map((img, idx) => `
     <div class="slide ${idx === 0 ? 'active' : ''}">
-      <img src="${img.url}" alt="Profile">
+      <img src="${img.url}" alt="Profile photo" onerror="this.src='${PROFILE_FALLBACK}'">
     </div>`).join('');
   
   dotsContainer.innerHTML = PROFILE_IMAGES.map((_, idx) => `
@@ -984,8 +1278,8 @@ function renderTools(){
 }
 
 function renderProjects(){
-  document.getElementById('projectsList').innerHTML = PROJECTS.map(p => `
-    <div class="project-card reveal">
+  document.getElementById('projectsList').innerHTML = PROJECTS.map((p, i) => `
+    <div class="project-card reveal" onclick="openProjectModal(${i})">
       <div class="project-visual">${ICONS[p.icon] || ICONS.building}</div>
       <div class="project-body">
         <div class="project-tophead">
@@ -995,9 +1289,91 @@ function renderProjects(){
         <div class="role">${p.role}</div>
         <p class="desc">${p.desc}</p>
         <div class="tag-row">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <div class="view-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+          View drawings, notes &amp; model data
+        </div>
       </div>
     </div>`).join('');
 }
+
+/* ---- Project detail modal ---- */
+function openProjectModal(i){
+  const p = PROJECTS[i];
+  document.getElementById('modalSheetNo').textContent = p.sheet;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalRole').textContent = p.role;
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('modalSpecial').textContent = p.special || "No special notes added yet.";
+
+  const gallery = (p.gallery && p.gallery.length)
+    ? p.gallery.map(src => `<img src="${src}" alt="${p.title} drawing" onerror="this.parentElement.removeChild(this)">`).join('')
+    : '';
+  document.getElementById('modalGallery').innerHTML = gallery ||
+    `<div class="no-drawing">No drawings uploaded yet — add image files to the "images" folder and list them in this project's gallery array.</div>`;
+  // If every gallery image fails to load (missing files), show the placeholder message
+  setTimeout(() => {
+    const g = document.getElementById('modalGallery');
+    if(g.children.length === 0){
+      g.innerHTML = `<div class="no-drawing">No drawings uploaded yet — add image files to the "images" folder and list them in this project's gallery array.</div>`;
+    }
+  }, 150);
+
+  const modelList = (p.modelData && p.modelData.length)
+    ? p.modelData.map(m => `<li><span>${m.label}</span><a href="${m.href}" download>Download</a></li>`).join('')
+    : `<li style="justify-content:center; color:var(--steel);">No model files attached yet.</li>`;
+  document.getElementById('modalModelData').innerHTML = modelList;
+
+  document.getElementById('modalTags').innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+  document.getElementById('projectModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeProjectModal(){
+  document.getElementById('projectModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ---- Certifications ---- */
+function renderCertifications(){
+  document.getElementById('certGrid').innerHTML = CERTIFICATIONS.map((c, i) => `
+    <div class="cert-card" onclick="openCertModal(${i})">
+      <div class="cert-thumb">
+        ${c.image ? `<img src="${c.image}" alt="${c.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
+        <div class="cert-placeholder" style="${c.image ? 'display:none;' : 'display:flex;'} width:100%; height:100%; align-items:center; justify-content:center; flex-direction:column;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8FB6CF" stroke-width="1.6" style="margin-bottom:8px;"><path d="M12 15l-3.5 2 1-4-3-2.6 4-.3L12 6l1.5 4.1 4-.3-3 2.6 1 4z"/><circle cx="12" cy="10" r="7"/></svg>
+          Add certificate image
+        </div>
+      </div>
+      <div class="cert-info">
+        <h4>${c.title}</h4>
+        <div class="issuer">${c.issuer}</div>
+        <div class="date">${c.date}</div>
+      </div>
+    </div>`).join('');
+}
+function openCertModal(i){
+  const c = CERTIFICATIONS[i];
+  document.getElementById('certModalTitle').textContent = c.title;
+  document.getElementById('certModalIssuer').textContent = c.issuer + ' · ' + c.date;
+  const img = document.getElementById('certModalImage');
+  img.src = c.image || '';
+  img.style.display = c.image ? 'block' : 'none';
+  const link = document.getElementById('certModalLink');
+  if(c.link){ link.href = c.link; link.style.display = 'inline-flex'; }
+  else{ link.style.display = 'none'; }
+  document.getElementById('certModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCertModal(){
+  document.getElementById('certModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close modals with Escape key
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){ closeProjectModal(); closeCertModal(); }
+});
 
 function renderSiteExperience(){
   const bolt = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>`;
@@ -1045,6 +1421,7 @@ renderProjects();
 renderSiteExperience();
 renderExperience();
 renderEducation();
+renderCertifications();
 renderRevisions();
 
 // Initial beam diagram draw
