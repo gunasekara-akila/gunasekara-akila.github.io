@@ -506,7 +506,7 @@
       <div class="reveal">
         <h3 style="font-size:22px; margin-bottom:14px;">Professional Profile</h3>
         <p>I am a Civil &amp; Structural Engineer with experience in the analysis, design and construction-stage review of reinforced-concrete, steel and water-retaining structures. My work combines structural calculations, technical reporting, drawing review, site inspection and multidisciplinary coordination.</p>
-        <p>I have contributed to local and international water-infrastructure projects, including the Rajshahi WASA Water Supply Project in Bangladesh, and I also undertake structural design packages for two-storey residential buildings. I am open to international design roles, relocation and remote collaboration.</p>
+        <p>I have contributed to local and international water-infrastructure projects, including the Rajshahi WASA Water Supply Project in Bangladesh and a Nama Water Services project in Oman. I also undertake structural design packages for two-storey residential buildings. I am open to international design roles, relocation and remote collaboration.</p>
         <h4 style="font-size:16px; margin:24px 0 10px;">Key Highlights</h4>
         <ul style="margin:0; padding-left:20px; color:#2b3540;">
           <li>RCC, steel and water-retaining structure design</li>
@@ -522,7 +522,7 @@
         <div class="stat-row"><span class="k">Membership</span><span class="v">AMIE(SL), AM ECSL</span></div>
         <div class="stat-row"><span class="k">Core Design</span><span class="v">RCC / Water Retaining</span></div>
         <div class="stat-row"><span class="k">Modelling</span><span class="v">WaterGEMS / SewerGEMS</span></div>
-        <div class="stat-row"><span class="k">International</span><span class="v">Rajshahi WASA, Bangladesh</span></div>
+        <div class="stat-row"><span class="k">International</span><span class="v">Bangladesh &amp; Oman Projects</span></div>
         <div class="stat-row"><span class="k">Seeking</span><span class="v">International Roles</span></div>
       </div>
     </div>
@@ -696,7 +696,7 @@ const EXPERTISE = [
   { tag:"01", title:"Water Retaining Structures", text:"Design of reservoirs, tanks and retaining structures to code, covering stability, crack control and durability under sustained hydrostatic loading." },
   { tag:"02", title:"RCC Buildings", text:"Analysis and design of reinforced concrete framed buildings — slabs, beams, columns and foundations — from concept through construction drawings." },
   { tag:"03", title:"Culverts & Retaining Walls", text:"Design of box/pipe culverts and gravity/cantilever retaining walls for roads and drainage infrastructure." },
-  { tag:"04", title:"Water & Wastewater Modelling", text:"Hydraulic model development for potable water distribution and sewer networks using Bentley WaterGEMS and SewerGEMS." },
+  { tag:"04", title:"Water, Wastewater & GIS", text:"Hydraulic model development for potable-water and sewer networks using Bentley WaterGEMS and SewerGEMS, supported by GIS mapping of water-retaining assets and sewer infrastructure." },
   { tag:"05", title:"Freelance Residential Design", text:"Full structural design and drawing packages for two-storey residential houses delivered directly to private clients." },
   { tag:"06", title:"Site & Survey Work", text:"Site supervision, setting out, levelling and construction-stage checks that connect design intent to buildable reality." },
   { tag:"07", title:"Geotechnical Engineering", text:"Working knowledge of soil parameters and ground conditions as applied to foundation and retaining structure design." },
@@ -714,6 +714,7 @@ const TOOLS = [
   { name:"Revit", use:"BIM modelling" },
   { name:"Bentley WaterGEMS", use:"Water network modelling" },
   { name:"Bentley SewerGEMS", use:"Sewer network modelling" },
+  { name:"GIS Platforms", use:"Asset, network & thematic mapping" },
   { name:"Primavera P6", use:"Project scheduling" },
   { name:"MS Project", use:"Project planning" },
 ];
@@ -738,6 +739,7 @@ const PROJECT_CATEGORIES = [
   { id:"buildings", title:"Building Structures", description:"RCC framed buildings and residential structures covering analysis, member design, foundations, detailing and construction coordination." },
   { id:"civil-infrastructure", title:"Civil & Infrastructure Structures", description:"Culverts, retaining walls and associated infrastructure structures designed for soil, surcharge, traffic and hydraulic actions." },
   { id:"hydraulic-modelling", title:"Hydraulic & Network Modelling", description:"Water-distribution and sewer-network model development for capacity assessment, pressure review and infrastructure planning." },
+  { id:"gis-mapping", title:"GIS & Spatial Engineering", description:"GIS mapping and spatial presentation of water-retaining assets, water-supply infrastructure and sewer networks for engineering review, asset understanding and project communication." },
   { id:"academic-research", title:"Academic Design & Research", description:"Selected university capstone and research work demonstrating multidisciplinary design, team leadership and material-testing experience." }
 ];
 
@@ -852,6 +854,53 @@ const PROJECTS = [
     ],
     tags:["WaterGEMS","SewerGEMS","Network Analysis"]
   },
+
+  {
+    sheet:"GIS-01", category:"gis-mapping", icon:"network",
+    title:"GIS Mapping of Water-Retaining Structures",
+    role:"Civil Engineer / GIS Contributor",
+    desc:"Preparation of GIS-based spatial outputs for water-retaining structures and associated infrastructure, supporting asset identification, project review and engineering presentation.",
+    specs:[
+      { k:"Work Type", v:"Water-retaining asset mapping" },
+      { k:"Coverage", v:"Add project area / number of assets" },
+      { k:"Data", v:"Locations, attributes and engineering information" },
+      { k:"Software", v:"Add GIS platform used" }
+    ],
+    special:"Replace this note with the exact GIS contribution, data sources, coordinate system, analyses completed and how the maps supported the engineering project.",
+    deliverables:[
+      "Asset-location and thematic maps",
+      "GIS layers and attribute tables",
+      "Maps for reports, presentations or design coordination"
+    ],
+    gallery:[
+      { src:"images/projects/gis-01/asset-map.jpg", caption:"Water-retaining structure asset map" },
+      { src:"images/projects/gis-01/attribute-view.jpg", caption:"GIS attribute and spatial-data view" }
+    ],
+    tags:["GIS","Water Infrastructure","Asset Mapping"]
+  },
+  {
+    sheet:"GIS-02", category:"gis-mapping", icon:"network",
+    title:"GIS Mapping of Sewer Networks",
+    role:"Civil Engineer / GIS Contributor",
+    desc:"Development and presentation of GIS-based sewer-network information, including network layouts, asset locations and selected spatial outputs for engineering coordination and reporting.",
+    specs:[
+      { k:"Network Type", v:"Sewer network" },
+      { k:"Coverage", v:"Add project area / network length" },
+      { k:"Mapped Assets", v:"Add pipes, manholes and related assets" },
+      { k:"Software", v:"Add GIS platform used" }
+    ],
+    special:"Replace this note with the actual data preparation, topology checks, spatial analysis, map outputs and connection with SewerGEMS or other project data.",
+    deliverables:[
+      "Sewer-network layout maps",
+      "Asset layers and attribute tables",
+      "Thematic maps for engineering review"
+    ],
+    gallery:[
+      { src:"images/projects/gis-02/sewer-network-map.jpg", caption:"Sewer-network GIS map" },
+      { src:"images/projects/gis-02/asset-map.jpg", caption:"Mapped sewer assets and attributes" }
+    ],
+    tags:["GIS","Sewer Network","Spatial Mapping"]
+  },
   {
     sheet:"PRJ-05", category:"buildings", icon:"house",
     title:"Two-Storey Residential House (Freelance)",
@@ -948,7 +997,7 @@ const EXPERIENCE = [
       "Performed structural modeling, analysis, and design of water retaining structures and buildings using SAP2000, ETABS, and Prokon, ensuring compliance with local and international standards.",
       "Prepared detailed design reports and documentation supporting major infrastructure projects.",
       "Reviewed and marked up structural and civil drawings to ensure accuracy prior to senior engineers' review.",
-      "Represented CeyWater Consultants in the Rajshahi WASA Water Supply Project (Bangladesh) as part of the design review team, attending client meetings and site visits, gaining international project experience."
+      "Contributed to international water-infrastructure assignments, including the Rajshahi WASA Water Supply Project in Bangladesh and a Nama Water Services project in Oman, through design review, technical coordination, client engagement and project-related site or meeting activities as applicable."
     ]
   }
 ];
@@ -1130,6 +1179,7 @@ function renderProjects(){
     'buildings':'BLD',
     'civil-infrastructure':'CIV',
     'hydraulic-modelling':'HYD',
+    'gis-mapping':'GIS',
     'academic-research':'ACD'
   };
   const prefix = prefixMap[category.id] || 'PRJ';
