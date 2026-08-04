@@ -364,6 +364,25 @@
   .site-card h4{font-size:15.5px; margin-bottom:6px;}
   .site-card p{font-size:13.5px; color:var(--steel); margin:0;}
 
+
+
+  /* ---------- Professional recommendations ---------- */
+  .recommendation-intro{max-width:72ch; color:#2b3540; margin:-18px 0 28px;}
+  .recommendation-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  .recommendation-card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:24px; position:relative; min-height:260px; display:flex; flex-direction:column;}
+  .recommendation-card::before{content:"“"; position:absolute; top:3px; right:18px; font-family:Georgia,serif; font-size:64px; line-height:1; color:var(--paper-deep);}
+  .recommendation-status{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--redline); margin-bottom:14px; position:relative; z-index:1;}
+  .recommendation-quote{font-size:14.5px; line-height:1.75; color:#2b3540; margin:0 0 22px; position:relative; z-index:1; flex:1;}
+  .recommender{border-top:1px solid var(--line-soft); padding-top:16px; display:flex; gap:14px; align-items:flex-start;}
+  .recommender-photo{width:52px; height:52px; border-radius:50%; object-fit:cover; background:var(--paper-deep); border:1px solid var(--line); flex:0 0 auto;}
+  .recommender-name{font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; color:var(--blueprint-deep);}
+  .recommender-role{font-size:12.5px; color:var(--steel); margin-top:2px;}
+  .recommender-relationship{font-size:11.5px; color:var(--redline); margin-top:5px;}
+  .recommendation-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+  .recommendation-link{display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border:1px solid var(--line); background:var(--paper); color:var(--blueprint); text-decoration:none; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.04em; text-transform:uppercase;}
+  .recommendation-link:hover{border-color:var(--blueprint-light); background:var(--white);}
+  .recommendation-note{margin-top:18px; font-size:12.5px; color:var(--steel);}
+
   /* ---------- Education ---------- */
   .edu-item{display:flex; justify-content:space-between; gap:20px; padding:18px 0; border-bottom:1px solid var(--line-soft); flex-wrap:wrap;}
   .edu-item:last-child{border-bottom:none;}
@@ -428,6 +447,7 @@
     .hero-inner{grid-template-columns:1fr;}
     .profile-section{flex-direction:column;}
     .cert-grid{grid-template-columns:repeat(2,1fr);}
+    .recommendation-grid{grid-template-columns:1fr;}
   }
   @media (max-width:640px){
     .expertise-grid{grid-template-columns:1fr;}
@@ -460,6 +480,7 @@
       <li><a href="#expertise">Expertise</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#recommendations">References</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -559,12 +580,22 @@
     <div class="timeline reveal" id="experienceList"></div>
   </section>
 
+
+
+  <!-- ============ PROFESSIONAL RECOMMENDATIONS ============ -->
+  <section id="recommendations">
+    <div class="sheet-header"><span class="tag"><strong>SHEET 07</strong> / REFERENCES</span><span class="rule"></span><span class="title">Professional Recommendations</span></div>
+    <p class="recommendation-intro">Selected recommendations from supervisors and senior engineers who directly reviewed my engineering work. Public copies of signed letters are shown only with the recommender's permission and may be redacted to protect personal contact details and signatures.</p>
+    <div class="recommendation-grid reveal" id="recommendationGrid"></div>
+    <p class="recommendation-note">Original signed letters and direct professional references can be provided privately to employers upon request.</p>
+  </section>
+
   <!-- ============ EDUCATION ============ -->
   <section id="education">
-    <div class="sheet-header"><span class="tag"><strong>SHEET 07</strong> / CREDENTIALS</span><span class="rule"></span><span class="title">Education &amp; Achievements</span></div>
+    <div class="sheet-header"><span class="tag"><strong>SHEET 08</strong> / CREDENTIALS</span><span class="rule"></span><span class="title">Education &amp; Achievements</span></div>
     <div class="reveal" id="educationList"></div>
 
-    <div class="sheet-header" style="margin-top:56px;"><span class="tag"><strong>SHEET 07B</strong> / CERTIFICATES</span><span class="rule"></span><span class="title">Certifications</span></div>
+    <div class="sheet-header" style="margin-top:56px;"><span class="tag"><strong>SHEET 08B</strong> / CERTIFICATES</span><span class="rule"></span><span class="title">Certifications</span></div>
     <p style="color:#2b3540; max-width:60ch; margin-bottom:0;">Certificates shared on LinkedIn Learning &amp; Certifications. Click any card to view the full certificate image.</p>
     <div class="cert-grid reveal" id="certGrid"></div>
   </section>
@@ -635,7 +666,7 @@
   <div class="wrap">
     <div class="contact-grid">
       <div>
-        <div class="sheet-header" style="border-color:rgba(255,255,255,0.16);"><span class="tag" style="color:#8FB6CF;"><strong style="color:#fff;">SHEET 08</strong> / CONTACT</span><span class="rule" style="background:rgba(255,255,255,0.16);"></span><span class="title" style="color:rgba(255,255,255,0.72);">Get In Touch</span></div>
+        <div class="sheet-header" style="border-color:rgba(255,255,255,0.16);"><span class="tag" style="color:#8FB6CF;"><strong style="color:#fff;">SHEET 09</strong> / CONTACT</span><span class="rule" style="background:rgba(255,255,255,0.16);"></span><span class="title" style="color:rgba(255,255,255,0.72);">Get In Touch</span></div>
         <p>Interested in working together or want the full CV and reference set? Reach out directly, connect on LinkedIn, or download the CV below.</p>
         <ul class="contact-list">
           <li><span class="k">Email</span><a href="mailto:gunasekaraakila790@gmail.com">gunasekaraakila790@gmail.com</a></li>
@@ -1002,7 +1033,38 @@ const EXPERIENCE = [
   }
 ];
 
-// ---- 6. EDUCATION & ACHIEVEMENTS ----
+
+
+// ---- 6. PROFESSIONAL RECOMMENDATIONS ----
+// Publish a recommendation only after receiving the supervisor's permission.
+// Use a redacted public PDF: remove private phone numbers, personal email addresses,
+// identity numbers and, where preferred, obscure part of the signature.
+const RECOMMENDATIONS = [
+  {
+    quote:"Replace this text with a concise 50–100 word extract from the signed recommendation letter. Focus on specific engineering strengths, responsibilities and professional conduct.",
+    name:"Eng. Supervisor Name",
+    position:"Senior Structural Engineer",
+    company:"Company / Organisation",
+    relationship:"Direct supervisor for structural and water-infrastructure assignments",
+    period:"2024–2026",
+    status:"Signed recommendation letter",
+    image:"images/recommendations/supervisor-01.jpg",
+    letter:"documents/recommendations/recommendation-supervisor-01-public.pdf"
+  },
+  {
+    quote:"Add a second recommendation from a project manager, design lead or senior engineer. Specific comments about structural modelling, calculations, drawing review, site coordination or international project work are most valuable.",
+    name:"Eng. Supervisor Name",
+    position:"Project Manager / Design Lead",
+    company:"Company / Organisation",
+    relationship:"Reviewed project delivery and technical coordination",
+    period:"Add period",
+    status:"Recommendation available",
+    image:"",
+    letter:""
+  }
+];
+
+// ---- 7. EDUCATION & ACHIEVEMENTS ----
 const EDUCATION = [
   { title:"BSc (Hons) in Civil Engineering — GPA 3.61/4.0, Second Class Honours (Upper Division)", org:"University of Sri Jayewardenepura, Sri Lanka", year:"Dec 2019 – Oct 2024" },
   { title:"Diploma in Structural Design with Tekla Structural Professional", org:"ArchiTech CAD Academy, Sri Lanka", year:"Oct 2025 – Jan 2026" },
@@ -1013,7 +1075,7 @@ const EDUCATION = [
   { title:"G.C.E. Ordinary Level — 6A, 3B", org:"Poramadulla Central College, Rikillagaskada", year:"Dec 2013" },
 ];
 
-// ---- 6B. CERTIFICATIONS (shown visually, e.g. from LinkedIn "Licenses & Certifications") ----
+// ---- 7B. CERTIFICATIONS (shown visually, e.g. from LinkedIn "Licenses & Certifications") ----
 // HOW TO ADD YOURS:
 // 1. On your LinkedIn profile, open each certificate, right-click its image/preview and save it
 //    (or take a screenshot of the certificate PDF/image).
@@ -1375,6 +1437,37 @@ function renderExperience(){
     </div>`).join('');
 }
 
+
+
+function renderRecommendations(){
+  const container = document.getElementById('recommendationGrid');
+  if(!container) return;
+
+  if(!RECOMMENDATIONS.length){
+    container.innerHTML = `<div class="special-box">Professional recommendations and signed letters are available upon request.</div>`;
+    return;
+  }
+
+  container.innerHTML = RECOMMENDATIONS.map(item => {
+    const photo = item.image ? `<img class="recommender-photo" src="${item.image}" alt="${item.name}" onerror="this.style.display='none'">` : '';
+    const letter = item.letter ? `<a class="recommendation-link" href="${item.letter}" target="_blank" rel="noopener noreferrer">View redacted signed letter ↗</a>` : '';
+    return `
+      <article class="recommendation-card">
+        <div class="recommendation-status">${item.status || 'Professional recommendation'}</div>
+        <p class="recommendation-quote">“${item.quote}”</p>
+        <div class="recommender">
+          ${photo}
+          <div>
+            <div class="recommender-name">${item.name}</div>
+            <div class="recommender-role">${item.position}${item.company ? ` — ${item.company}` : ''}</div>
+            <div class="recommender-relationship">${item.relationship || ''}${item.period ? ` · ${item.period}` : ''}</div>
+            ${letter ? `<div class="recommendation-actions">${letter}</div>` : ''}
+          </div>
+        </div>
+      </article>`;
+  }).join('');
+}
+
 function renderEducation(){
   document.getElementById('educationList').innerHTML = EDUCATION.map(ed => `
     <div class="edu-item">
@@ -1400,6 +1493,7 @@ renderTools();
 renderProjects();
 renderSiteExperience();
 renderExperience();
+renderRecommendations();
 renderEducation();
 renderCertifications();
 renderRevisions();
