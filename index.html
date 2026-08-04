@@ -247,11 +247,39 @@
   .view-detail svg{width:13px; height:13px;}
 
 
-  .project-category{margin-bottom:52px;}
-  .project-category-head{display:grid; grid-template-columns:1fr auto; gap:20px; align-items:end; margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--line);}
+  /* ---------- Two-level project navigator ---------- */
+  .project-topic-tabs{display:flex; gap:10px; flex-wrap:wrap; margin:0 0 24px;}
+  .project-topic-tab{border:1px solid var(--line); background:var(--white); color:var(--blueprint-deep); padding:12px 15px; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.035em; transition:.18s ease;}
+  .project-topic-tab:hover{border-color:var(--blueprint-light); transform:translateY(-1px);}
+  .project-topic-tab.active{background:var(--blueprint-deep); color:var(--white); border-color:var(--blueprint-deep);}
+  .project-topic-panel{border:1px solid var(--line); background:var(--white);}
+  .project-category-head{display:grid; grid-template-columns:1fr auto; gap:20px; align-items:end; padding:24px 26px; border-bottom:1px solid var(--line); background:var(--paper-deep);}
   .project-category-head h3{font-size:23px; margin-bottom:6px;}
   .project-category-head p{margin:0; color:var(--steel); max-width:72ch; font-size:14px;}
   .project-count{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--redline); text-transform:uppercase; letter-spacing:.05em; white-space:nowrap;}
+  .project-browser{display:grid; grid-template-columns:minmax(220px, .72fr) minmax(0, 1.8fr); min-height:390px;}
+  .project-subtabs{border-right:1px solid var(--line); background:var(--paper); padding:14px;}
+  .project-subtab{width:100%; text-align:left; border:1px solid transparent; background:transparent; padding:14px 13px; cursor:pointer; margin-bottom:7px; transition:.16s ease;}
+  .project-subtab:hover{background:var(--white); border-color:var(--line);}
+  .project-subtab.active{background:var(--white); border-color:var(--blueprint-light); box-shadow:inset 3px 0 0 var(--redline);}
+  .project-subtab .code{display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--redline); margin-bottom:4px;}
+  .project-subtab .name{display:block; font-family:'Space Grotesk',sans-serif; color:var(--blueprint-deep); font-size:14.5px; font-weight:600; line-height:1.35;}
+  .project-subtab.placeholder{border:1px dashed var(--line); cursor:default; opacity:.7; min-height:67px;}
+  .project-subtab.placeholder:hover{background:transparent; border-color:var(--line);}
+  .project-subtab.placeholder .code{color:var(--steel);}
+  .project-subtab.placeholder .name{font-weight:500; color:var(--steel);}
+  .project-slot-note{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--steel); margin:10px 2px 0; line-height:1.45;}
+  .project-preview{padding:28px 30px; display:grid; grid-template-columns:170px 1fr; gap:28px; align-items:start;}
+  .project-preview-visual{height:170px; background:var(--blueprint-deep); display:flex; align-items:center; justify-content:center; padding:22px;}
+  .project-preview-visual svg{width:100%; height:100%;}
+  .project-preview h4{font-size:22px; margin:0 0 6px;}
+  .project-preview .role{font-family:'IBM Plex Mono',monospace; color:var(--redline); font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; margin-bottom:12px;}
+  .project-preview p{font-size:14.5px; color:#2b3540; margin:0 0 16px;}
+  .project-preview-meta{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:16px 0;}
+  .project-preview-meta div{border:1px solid var(--line); padding:9px 11px; background:var(--paper);}
+  .project-preview-meta .k{display:block; font-family:'IBM Plex Mono',monospace; font-size:9.5px; text-transform:uppercase; color:var(--steel);}
+  .project-preview-meta .v{display:block; font-size:12.5px; color:var(--blueprint-deep); font-weight:600; margin-top:3px;}
+  .project-empty{padding:28px; color:var(--steel); border:1px dashed var(--line); margin:20px;}
 
   /* ---------- Modal (project detail / certificate viewer) ---------- */
   .modal-overlay{
@@ -306,6 +334,15 @@
     background:var(--white); border-left:3px solid var(--redline); border-radius:var(--radius);
     padding:14px 18px; font-size:14px; color:#2b3540;
   }
+  .detail-list{margin:0; padding-left:20px; color:#2b3540; font-size:14px;}
+  .detail-list li{margin:0 0 8px;}
+  .detail-empty{border:1px dashed var(--line); padding:16px; color:var(--steel); font-size:13px; background:var(--white);}
+  .document-list{display:grid; gap:8px;}
+  .document-link{display:flex; justify-content:space-between; gap:14px; align-items:center; padding:11px 14px; border:1px solid var(--line); background:var(--white); text-decoration:none; font-size:13.5px;}
+  .document-link span:last-child{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--redline); text-transform:uppercase; white-space:nowrap;}
+  .gallery-item{margin:0;}
+  .gallery-item img{width:100%; height:170px; object-fit:cover;}
+  .gallery-item figcaption{font-size:11.5px; color:var(--steel); padding:7px 2px 0;}
 
   /* ---------- Timeline (experience) ---------- */
   .timeline{border-left:2px solid var(--line); padding-left:28px; position:relative;}
@@ -403,6 +440,12 @@
     .modal-body{padding:20px;}
     .modal-head{padding:20px;}
     .spec-grid{grid-template-columns:1fr;}
+    .project-browser{grid-template-columns:1fr;}
+    .project-subtabs{border-right:none; border-bottom:1px solid var(--line); display:flex; overflow-x:auto; gap:8px;}
+    .project-subtab{min-width:210px; margin-bottom:0;}
+    .project-preview{grid-template-columns:1fr; padding:20px;}
+    .project-preview-visual{height:145px;}
+    .project-preview-meta{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -500,7 +543,7 @@
   <!-- ============ PROJECTS ============ -->
   <section id="projects">
     <div class="sheet-header"><span class="tag"><strong>SHEET 04</strong> / PORTFOLIO</span><span class="rule"></span><span class="title">Selected Project Experience</span></div>
-    <p style="color:#2b3540; max-width:76ch; margin:-20px 0 34px;">Projects are grouped by engineering specialisation. Each card opens an individual project record with scope, design considerations, software and selected drawings or model images. Additional project experience is available on request.</p>
+    <p style="color:#2b3540; max-width:76ch; margin:-20px 0 34px;">Choose a main engineering topic, then select an individual project from the project list. Each project opens a detailed record containing scope, calculations, load cases, drawings, model images and selected technical documents.</p>
     <div id="projectsList"></div>
   </section>
 
@@ -543,10 +586,22 @@
       <div class="modal-section-label">Project Details</div>
       <div class="spec-grid" id="modalSpecs"></div>
 
-      <div class="modal-section-label">Special / Design Notes</div>
+      <div class="modal-section-label">Engineering Contribution / Governing Design</div>
       <div class="special-box" id="modalSpecial"></div>
 
-      <div class="modal-section-label">Drawings, Models &amp; Site Photos</div>
+      <div class="modal-section-label">Design Calculations &amp; Checks</div>
+      <div id="modalCalculations"></div>
+
+      <div class="modal-section-label">Load Patterns &amp; Combinations</div>
+      <div id="modalLoads"></div>
+
+      <div class="modal-section-label">Project Deliverables</div>
+      <div id="modalDeliverables"></div>
+
+      <div class="modal-section-label">Selected Calculation Sheets / Reports</div>
+      <div class="document-list" id="modalDocuments"></div>
+
+      <div class="modal-section-label">Drawings, 3D Models &amp; Site Photos</div>
       <div class="modal-gallery" id="modalGallery"></div>
 
       <div class="modal-section-label">Software Used</div>
@@ -623,7 +678,8 @@
 // 1. Create a folder named "images" next to this index.html file (in the same GitHub repo).
 // 2. Upload your photos into it, e.g. images/profile-1.jpg, images/profile-2.jpg
 // 3. Replace the url values below with those paths, e.g. "images/profile-1.jpg"
-// You can list 1 to 4 photos - the slideshow will rotate through however many you provide.
+// You can list 1 to 4 professional photographs. Recommended: one headshot, one site photo and one design-office / project-meeting photo.
+// Crop images to a square or 4:5 ratio, compress each below about 500 KB, and avoid confidential drawings or visible client information.
 const PROFILE_IMAGES = [
   { url: "images/profile-1.jpg" },
   { url: "images/profile-2.jpg" },
@@ -671,8 +727,12 @@ const TOOLS = [
 //            enlarges it right on the page. Leave [] if you don't have images yet.
 // - specs: short key facts shown as a detail grid (location, scope, code used, span, etc).
 //          Just plain text - edit or add/remove rows freely for each project.
-// - special: one or two sentences on anything noteworthy (unusual load case, code used,
-//            site constraint, a detail you're proud of).
+// - special: one or two sentences describing your engineering contribution or governing design case.
+// - calculations: concise list of the main checks you personally completed.
+// - loadPatterns / combinations: list only the important actions and governing combinations; do not paste every software-generated combination.
+// - deliverables: drawings, reports, schedules, models or site-review outputs that you produced/reviewed.
+// - documents: optional links to REDACTED sample PDF calculation sheets or reports stored in documents/projects/.
+// - gallery accepts either a path string or {src:"...", caption:"..."} for drawings, 3D models and photographs.
 const PROJECT_CATEGORIES = [
   { id:"water-retaining", title:"Water-Retaining Structures", description:"Reinforced-concrete tanks, reservoirs, sumps, pump-house structures and chambers, including hydrostatic loading, soil pressure, groundwater uplift, stability, durability and crack-width control." },
   { id:"buildings", title:"Building Structures", description:"RCC framed buildings and residential structures covering analysis, member design, foundations, detailing and construction coordination." },
@@ -693,13 +753,43 @@ const PROJECTS = [
       { k:"Analysis Software", v:"SAP2000" },
       { k:"Key Checks", v:"Stability, crack-width, hydrostatic load" }
     ],
-    special:"Designed for hydrostatic loading with crack-width control to serviceability limits — replace this with the real governing code and any unusual site condition on this job.",
+    special:"Designed for hydrostatic loading with crack-width control to serviceability limits. Replace this text with the actual governing case, design decision and your personal contribution.",
+    calculations:[
+      "Global stability: sliding, overturning and bearing-pressure checks",
+      "Hydrostatic pressure and empty/full operating conditions",
+      "Groundwater uplift / flotation check where applicable",
+      "Wall, base-slab and roof-slab flexural and shear design",
+      "Serviceability crack-width and durability checks"
+    ],
+    loadPatterns:[
+      "Self-weight and permanent finishes / equipment loads",
+      "Internal water pressure",
+      "External soil pressure and surcharge",
+      "Groundwater pressure / uplift",
+      "Maintenance or imposed loading where applicable"
+    ],
+    combinations:[
+      "ULS full-tank condition",
+      "ULS empty-tank with maximum groundwater condition",
+      "SLS crack-width / liquid-retaining condition",
+      "Construction or maintenance condition, where governing"
+    ],
+    deliverables:[
+      "Structural design calculation report",
+      "General arrangement and reinforcement drawings",
+      "SAP2000 analysis model and design extracts",
+      "Design-review comments and coordination responses"
+    ],
+    documents:[
+      { title:"Redacted sample calculation extract", url:"documents/projects/wrs-01-calculation-extract.pdf" },
+      { title:"Redacted drawing set extract", url:"documents/projects/wrs-01-drawing-extract.pdf" }
+    ],
     gallery:[
-      "images/prj01-plan.jpg",
-      "images/prj01-section.jpg",
-      "images/prj01-reinforcement.jpg",
-      "images/prj01-render.jpg",
-      "images/prj01-sap2000-model.jpg"
+      { src:"images/prj01-plan.jpg", caption:"General arrangement plan" },
+      { src:"images/prj01-section.jpg", caption:"Structural section" },
+      { src:"images/prj01-reinforcement.jpg", caption:"Selected reinforcement detail" },
+      { src:"images/prj01-render.jpg", caption:"3D model / visualisation" },
+      { src:"images/prj01-sap2000-model.jpg", caption:"SAP2000 analytical model" }
     ],
     tags:["RCC Design","SAP2000","AutoCAD","Water Retaining"]
   },
@@ -997,41 +1087,102 @@ function renderTools(){
     </div>`).join('');
 }
 
+// During portfolio editing, keep this true to display six project slots under every topic.
+// Change it to false before publishing if you do not want empty slots to be visible.
+const SHOW_PROJECT_PLACEHOLDERS = true;
+const PROJECT_SLOTS_PER_TOPIC = 6;
+
+let activeProjectCategory = PROJECT_CATEGORIES.find(c => PROJECTS.some(p => p.category === c.id))?.id || PROJECT_CATEGORIES[0]?.id;
+const activeProjectByCategory = {};
+
 function renderProjects(){
-  const html = PROJECT_CATEGORIES.map(category => {
-    const items = PROJECTS.map((project, index) => ({ project, index }))
-      .filter(item => item.project.category === category.id);
-    if(!items.length) return "";
+  const availableCategories = PROJECT_CATEGORIES.filter(category => PROJECTS.some(p => p.category === category.id));
+  if(!availableCategories.length){
+    document.getElementById('projectsList').innerHTML = `<div class="project-empty">Add projects to the PROJECTS array to display them here.</div>`;
+    return;
+  }
 
-    const cards = items.map(({ project:p, index:i }) => `
-      <div class="project-card reveal" onclick="openProjectModal(${i})">
-        <div class="project-visual">${ICONS[p.icon] || ICONS.building}</div>
-        <div class="project-body">
-          <div class="project-tophead">
-            <h4>${p.title}</h4>
-            <span class="sheetno">${p.sheet}</span>
-          </div>
-          <div class="role">${p.role}</div>
-          <p class="desc">${p.desc}</p>
-          <div class="tag-row">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-          <div class="view-detail">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
-            View project details
-          </div>
-        </div>
-      </div>`).join('');
+  if(!availableCategories.some(c => c.id === activeProjectCategory)) activeProjectCategory = availableCategories[0].id;
 
-    return `
-      <div class="project-category">
-        <div class="project-category-head">
-          <div><h3>${category.title}</h3><p>${category.description}</p></div>
-          <span class="project-count">${items.length} selected project${items.length === 1 ? '' : 's'}</span>
-        </div>
-        ${cards}
-      </div>`;
+  const tabs = availableCategories.map(category => {
+    const count = PROJECTS.filter(p => p.category === category.id).length;
+    return `<button class="project-topic-tab ${category.id === activeProjectCategory ? 'active' : ''}" onclick="selectProjectCategory('${category.id}')">${category.title} · ${count}</button>`;
   }).join('');
 
-  document.getElementById('projectsList').innerHTML = html;
+  const category = availableCategories.find(c => c.id === activeProjectCategory);
+  const items = PROJECTS.map((project, index) => ({ project, index })).filter(item => item.project.category === category.id);
+  const selectedIndex = items.some(item => item.index === activeProjectByCategory[category.id])
+    ? activeProjectByCategory[category.id]
+    : items[0].index;
+  activeProjectByCategory[category.id] = selectedIndex;
+
+  const realSubtabs = items.map(({project:p, index:i}) => `
+    <button class="project-subtab ${i === selectedIndex ? 'active' : ''}" onclick="selectProjectSubtab('${category.id}', ${i})">
+      <span class="code">${p.sheet}</span>
+      <span class="name">${p.title}</span>
+    </button>`).join('');
+
+  const emptySlotCount = SHOW_PROJECT_PLACEHOLDERS
+    ? Math.max(0, PROJECT_SLOTS_PER_TOPIC - items.length)
+    : 0;
+  const prefixMap = {
+    'water-retaining':'WRS',
+    'buildings':'BLD',
+    'civil-infrastructure':'CIV',
+    'hydraulic-modelling':'HYD',
+    'academic-research':'ACD'
+  };
+  const prefix = prefixMap[category.id] || 'PRJ';
+  const placeholderSubtabs = Array.from({length: emptySlotCount}, (_, slotIndex) => {
+    const number = String(items.length + slotIndex + 1).padStart(2, '0');
+    return `
+      <div class="project-subtab placeholder" aria-label="Empty project slot ${number}">
+        <span class="code">${prefix}-${number}</span>
+        <span class="name">Add project details</span>
+      </div>`;
+  }).join('');
+  const subtabs = realSubtabs + placeholderSubtabs +
+    (SHOW_PROJECT_PLACEHOLDERS ? `<div class="project-slot-note">Six spaces are reserved for this topic. Add another PROJECTS object with category: &quot;${category.id}&quot; to replace an empty slot.</div>` : '');
+
+  const p = PROJECTS[selectedIndex];
+  const previewSpecs = (p.specs || []).slice(0,4).map(s => `<div><span class="k">${s.k}</span><span class="v">${s.v}</span></div>`).join('');
+  const preview = `
+    <div class="project-preview">
+      <div class="project-preview-visual">${ICONS[p.icon] || ICONS.building}</div>
+      <div>
+        <span class="mono" style="font-size:11px;color:var(--steel);">${p.sheet}</span>
+        <h4>${p.title}</h4>
+        <div class="role">${p.role}</div>
+        <p>${p.desc}</p>
+        ${previewSpecs ? `<div class="project-preview-meta">${previewSpecs}</div>` : ''}
+        <div class="tag-row">${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        <button class="btn btn-primary" style="margin-top:20px;" onclick="openProjectModal(${selectedIndex})">View Full Project Details</button>
+      </div>
+    </div>`;
+
+  document.getElementById('projectsList').innerHTML = `
+    <div class="project-topic-tabs">${tabs}</div>
+    <div class="project-topic-panel">
+      <div class="project-category-head">
+        <div><h3>${category.title}</h3><p>${category.description}</p></div>
+        <span class="project-count">${items.length} project${items.length === 1 ? '' : 's'}${SHOW_PROJECT_PLACEHOLDERS ? ` / ${PROJECT_SLOTS_PER_TOPIC} spaces` : ''}</span>
+      </div>
+      <div class="project-browser">
+        <div class="project-subtabs" aria-label="Projects under ${category.title}">${subtabs}</div>
+        <div id="projectPreview">${preview}</div>
+      </div>
+    </div>`;
+}
+
+function selectProjectCategory(categoryId){
+  activeProjectCategory = categoryId;
+  renderProjects();
+}
+
+function selectProjectSubtab(categoryId, projectIndex){
+  activeProjectCategory = categoryId;
+  activeProjectByCategory[categoryId] = projectIndex;
+  renderProjects();
 }
 
 /* ---- Project detail modal ---- */
@@ -1041,7 +1192,34 @@ function openProjectModal(i){
   document.getElementById('modalTitle').textContent = p.title;
   document.getElementById('modalRole').textContent = p.role;
   document.getElementById('modalDesc').textContent = p.desc;
-  document.getElementById('modalSpecial').textContent = p.special || "No special notes added yet.";
+  document.getElementById('modalSpecial').textContent = p.special || "No engineering contribution note added yet.";
+
+  const renderList = (items, emptyText) => (items && items.length)
+    ? `<ul class="detail-list">${items.map(item => `<li>${item}</li>`).join('')}</ul>`
+    : `<div class="detail-empty">${emptyText}</div>`;
+
+  document.getElementById('modalCalculations').innerHTML = renderList(
+    p.calculations,
+    "Add the main calculations and design checks completed for this project."
+  );
+
+  const loadItems = [
+    ...(p.loadPatterns || []).map(item => `<strong>Pattern:</strong> ${item}`),
+    ...(p.combinations || []).map(item => `<strong>Combination:</strong> ${item}`)
+  ];
+  document.getElementById('modalLoads').innerHTML = renderList(
+    loadItems,
+    "Add only the important load patterns and governing design combinations."
+  );
+
+  document.getElementById('modalDeliverables').innerHTML = renderList(
+    p.deliverables,
+    "Add the drawings, reports, schedules, models or reviews you personally produced."
+  );
+
+  document.getElementById('modalDocuments').innerHTML = (p.documents && p.documents.length)
+    ? p.documents.map(doc => `<a class="document-link" href="${doc.url}" target="_blank" rel="noopener"><span>${doc.title}</span><span>Open PDF</span></a>`).join('')
+    : `<div class="detail-empty">No public calculation extract added. Use only redacted, non-confidential samples.</div>`;
 
   const specsHtml = (p.specs && p.specs.length)
     ? p.specs.map(s => `<div class="spec-item"><span class="k">${s.k}</span><span class="v">${s.v}</span></div>`).join('')
@@ -1049,7 +1227,11 @@ function openProjectModal(i){
   document.getElementById('modalSpecs').innerHTML = specsHtml;
 
   const gallery = (p.gallery && p.gallery.length)
-    ? p.gallery.map(src => `<img src="${src}" alt="${p.title} drawing" onclick="openLightbox('${src}')" onerror="this.parentElement.removeChild(this)">`).join('')
+    ? p.gallery.map(item => {
+        const src = typeof item === 'string' ? item : item.src;
+        const caption = typeof item === 'string' ? '' : (item.caption || '');
+        return `<figure class="gallery-item"><img src="${src}" alt="${caption || p.title}" onclick="openLightbox('${src}')" onerror="this.closest('figure').remove()">${caption ? `<figcaption>${caption}</figcaption>` : ''}</figure>`;
+      }).join('')
     : '';
   document.getElementById('modalGallery').innerHTML = gallery ||
     `<div class="no-drawing">No drawings uploaded yet — add image files to the "images" folder and list them in this project's gallery array.</div>`;
