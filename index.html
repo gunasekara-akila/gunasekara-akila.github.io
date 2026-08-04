@@ -188,41 +188,6 @@
   .btn-outline{border-color:rgba(255,255,255,0.4); color:var(--white);}
   .btn-outline:hover{border-color:var(--white); transform:translateY(-1px);}
 
-  /* Beam Animation Section */
-  .beam-animation-wrapper{
-    background:var(--blueprint-deep); border:1px solid rgba(255,255,255,0.16); border-radius:var(--radius);
-    padding:28px; margin-bottom:40px;
-  }
-  .beam-animation-wrapper h3{color:var(--white); font-size:16px; margin-bottom:20px; letter-spacing:0.05em; text-transform:uppercase;}
-  
-  .beam-canvas-container{
-    background:#F5F7FA; border-radius:2px; padding:20px; margin:0 0 20px 0;
-    overflow-x:auto;
-  }
-  
-  #beamDiagram{
-    display:block; width:100%; max-width:100%;
-  }
-  
-  .beam-info{color:rgba(255,255,255,0.78); display:flex; justify-content:center; gap:40px; flex-wrap:wrap; margin:16px 0; font-family:'IBM Plex Mono',monospace; font-size:14px;}
-  .beam-info span{font-weight:600; color:#8FB6CF;}
-  .beam-controls{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:20px 0;}
-  .beam-btn{
-    background:var(--redline); color:var(--white); border:none;
-    padding:10px 18px; font-family:'IBM Plex Mono',monospace; font-size:12px;
-    letter-spacing:0.03em; text-transform:uppercase; border-radius:var(--radius);
-    cursor:pointer; transition:background 0.2s ease;
-  }
-  .beam-btn:hover{background:#8f3521;}
-
-  .legend-box{
-    background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:2px;
-    padding:14px; margin-top:20px; font-family:'IBM Plex Mono',monospace; font-size:12px;
-    color:rgba(255,255,255,0.8);
-  }
-  .legend-item{display:flex; align-items:center; gap:8px; margin:6px 0;}
-  .legend-line{width:20px; height:2px; display:inline-block;}
-
   /* ---------- About ---------- */
   .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start;}
   .about-grid p{color:#2b3540; max-width:60ch;}
@@ -280,6 +245,13 @@
     letter-spacing:0.04em; text-transform:uppercase; display:flex; align-items:center; gap:6px;
   }
   .view-detail svg{width:13px; height:13px;}
+
+
+  .project-category{margin-bottom:52px;}
+  .project-category-head{display:grid; grid-template-columns:1fr auto; gap:20px; align-items:end; margin-bottom:20px; padding-bottom:14px; border-bottom:1px solid var(--line);}
+  .project-category-head h3{font-size:23px; margin-bottom:6px;}
+  .project-category-head p{margin:0; color:var(--steel); max-width:72ch; font-size:14px;}
+  .project-count{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--redline); text-transform:uppercase; letter-spacing:.05em; white-space:nowrap;}
 
   /* ---------- Modal (project detail / certificate viewer) ---------- */
   .modal-overlay{
@@ -418,19 +390,14 @@
     .site-grid{grid-template-columns:1fr;}
     .hero-inner{grid-template-columns:1fr;}
     .profile-section{flex-direction:column;}
-    .beam-info{gap:20px;}
     .cert-grid{grid-template-columns:repeat(2,1fr);}
   }
   @media (max-width:640px){
     .expertise-grid{grid-template-columns:1fr;}
     .tools-grid{grid-template-columns:1fr 1fr;}
     .project-card{grid-template-columns:1fr;}
+    .project-category-head{grid-template-columns:1fr;}
     .profile-slideshow{max-width:100%; aspect-ratio:auto;}
-    .beam-animation-wrapper{padding:16px;}
-    #beamDiagram{height:auto;}
-    .beam-info{font-size:12px;}
-    .beam-controls{gap:8px;}
-    .beam-btn{padding:8px 14px; font-size:11px;}
     .cert-grid{grid-template-columns:1fr;}
     .modal-gallery{grid-template-columns:1fr;}
     .modal-body{padding:20px;}
@@ -462,8 +429,8 @@
   <div class="wrap hero-inner">
     <div class="hero-content">
       <div class="eyebrow">Civil & Structural Engineer, AMIE(SL) — Sri Lanka, open to relocation</div>
-      <h1>Turning load paths into <em>buildings, tanks and networks</em> that hold.</h1>
-      <p class="lead">Civil &amp; Structural Engineer with over 2 years of professional experience in structural design, site supervision, quality control and project coordination of RCC and steel structures. Skilled in ETABS, SAP2000, Prokon and Tekla Structural Designer, across both design-office and site-based engineering work.</p>
+      <h1>Structural design for <em>buildings, water-retaining structures and infrastructure.</em></h1>
+      <p class="lead">Civil &amp; Structural Engineer with over two years of experience in RCC, steel and water-retaining structure design, construction supervision and multidisciplinary coordination. Experienced in SAP2000, ETABS, Prokon, Tekla Structural Designer and Bentley hydraulic modelling software, and open to international design engineering opportunities.</p>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="Resume-_Akila_Gunasekara__Design_Engineer.pdf" download>Download CV</a>
         <a class="btn btn-outline" href="#projects">View Projects</a>
@@ -485,31 +452,6 @@
       </div>
     </div>
   </div>
-  
-  <!-- Beam Animation Section -->
-  <div class="wrap beam-animation-wrapper reveal">
-    <h3>Interactive: Simply Supported Beam Analysis</h3>
-    <div class="beam-canvas-container">
-      <canvas id="beamDiagram" width="1000" height="500"></canvas>
-    </div>
-    <div class="beam-info">
-      <div>Load Position = <span id="pos">0.00</span> m</div>
-      <div>RA = <span id="ra">0</span> kN</div>
-      <div>RB = <span id="rb">0</span> kN</div>
-      <div>Max BM = <span id="maxbm">0</span> kNm</div>
-    </div>
-    <div class="beam-controls">
-      <button class="beam-btn" onclick="playBeam()">▶ Play</button>
-      <button class="beam-btn" onclick="pauseBeam()">⏸ Pause</button>
-      <button class="beam-btn" onclick="resetBeam()">⟲ Reset</button>
-    </div>
-    <div class="legend-box">
-      <div class="legend-item"><div class="legend-line" style="background:#5DADE2;"></div>Beam & Supports</div>
-      <div class="legend-item"><div class="legend-line" style="background:#FF4444;"></div>Moving Point Load (P = 100 kN)</div>
-      <div class="legend-item"><div class="legend-line" style="background:#2563EB;"></div>Shear Force Diagram (stepped)</div>
-      <div class="legend-item"><div class="legend-line" style="background:#DC2626;"></div>Bending Moment Diagram (curved)</div>
-    </div>
-  </div>
 </header>
 
 <main class="wrap">
@@ -519,9 +461,17 @@
     <div class="sheet-header"><span class="tag"><strong>SHEET 01</strong> / ABOUT</span><span class="rule"></span><span class="title">Profile</span></div>
     <div class="about-grid">
       <div class="reveal">
-        <p>I'm a Civil &amp; Structural Engineer with over two years of professional experience in structural design, site supervision, quality control and project coordination of RCC and steel structures. I've worked across both design-office and site-based engineering roles, using ETABS, SAP2000, Prokon and Tekla Structural Designer for analysis and design, alongside Bentley WaterGEMS and SewerGEMS for water and wastewater network modelling.</p>
-        <p>My day-to-day work includes reviewing drawings, monitoring construction quality, preparing technical reports and calculations, and coordinating with contractors and consultants to keep projects compliant with specifications and engineering standards. I've also represented my firm on an international project — the Rajshahi WASA Water Supply Project in Bangladesh — attending client meetings and site visits as part of the design review team.</p>
-        <p>Outside the office, I run a small freelance structural design practice for two-storey residential houses, and I hold Associate Membership of both the Institution of Engineers Sri Lanka (IESL) and the Engineering Council Sri Lanka (ECSL). I'm currently open to structural / design engineering roles with international firms, including relocation or remote collaboration.</p>
+        <h3 style="font-size:22px; margin-bottom:14px;">Professional Profile</h3>
+        <p>I am a Civil &amp; Structural Engineer with experience in the analysis, design and construction-stage review of reinforced-concrete, steel and water-retaining structures. My work combines structural calculations, technical reporting, drawing review, site inspection and multidisciplinary coordination.</p>
+        <p>I have contributed to local and international water-infrastructure projects, including the Rajshahi WASA Water Supply Project in Bangladesh, and I also undertake structural design packages for two-storey residential buildings. I am open to international design roles, relocation and remote collaboration.</p>
+        <h4 style="font-size:16px; margin:24px 0 10px;">Key Highlights</h4>
+        <ul style="margin:0; padding-left:20px; color:#2b3540;">
+          <li>RCC, steel and water-retaining structure design</li>
+          <li>WaterGEMS and SewerGEMS hydraulic modelling</li>
+          <li>Technical calculations, reports and drawing review</li>
+          <li>Site supervision, quality checks and coordination</li>
+          <li>International project and client-meeting exposure</li>
+        </ul>
       </div>
       <div class="stat-block reveal">
         <div class="stat-row"><span class="k">Experience</span><span class="v">2+ Years</span></div>
@@ -549,7 +499,8 @@
 
   <!-- ============ PROJECTS ============ -->
   <section id="projects">
-    <div class="sheet-header"><span class="tag"><strong>SHEET 04</strong> / PORTFOLIO</span><span class="rule"></span><span class="title">Featured Projects</span></div>
+    <div class="sheet-header"><span class="tag"><strong>SHEET 04</strong> / PORTFOLIO</span><span class="rule"></span><span class="title">Selected Project Experience</span></div>
+    <p style="color:#2b3540; max-width:76ch; margin:-20px 0 34px;">Projects are grouped by engineering specialisation. Each card opens an individual project record with scope, design considerations, software and selected drawings or model images. Additional project experience is available on request.</p>
     <div id="projectsList"></div>
   </section>
 
@@ -657,7 +608,7 @@
     </div>
     <div class="footer-base">
       <span>© <span id="year"></span> Akila Gunasekara. All rights reserved.</span>
-      <span>Portfolio last updated — edit REVISIONS array to update this line.</span>
+      <span>Portfolio last updated: August 2026</span>
     </div>
   </div>
 </footer>
@@ -683,12 +634,6 @@ const PROFILE_FALLBACK = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/200
 
 let currentSlide = 0;
 
-// ---- BEAM ANIMATION CONSTANTS ----
-const BEAM_L = 6;    // Length 6m
-const BEAM_P = 100;  // Point load 100 kN
-let beamX = 0;       // Current load position
-let beamTimer;
-let animating = false;
 
 // ---- 1. CORE EXPERTISE CARDS ----
 const EXPERTISE = [
@@ -728,9 +673,17 @@ const TOOLS = [
 //          Just plain text - edit or add/remove rows freely for each project.
 // - special: one or two sentences on anything noteworthy (unusual load case, code used,
 //            site constraint, a detail you're proud of).
+const PROJECT_CATEGORIES = [
+  { id:"water-retaining", title:"Water-Retaining Structures", description:"Reinforced-concrete tanks, reservoirs, sumps, pump-house structures and chambers, including hydrostatic loading, soil pressure, groundwater uplift, stability, durability and crack-width control." },
+  { id:"buildings", title:"Building Structures", description:"RCC framed buildings and residential structures covering analysis, member design, foundations, detailing and construction coordination." },
+  { id:"civil-infrastructure", title:"Civil & Infrastructure Structures", description:"Culverts, retaining walls and associated infrastructure structures designed for soil, surcharge, traffic and hydraulic actions." },
+  { id:"hydraulic-modelling", title:"Hydraulic & Network Modelling", description:"Water-distribution and sewer-network model development for capacity assessment, pressure review and infrastructure planning." },
+  { id:"academic-research", title:"Academic Design & Research", description:"Selected university capstone and research work demonstrating multidisciplinary design, team leadership and material-testing experience." }
+];
+
 const PROJECTS = [
   {
-    sheet:"PRJ-01", icon:"tank",
+    sheet:"PRJ-01", category:"water-retaining", icon:"tank",
     title:"Elevated Water Tank & Reservoir Design",
     role:"Structural Design Engineer",
     desc:"Structural design of a reinforced concrete water retaining structure, including stability checks, hydrostatic load analysis and crack-width control to code.",
@@ -751,7 +704,7 @@ const PROJECTS = [
     tags:["RCC Design","SAP2000","AutoCAD","Water Retaining"]
   },
   {
-    sheet:"PRJ-02", icon:"building",
+    sheet:"PRJ-02", category:"buildings", icon:"building",
     title:"Multi-Storey RCC Building",
     role:"Structural Design Engineer",
     desc:"Full structural analysis and design of a reinforced concrete framed building, including gravity and lateral load design, slab and foundation detailing.",
@@ -771,7 +724,7 @@ const PROJECTS = [
     tags:["ETABS","RCC Frame","Foundation Design"]
   },
   {
-    sheet:"PRJ-03", icon:"culvert",
+    sheet:"PRJ-03", category:"civil-infrastructure", icon:"culvert",
     title:"Box Culvert & Retaining Wall Package",
     role:"Design Engineer",
     desc:"Design of box culverts and cantilever retaining walls for a road drainage improvement scheme, with detailed reinforcement drawings for construction.",
@@ -791,7 +744,7 @@ const PROJECTS = [
     tags:["Prokon","AutoCAD","Retaining Structures"]
   },
   {
-    sheet:"PRJ-04", icon:"network",
+    sheet:"PRJ-04", category:"hydraulic-modelling", icon:"network",
     title:"Water Distribution & Sewer Network Model",
     role:"Modelling Engineer",
     desc:"Development of a hydraulic model for a town's water distribution and sewer network, used to assess capacity and plan future upgrades.",
@@ -810,7 +763,7 @@ const PROJECTS = [
     tags:["WaterGEMS","SewerGEMS","Network Analysis"]
   },
   {
-    sheet:"PRJ-05", icon:"house",
+    sheet:"PRJ-05", category:"buildings", icon:"house",
     title:"Two-Storey Residential House (Freelance)",
     role:"Freelance Structural Engineer",
     desc:"End-to-end structural design and full drawing set for a private two-storey residential house, from analysis to issued-for-construction drawings.",
@@ -829,7 +782,7 @@ const PROJECTS = [
     tags:["Tekla Structural Designer","Revit","AutoCAD"]
   },
   {
-    sheet:"PRJ-06", icon:"building",
+    sheet:"PRJ-06", category:"academic-research", icon:"building",
     title:"Mixed Development — Shopping Mall & Public Parking, Kurunegala",
     role:"Team Lead — Final Year Comprehensive Design Project",
     desc:"Led a student team in the structural design of a shopping mall and public parking facility for the Municipal Council of Kurunegala, Sri Lanka, covering full gravity and lateral design from concept to detailed drawings.",
@@ -848,7 +801,7 @@ const PROJECTS = [
     tags:["AutoCAD","Revit","SAP2000","ETABS","SAFE"]
   },
   {
-    sheet:"PRJ-07", icon:"tank",
+    sheet:"PRJ-07", category:"academic-research", icon:"tank",
     title:"Green Concrete with Recycled Glass Waste",
     role:"Researcher — Final Year Research Project",
     desc:"Researched sustainable alternatives to conventional concrete by partially replacing constituent materials with locally available recycled waste glass, evaluating fresh and hardened concrete properties.",
@@ -983,17 +936,9 @@ const CERTIFICATIONS = [
 
 // ---- 7. REVISION LOG ----
 const REVISIONS = [
-  { rev:"K", date:"Jul 2026", note:"Replaced downloadable model-data links with an inline project details grid and an expanded, click-to-enlarge drawing/model gallery — no downloads required to view project detail." },
-  { rev:"J", date:"Jul 2026", note:"Synced content with latest CV: exact role bullets, GCE results, professional memberships (AMIE(SL), ECSL), added academic capstone & research projects, extra certifications, and project management tools." },
-  { rev:"I", date:"Jul 2026", note:"Added real-photo support, clickable project detail modal (drawings, notes, model files), and visual certifications gallery." },
-  { rev:"H", date:"Jul 2026", note:"Enhanced beam diagram styling: light background, improved BM display, removed controls during interaction." },
-  { rev:"G", date:"Jul 2026", note:"Fixed CV download links across all buttons." },
-  { rev:"F", date:"Jul 2026", note:"Fixed LinkedIn contact links." },
-  { rev:"E", date:"Jul 2026", note:"Unified SFD & BMD on single beam diagram canvas." },
-  { rev:"D", date:"Jul 2026", note:"Added shear force & bending moment diagrams." },
-  { rev:"C", date:"Jul 2026", note:"Added interactive simply supported beam animation." },
-  { rev:"B", date:"Jul 2026", note:"Added profile photo slideshow." },
-  { rev:"A", date:"Jul 2026", note:"Initial portfolio published." },
+  { rev:"L", date:"Aug 2026", note:"Reorganised selected projects by engineering specialisation, refined profile content and removed the beam animation from the main portfolio presentation." },
+  { rev:"K", date:"Jul 2026", note:"Added individual project detail modals with drawings, model images and technical project data." },
+  { rev:"A", date:"Jul 2026", note:"Initial portfolio published." }
 ];
 
 /* ========================= ICONS ========================= */
@@ -1035,263 +980,6 @@ function showSlide(){
 }
 
 /* ========================= BEAM DRAWING FUNCTION ========================= */
-function drawBeamDiagram(){
-  const canvas = document.getElementById('beamDiagram');
-  const ctx = canvas.getContext('2d');
-  const padding = 60;
-  const beamStartX = padding;
-  const beamEndX = canvas.width - padding;
-  const beamY = 120;
-  
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  // ===== 1. DRAW BEAM =====
-  ctx.strokeStyle = '#5DADE2';
-  ctx.lineWidth = 8;
-  ctx.beginPath();
-  ctx.moveTo(beamStartX, beamY);
-  ctx.lineTo(beamEndX, beamY);
-  ctx.stroke();
-  
-  // Support triangles
-  ctx.fillStyle = '#5DADE2';
-  const supportSize = 20;
-  
-  // Left support
-  ctx.beginPath();
-  ctx.moveTo(beamStartX, beamY);
-  ctx.lineTo(beamStartX - supportSize, beamY + supportSize);
-  ctx.lineTo(beamStartX + supportSize, beamY + supportSize);
-  ctx.closePath();
-  ctx.fill();
-  
-  // Right support
-  ctx.beginPath();
-  ctx.moveTo(beamEndX, beamY);
-  ctx.lineTo(beamEndX - supportSize, beamY + supportSize);
-  ctx.lineTo(beamEndX + supportSize, beamY + supportSize);
-  ctx.closePath();
-  ctx.fill();
-  
-  // ===== 2. DRAW MOVING LOAD =====
-  const loadX = beamStartX + (beamEndX - beamStartX) * (beamX / BEAM_L);
-  
-  ctx.strokeStyle = '#FF4444';
-  ctx.lineWidth = 5;
-  ctx.beginPath();
-  ctx.moveTo(loadX, 40);
-  ctx.lineTo(loadX, beamY - 10);
-  ctx.stroke();
-  
-  // Arrow
-  ctx.beginPath();
-  ctx.moveTo(loadX - 8, beamY - 20);
-  ctx.lineTo(loadX, beamY - 10);
-  ctx.lineTo(loadX + 8, beamY - 20);
-  ctx.stroke();
-  
-  ctx.fillStyle = '#FF4444';
-  ctx.font = 'bold 14px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText('P = 100 kN', loadX, 25);
-  
-  // ===== 3. DRAW SHEAR FORCE DIAGRAM (Blue, below beam) =====
-  const sfdY = beamY + 100;
-  const sfdScale = 60 / BEAM_P; // Scale for display
-  
-  ctx.strokeStyle = '#2563EB';
-  ctx.lineWidth = 2;
-  ctx.setLineDash([3, 3]);
-  
-  // Baseline for SFD
-  ctx.beginPath();
-  ctx.moveTo(beamStartX, sfdY);
-  ctx.lineTo(beamEndX, sfdY);
-  ctx.stroke();
-  
-  ctx.setLineDash([]);
-  ctx.lineWidth = 3;
-  
-  // Draw SFD
-  ctx.strokeStyle = '#2563EB';
-  
-  // Before load point
-  const RA = BEAM_P * (BEAM_L - beamX) / BEAM_L;
-  ctx.beginPath();
-  ctx.moveTo(beamStartX, sfdY - RA * sfdScale);
-  ctx.lineTo(loadX, sfdY - RA * sfdScale);
-  ctx.stroke();
-  
-  // After load point
-  const RB = BEAM_P * beamX / BEAM_L;
-  const shearAfter = RA - BEAM_P;
-  ctx.beginPath();
-  ctx.moveTo(loadX, sfdY + Math.abs(shearAfter) * sfdScale);
-  ctx.lineTo(beamEndX, sfdY + Math.abs(shearAfter) * sfdScale);
-  ctx.stroke();
-  
-  // Vertical line at load
-  ctx.beginPath();
-  ctx.moveTo(loadX, sfdY - RA * sfdScale);
-  ctx.lineTo(loadX, sfdY + Math.abs(shearAfter) * sfdScale);
-  ctx.stroke();
-  
-  // ===== 4. DRAW BENDING MOMENT DIAGRAM (Red, below SFD) =====
-  const bmdY = sfdY + 100;
-  const bmdScale = 80 / (BEAM_P * BEAM_L / 4); // Scale for display
-  
-  // Baseline for BMD
-  ctx.strokeStyle = '#999';
-  ctx.lineWidth = 1;
-  ctx.setLineDash([3, 3]);
-  ctx.beginPath();
-  ctx.moveTo(beamStartX, bmdY);
-  ctx.lineTo(beamEndX, bmdY);
-  ctx.stroke();
-  
-  ctx.setLineDash([]);
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = '#DC2626';
-  
-  // Draw BMD curve
-  ctx.beginPath();
-  for(let i = 0; i <= 100; i++){
-    const z = BEAM_L * i / 100;
-    let M;
-    if(z <= beamX)
-      M = RA * z;
-    else
-      M = RA * z - BEAM_P * (z - beamX);
-    
-    const x = beamStartX + (beamEndX - beamStartX) * (z / BEAM_L);
-    const y = bmdY - M * bmdScale;
-    
-    if(i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-  ctx.stroke();
-  
-  // Fill under curve
-  ctx.fillStyle = 'rgba(220, 38, 38, 0.1)';
-  ctx.lineTo(beamEndX, bmdY);
-  ctx.lineTo(beamStartX, bmdY);
-  ctx.fill();
-  
-  // ===== 5. ADD LABELS & VALUES ON DIAGRAM =====
-  ctx.fillStyle = '#333';
-  ctx.font = '12px Arial';
-  ctx.textAlign = 'center';
-  
-  // Beam labels
-  ctx.fillText('0m', beamStartX, beamY + 50);
-  ctx.fillText(`${BEAM_L}m`, beamEndX, beamY + 50);
-  
-  // Section labels
-  ctx.fillStyle = '#2563EB';
-  ctx.font = 'bold 12px Arial';
-  ctx.fillText('Shear Force (kN)', beamStartX - 40, sfdY - 80);
-  
-  ctx.fillStyle = '#DC2626';
-  ctx.fillText('Bending Moment (kNm)', beamStartX - 40, bmdY - 80);
-  
-  // Reaction labels
-  ctx.fillStyle = '#0066CC';
-  ctx.font = '11px Arial';
-  ctx.fillText(`RA=${RA.toFixed(1)}kN`, beamStartX - 15, beamY + 35);
-  ctx.fillText(`RB=${RB.toFixed(1)}kN`, beamEndX + 15, beamY + 35);
-  
-  // ===== 6. DISPLAY VALUES ON BENDING MOMENT DIAGRAM =====
-  // Find max BM for display
-  let maxBM = 0;
-  let maxBMPos = 0;
-  for(let i = 0; i <= 100; i++){
-    const z = BEAM_L * i / 100;
-    let M;
-    if(z <= beamX)
-      M = RA * z;
-    else
-      M = RA * z - BEAM_P * (z - beamX);
-    if(M > maxBM) {
-      maxBM = M;
-      maxBMPos = z;
-    }
-  }
-  
-  // Display Max BM value on the diagram
-  const maxBMX = beamStartX + (beamEndX - beamStartX) * (maxBMPos / BEAM_L);
-  const maxBMY = bmdY - maxBM * bmdScale;
-  
-  ctx.fillStyle = '#DC2626';
-  ctx.font = 'bold 13px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText(`Max BM = ${maxBM.toFixed(2)} kNm`, maxBMX, maxBMY - 20);
-  
-  // Display current position value on BMD
-  ctx.fillStyle = '#FF4444';
-  ctx.font = 'bold 11px Arial';
-  ctx.fillText(`Load @ ${beamX.toFixed(2)}m`, loadX, bmdY + 30);
-}
-
-function updateBeamValues(){
-  const RA = BEAM_P * (BEAM_L - beamX) / BEAM_L;
-  const RB = BEAM_P * beamX / BEAM_L;
-  
-  // Find max bending moment
-  let maxBM = 0;
-  for(let i = 0; i <= 100; i++){
-    const z = BEAM_L * i / 100;
-    let M;
-    if(z <= beamX)
-      M = RA * z;
-    else
-      M = RA * z - BEAM_P * (z - beamX);
-    maxBM = Math.max(maxBM, M);
-  }
-
-  document.getElementById('pos').innerHTML = beamX.toFixed(2);
-  document.getElementById('ra').innerHTML = RA.toFixed(2);
-  document.getElementById('rb').innerHTML = RB.toFixed(2);
-  document.getElementById('maxbm').innerHTML = maxBM.toFixed(2);
-
-  drawBeamDiagram();
-}
-
-function playBeam(){
-  if(animating) return;
-  animating = true;
-  document.querySelector('.beam-controls').style.opacity = '0.5';
-  document.querySelector('.beam-controls').style.pointerEvents = 'none';
-  document.querySelector('.legend-box').style.opacity = '0.5';
-  
-  beamTimer = setInterval(function(){
-    beamX += 0.05;
-    if(beamX > BEAM_L) {
-      beamX = 0;
-      pauseBeam();
-    }
-    updateBeamValues();
-  }, 40);
-}
-
-function pauseBeam(){
-  clearInterval(beamTimer);
-  animating = false;
-  document.querySelector('.beam-controls').style.opacity = '1';
-  document.querySelector('.beam-controls').style.pointerEvents = 'auto';
-  document.querySelector('.legend-box').style.opacity = '1';
-}
-
-function resetBeam(){
-  clearInterval(beamTimer);
-  animating = false;
-  beamX = 0;
-  document.querySelector('.beam-controls').style.opacity = '1';
-  document.querySelector('.beam-controls').style.pointerEvents = 'auto';
-  document.querySelector('.legend-box').style.opacity = '1';
-  updateBeamValues();
-}
-
-/* ========================= RENDER FUNCTIONS ========================= */
 function renderExpertise(){
   document.getElementById('expertiseGrid').innerHTML = EXPERTISE.map(e => `
     <div class="exp-card">
@@ -1310,23 +998,40 @@ function renderTools(){
 }
 
 function renderProjects(){
-  document.getElementById('projectsList').innerHTML = PROJECTS.map((p, i) => `
-    <div class="project-card reveal" onclick="openProjectModal(${i})">
-      <div class="project-visual">${ICONS[p.icon] || ICONS.building}</div>
-      <div class="project-body">
-        <div class="project-tophead">
-          <h4>${p.title}</h4>
-          <span class="sheetno">${p.sheet}</span>
+  const html = PROJECT_CATEGORIES.map(category => {
+    const items = PROJECTS.map((project, index) => ({ project, index }))
+      .filter(item => item.project.category === category.id);
+    if(!items.length) return "";
+
+    const cards = items.map(({ project:p, index:i }) => `
+      <div class="project-card reveal" onclick="openProjectModal(${i})">
+        <div class="project-visual">${ICONS[p.icon] || ICONS.building}</div>
+        <div class="project-body">
+          <div class="project-tophead">
+            <h4>${p.title}</h4>
+            <span class="sheetno">${p.sheet}</span>
+          </div>
+          <div class="role">${p.role}</div>
+          <p class="desc">${p.desc}</p>
+          <div class="tag-row">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          <div class="view-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+            View project details
+          </div>
         </div>
-        <div class="role">${p.role}</div>
-        <p class="desc">${p.desc}</p>
-        <div class="tag-row">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-        <div class="view-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
-          View drawings, notes &amp; model data
+      </div>`).join('');
+
+    return `
+      <div class="project-category">
+        <div class="project-category-head">
+          <div><h3>${category.title}</h3><p>${category.description}</p></div>
+          <span class="project-count">${items.length} selected project${items.length === 1 ? '' : 's'}</span>
         </div>
-      </div>
-    </div>`).join('');
+        ${cards}
+      </div>`;
+  }).join('');
+
+  document.getElementById('projectsList').innerHTML = html;
 }
 
 /* ---- Project detail modal ---- */
@@ -1467,8 +1172,6 @@ renderEducation();
 renderCertifications();
 renderRevisions();
 
-// Initial beam diagram draw
-updateBeamValues();
 
 // Reveal on scroll
 const observer = new IntersectionObserver((entries) => {
