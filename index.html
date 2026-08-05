@@ -617,7 +617,10 @@
       <div class="modal-section-label">Project Details</div>
       <div class="spec-grid" id="modalSpecs"></div>
 
-      <div class="modal-section-label">Engineering Contribution / Governing Design</div>
+      <div class="modal-section-label">My Contribution</div>
+      <div id="modalContributions"></div>
+
+      <div class="modal-section-label">Key Engineering Challenge / Governing Design</div>
       <div class="special-box" id="modalSpecial"></div>
 
       <div class="modal-section-label">Design Calculations &amp; Checks</div>
@@ -776,55 +779,90 @@ const PROJECT_CATEGORIES = [
 
 const PROJECTS = [
   {
-    sheet:"PRJ-01", category:"water-retaining", icon:"tank",
-    title:"Elevated Water Tank & Reservoir Design",
-    role:"Structural Design Engineer",
-    desc:"Structural design of a reinforced concrete water retaining structure, including stability checks, hydrostatic load analysis and crack-width control to code.",
+    sheet:"WRS-01", category:"water-retaining", icon:"tank",
+    title:"Wash Water Recovery & Sludge Balancing Tank — Rajshahi WASA",
+    role:"Civil Engineer — Structural Analysis & Detailing Support",
+    desc:"Structural analysis and detailing support for a large multi-cell reinforced-concrete wash-water recovery and sludge-balancing structure forming part of the Rajshahi WASA Surface Water Treatment Plant in Bangladesh. The assignment involved three-dimensional finite-element modelling, complex liquid and ground loading, pile-supported foundation behaviour, reinforced-concrete design checks and detailed construction coordination.",
     specs:[
-      { k:"Structure Type", v:"RC Elevated / Ground Reservoir" },
-      { k:"Design Code", v:"BS 8007 / EN 1992-3" },
-      { k:"Analysis Software", v:"SAP2000" },
-      { k:"Key Checks", v:"Stability, crack-width, hydrostatic load" }
+      { k:"Structure", v:"Multi-cell RC liquid-retaining process structure" },
+      { k:"Approx. Size", v:"37.16 m × 15.15 m" },
+      { k:"Foundation", v:"Cast-in-situ RC piles; BH21 geotechnical basis" },
+      { k:"Analysis", v:"3D SAP2000 shell-element model" },
+      { k:"Critical Base Zone", v:"700 mm slab around Ø1000 mm pile" },
+      { k:"Critical Model Reaction", v:"3320 kN maximum pile axial reaction at ULS" },
+      { k:"Location", v:"Rajshahi, Bangladesh" },
+      { k:"Key Standards", v:"BS 8007, BS 8110, BS 8004, BNBC 2020, ACI 350.3" }
     ],
-    special:"Designed for hydrostatic loading with crack-width control to serviceability limits. Replace this text with the actual governing case, design decision and your personal contribution.",
+    special:"A principal engineering challenge was transferring high external soil and groundwater actions through inclined base slabs into the piled foundation. Soil pressure acting along the sloping basement generated additional horizontal foundation demand, requiring coordinated assessment of lateral pile response, axial compression and tension, pile-head punching and reinforcement continuity through the changing base levels.",
+    contributions:[
+      "Contributed to development and review of the three-dimensional SAP2000 finite-element model.",
+      "Contributed to definition and checking of water, sludge, soil, groundwater, surcharge, imposed, monorail and seismic load cases.",
+      "Assisted with assessment of full, empty, flooding and partial operating conditions.",
+      "Extracted or reviewed governing force envelopes for base slabs, walls and pile-head zones.",
+      "Supported reinforced-concrete design checks for bending, direct tension, shear, punching shear, crack control, thermal and shrinkage reinforcement.",
+      "Contributed to assessment of pile compression, uplift/tension and lateral response using geotechnical spring assumptions.",
+      "Prepared, reviewed or coordinated structural plans, sections, openings, construction joints and standard details.",
+      "Participated in drawing revisions and responses to technical-review comments."
+    ],
     calculations:[
-      "Global stability: sliding, overturning and bearing-pressure checks",
-      "Hydrostatic pressure and empty/full operating conditions",
-      "Groundwater uplift / flotation check where applicable",
-      "Wall, base-slab and roof-slab flexural and shear design",
-      "Serviceability crack-width and durability checks"
+      "Three-dimensional shell-element structural analysis using SAP2000",
+      "Internal wash-water and sludge-pressure assessment",
+      "External groundwater, dry-soil, wet-soil and surcharge-pressure assessment",
+      "Additional horizontal action associated with the inclined buried base",
+      "Base-slab bending and direct-tension design in both principal directions",
+      "Wall bending, direct-tension, shear and deflection checks",
+      "Pile-head punching and local shear checks",
+      "Pile compression, uplift/tension and lateral reaction assessment",
+      "Soil-spring and settlement assessment based on BH21 geotechnical information",
+      "Serviceability crack-width verification for liquid-retaining elements",
+      "Thermal and shrinkage reinforcement design",
+      "Seismic assessment for the liquid-containing structure"
     ],
     loadPatterns:[
-      "Self-weight and permanent finishes / equipment loads",
-      "Internal water pressure",
-      "External soil pressure and surcharge",
-      "Groundwater pressure / uplift",
-      "Maintenance or imposed loading where applicable"
+      "Structural self-weight and permanent fixtures",
+      "Secondary concrete, pipe supports, handrails and chequered-plate covers",
+      "Walkway, landing and maintenance imposed loads",
+      "Monorail vertical and horizontal actions",
+      "Internal wash-water pressure",
+      "Internal sludge pressure",
+      "External groundwater pressure and uplift",
+      "Dry and wet soil pressures",
+      "Surcharge pressure",
+      "Seismic structural and hydrodynamic actions"
     ],
     combinations:[
-      "ULS full-tank condition",
-      "ULS empty-tank with maximum groundwater condition",
-      "SLS crack-width / liquid-retaining condition",
-      "Construction or maintenance condition, where governing"
+      "Tank full with no external soil loading",
+      "Tank full with external soil loading",
+      "Tank empty with external soil loading",
+      "Tank empty with soil and groundwater",
+      "Empty structure under flooding up to pile tension / uplift resistance",
+      "Individual wash-water or sludge compartments in operation",
+      "Seismic full and partial operating conditions",
+      "SLS liquid-retaining and crack-control conditions"
     ],
     deliverables:[
-      "Structural design calculation report",
-      "General arrangement and reinforcement drawings",
-      "SAP2000 analysis model and design extracts",
-      "Design-review comments and coordination responses"
+      "Three-dimensional structural-analysis model",
+      "Structural design calculation and design-report support",
+      "General arrangement plans and structural sections",
+      "Base-slab, wall, opening and construction-joint detailing",
+      "Pile-foundation design coordination",
+      "Coordination of pipe openings, platforms, ladders, monorail and mechanical interfaces",
+      "Design-review and drawing-revision support"
     ],
     documents:[
-      { title:"Redacted sample calculation extract", url:"documents/projects/wrs-01-calculation-extract.pdf" },
-      { title:"Redacted drawing set extract", url:"documents/projects/wrs-01-drawing-extract.pdf" }
+      { title:"Redacted portfolio case-study draft", url:"documents/projects/wrs-01-portfolio-case-study-draft.pdf", action:"Open case study" }
     ],
     gallery:[
-      { src:"images/prj01-plan.jpg", caption:"General arrangement plan" },
-      { src:"images/prj01-section.jpg", caption:"Structural section" },
-      { src:"images/prj01-reinforcement.jpg", caption:"Selected reinforcement detail" },
-      { src:"images/prj01-render.jpg", caption:"3D model / visualisation" },
-      { src:"images/prj01-sap2000-model.jpg", caption:"SAP2000 analytical model" }
+      { src:"images/projects/wrs-01/3d-structural-model.jpg", caption:"Three-dimensional SAP2000 model and piled foundation" },
+      { src:"images/projects/wrs-01/general-arrangement.jpg", caption:"General arrangement of the tank compartments and process interfaces" },
+      { src:"images/projects/wrs-01/sloping-base-sections.jpg", caption:"Selected structural sections through the inclined piled base" },
+      { src:"images/projects/wrs-01/longitudinal-transverse-sections.jpg", caption:"Longitudinal and transverse sections through the multi-cell structure" },
+      { src:"images/projects/wrs-01/soil-water-loading.jpg", caption:"Dry- and wet-soil loading summary used in the design report" },
+      { src:"images/projects/wrs-01/base-slab-pile-head-design.jpg", caption:"Representative critical 700 mm base-slab and pile-head design extract" },
+      { src:"images/projects/wrs-01/opening-reinforcement-details.jpg", caption:"Representative reinforcement detailing around process openings" },
+      { src:"images/projects/wrs-01/construction-joint-details.jpg", caption:"Representative water-retaining construction-joint details" }
     ],
-    tags:["RCC Design","SAP2000","AutoCAD","Water Retaining"]
+    tags:["Flagship Case Study","Water Retaining","SAP2000","Piled Foundation","Soil–Structure Interaction","Crack Control","RCC Detailing","International Project"]
   },
   {
     sheet:"PRJ-02", category:"buildings", icon:"building",
@@ -1137,6 +1175,7 @@ const CERTIFICATIONS = [
 
 // ---- 7. REVISION LOG ----
 const REVISIONS = [
+  { rev:"05", date:"05 Aug 2026", note:"Added detailed Rajshahi WASA wash-water recovery and sludge-balancing tank case study, gallery assets and editable project-document workflow." },
   { rev:"L", date:"Aug 2026", note:"Reorganised selected projects by engineering specialisation, refined profile content and removed the beam animation from the main portfolio presentation." },
   { rev:"K", date:"Jul 2026", note:"Added individual project detail modals with drawings, model images and technical project data." },
   { rev:"A", date:"Jul 2026", note:"Initial portfolio published." }
@@ -1304,11 +1343,16 @@ function openProjectModal(i){
   document.getElementById('modalTitle').textContent = p.title;
   document.getElementById('modalRole').textContent = p.role;
   document.getElementById('modalDesc').textContent = p.desc;
-  document.getElementById('modalSpecial').textContent = p.special || "No engineering contribution note added yet.";
+  document.getElementById('modalSpecial').textContent = p.special || "No key engineering challenge added yet.";
 
   const renderList = (items, emptyText) => (items && items.length)
     ? `<ul class="detail-list">${items.map(item => `<li>${item}</li>`).join('')}</ul>`
     : `<div class="detail-empty">${emptyText}</div>`;
+
+  document.getElementById('modalContributions').innerHTML = renderList(
+    p.contributions,
+    "Add a concise list of the work you personally completed or supported."
+  );
 
   document.getElementById('modalCalculations').innerHTML = renderList(
     p.calculations,
@@ -1330,7 +1374,7 @@ function openProjectModal(i){
   );
 
   document.getElementById('modalDocuments').innerHTML = (p.documents && p.documents.length)
-    ? p.documents.map(doc => `<a class="document-link" href="${doc.url}" target="_blank" rel="noopener"><span>${doc.title}</span><span>Open PDF</span></a>`).join('')
+    ? p.documents.map(doc => `<a class="document-link" href="${doc.url}" target="_blank" rel="noopener"><span>${doc.title}</span><span>${doc.action || 'Open document'}</span></a>`).join('')
     : `<div class="detail-empty">No public calculation extract added. Use only redacted, non-confidential samples.</div>`;
 
   const specsHtml = (p.specs && p.specs.length)
